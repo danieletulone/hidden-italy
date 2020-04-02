@@ -19,10 +19,8 @@ Route::get('/', function () {
 
 Auth::routes();
 
-Route::get('/home', 'HomeController@index')->name('home');
+Route::resource('users', 'UserController');
 
-Route::get('/user', 'UserController@index')->name('user');
+Route::resource('roles', 'RoleController');
 
-Route::get('/role', 'RoleController@index')->name('role');
-
-Route::get('/image', 'ImageController@index')->name('image');
+Route::resource('images', 'ImageController');

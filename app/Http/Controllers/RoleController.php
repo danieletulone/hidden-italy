@@ -15,7 +15,7 @@ class RoleController extends Controller
      */
     public function index()
     {
-			return DB::table('roles')->get();
+			return DB::table('roles')->get()->dd();
 
     }
 
