@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Models\Image;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Validator;
 
 class ImageController extends Controller
 {
@@ -16,12 +17,10 @@ class ImageController extends Controller
      */
     public function index()
     {
-			//dd();
 			$images = Image::orderBy('created_at', 'DESC')->get();
-			return view('images.index')
-				->with('images', $images);
+			return view('images.index')->with('images', $images);
 
-    }
+		}
 
     /**
      * Show the form for creating a new resource.
@@ -31,7 +30,8 @@ class ImageController extends Controller
     public function create()
     {
         return view('images.create');
-    }
+
+		}
 
     /**
      * Store a newly created resource in storage.
@@ -41,15 +41,19 @@ class ImageController extends Controller
      */
     public function store(Request $request)
     {
+				$validator = $request->validate([
+					'title' => 'required|max:255',
+					'description' =>  'required|max:255',
+					'url' => 'mimes:jpeg,jpg,png,gif|required|max:10000', //max 10000kb
+				]);
 				$image = new Image();
-
 				$image->title = $request->input('title');
 				$image->description = $request->input('description');
 				$image->url = $request->file('url')->store('public/images');
 				$image->save();
-
 				return redirect()->action('ImageController@index');
-    }
+
+		}
 
     /**
      * Display the specified resource.
@@ -59,11 +63,10 @@ class ImageController extends Controller
      */
     public function show(Image $image)
     {
-			//dd($image);
-		//	return view('monuments.show', ['monument' => $monument]);
+			view('monuments.show', ['monument' => $monument]);
 			return view('images.show')->with('image', $image);
-			//return view('images.show', ['image' => $image]);
-    }
+
+		}
 
     /**
      * Show the form for editing the specified resource.
@@ -75,7 +78,7 @@ class ImageController extends Controller
     {
 			return view('images.edit')->with('image', $image);
 
-    }
+	  }
 
     /**
      * Update the specified resource in storage.
@@ -86,6 +89,11 @@ class ImageController extends Controller
      */
     public function update(Request $request, Image $image)
     {
+			$validator = $request->validate([
+				'title' => 'required|max:255',
+				'description' =>  'required|max:255',
+				'url' => 'mimes:jpeg,jpg,png,gif|required|max:10000', //max 10000kb
+			]);
 			$image->title = $request->input('title');
 			$image->description = $request->input('description');
 			if($request->url != $image->url){
@@ -95,7 +103,8 @@ class ImageController extends Controller
 			$image->save();
 
 			return redirect()->action('ImageController@index');
-    }
+
+		}
 
     /**
      * Remove the specified resource from storage.
@@ -110,5 +119,5 @@ class ImageController extends Controller
 			$image->delete();
 			return redirect()->action('ImageController@index');
 
-    }
+		}
 }
