@@ -15,6 +15,5 @@ $factory->define(Monument::class, function (Faker $faker) {
 				'lon' => $faker->longitude,
 				'user_id' => $faker->numberBetween(1, User::orderBy('id', 'DESC')->first()->id),
 				'image_id' => $faker->numberBetween(1, Image::orderBy('id', 'DESC')->first()->id),
-
     ];
 });

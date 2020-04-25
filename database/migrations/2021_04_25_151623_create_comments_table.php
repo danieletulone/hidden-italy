@@ -22,7 +22,6 @@ class CreateCommentsTable extends Migration
 						$table->foreign('image_id')->references('id')->on('images')->onDelete('cascade');
 						$table->bigInteger('monument_id')->unsigned();
 						$table->foreign('monument_id')->references('id')->on('monuments')->onDelete('cascade');
-
 						$table->timestamps();
         });
     }
