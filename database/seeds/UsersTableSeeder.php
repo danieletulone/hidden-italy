@@ -1,7 +1,7 @@
 <?php
 
 use Illuminate\Database\Seeder;
-use App\User;
+use App\Models\User;
 
 class UsersTableSeeder extends Seeder
 {
@@ -16,7 +16,7 @@ class UsersTableSeeder extends Seeder
 					'name' => 'admin',
 					'surname' => 'admin',
 					'nickname' => 'admin',
-					'points' => 0,
+					//'points' => 0,
 					'email' => 'admin@ied.edu',
 					'email_verified_at' => now(),
 					'password' => '1234',

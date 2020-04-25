@@ -19,4 +19,9 @@ class Monument extends Model
 	{
 		return $this->belongsTo('App\Models\Image');
 	}
+
+	public function comments()
+	{
+	return $this->hasMany('App\Models\Comment');
+	}
 }

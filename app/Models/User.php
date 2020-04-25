@@ -42,15 +42,21 @@ class User extends Authenticatable
         return $this->hasMany('App\Models\Role');
     }
 
+		public function comments()
+		{
+		return $this->hasMany('App\Models\Comment');
+		
+		}
+
     public function image()
     {
         return $this->hasOne('App\Models\Image');
     }
 
 		public function monuments()
-	{
+		{
 		return $this->hasMany('App\Models\Monument');
-	}
+		}
 
     public function scopeGmail($query)
     {

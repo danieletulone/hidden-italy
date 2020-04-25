@@ -1,9 +1,8 @@
 <?php
 
 use Illuminate\Database\Seeder;
-use App\Models\Image;
 
-class ImagesTableSeeder extends Seeder
+class commentsTableSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -12,6 +11,6 @@ class ImagesTableSeeder extends Seeder
      */
     public function run()
     {
-			factory(Image::class, 60)->create();
+        //
     }
 }

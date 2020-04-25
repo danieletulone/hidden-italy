@@ -2,7 +2,7 @@
 
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
-use App\Role;
+use App\Models\Role;
 use Illuminate\Support\Str;
 
 class RolesTableSeeder extends Seeder
