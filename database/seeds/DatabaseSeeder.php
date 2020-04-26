@@ -14,10 +14,10 @@ class DatabaseSeeder extends Seeder
         $this->call(RolesTableSeeder::class);
 				$this->call(ImagesTableSeeder::class);
 				$this->call(UsersTableSeeder::class);
-                $this->call(MonumentsTableSeeder::class);
-                $this->call(MonumentsCategoriesSeeder::class);
-                $this->call(MonumentsCategoriesIntSeeder::class);
-				//$this->call(CommentsTableSeeder::class);
+        $this->call(MonumentsTableSeeder::class);
+        $this->call(MonumentsCategoriesSeeder::class);
+        $this->call(MonumentsCategoriesIntSeeder::class);
+				$this->call(CommentsTableSeeder::class);
 
     }
 }
