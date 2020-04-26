@@ -16,6 +16,8 @@ class CreateMonumentCategoryIntsTable extends Migration
         Schema::create('monument_category_ints', function (Blueprint $table) {
             $table->id();
             $table->timestamps();
+            $table->monument_id();
+            $table->category_id();
         });
     }
 
