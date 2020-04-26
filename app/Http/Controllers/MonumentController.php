@@ -67,9 +67,10 @@ class MonumentController extends Controller
      * @param  \App\ModelsMonument  $modelsMonument
      * @return \Illuminate\Http\Response
      */
-    public function show(ModelsMonument $modelsMonument)
+    public function show(Monument $monument)
     {
-        //
+			return view('monuments.show', ['monument' => $monument]);
+
     }
 
     /**
@@ -78,10 +79,16 @@ class MonumentController extends Controller
      * @param  \App\ModelsMonument  $modelsMonument
      * @return \Illuminate\Http\Response
      */
-    public function edit(ModelsMonument $modelsMonument)
+    public function edit(Monument $monument)
     {
-        //
-    }
+			$users = User::get()->pluck('name', 'id');
+			$images = Image::get()->pluck('title', 'id');
+			return view('monuments.edit')
+			->with('users', $users)
+			->with('monument', $monument)
+			->with('images', $images);
+
+		}
 
     /**
      * Update the specified resource in storage.
@@ -90,9 +97,17 @@ class MonumentController extends Controller
      * @param  \App\ModelsMonument  $modelsMonument
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, ModelsMonument $modelsMonument)
+    public function update(Request $request, Monument $monument)
     {
-        //
+			Monument::where('id', $monument->id)->update([
+				'name' => $request['name'],
+				'description' => $request['description'],
+				'lat' => $request['lat'],
+				'lon' => $request['lon'],
+				'user_id' => $request['user_id'],
+				'image_id' => $request['image_id'],
+			]);
+			return redirect()->action('MonumentController@index');
     }
 
     /**
@@ -101,8 +116,9 @@ class MonumentController extends Controller
      * @param  \App\ModelsMonument  $modelsMonument
      * @return \Illuminate\Http\Response
      */
-    public function destroy(ModelsMonument $modelsMonument)
+    public function destroy(Monument $monument)
     {
-        //
+			$monument->delete();
+			return redirect()->action('MonumentController@index');
     }
 }

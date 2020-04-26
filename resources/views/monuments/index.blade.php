@@ -1,7 +1,7 @@
 @extends('layouts.app')
 @section('content')
 <div class="container">
-	<a class="btn btn-primary mb-3" href="#" role="button">Add New Monuments</a>
+	<a class="btn btn-primary mb-3" href="{{ route('monuments.create') }}" role="button">Add New Monuments</a>
 	<table class="table">
 		<thead>
 			<tr>
@@ -27,18 +27,18 @@
 				<td>{{ $monument->image_id }}</td>
 				<td class="actions">
 					<a
-					href="#"
+					href="{{ action('MonumentController@show', ['monument' => $monument->id]) }}"
 					alt="View"
 					title="View">
 					View
 				</a>
 				<a
-				href="#"
+				href="{{ action('MonumentController@edit', ['monument' => $monument->id]) }}"
 				alt="Edit"
 				title="Edit">
 				Edit
 			</a>
-			<form action="#" method="POST">
+			<form action="{{ action('MonumentController@destroy', ['monument' => $monument->id]) }}" method="POST">
 				@method('DELETE')
 				@csrf
 				<button type="submit" class="btn btn-link" title="Delete" value="DELETE">Delete</button>
@@ -47,5 +47,7 @@
 	</tr>
 	@empty
 	@endforelse
+</tbody>
+</table>
 </div>
 @endsection
