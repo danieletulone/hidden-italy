@@ -25,4 +25,4 @@ Route::get('/user', 'UserController@index')->name('user');
 
 Route::get('/role', 'RoleController@index')->name('role');
 
-Route::get('/image', 'ImageController@index')->name('image');
+Route::resource('/images', 'ImageController');
