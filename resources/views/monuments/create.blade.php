@@ -14,11 +14,11 @@
 		</div>
 		<div class="form-group">
 			<label for="Lat">Lat</label>
-			<input name="lat" type="text" class="form-control">
+			<input name="lat" type="number" step="any" class="form-control">
 		</div>
 		<div class="form-group">
 			<label for="Lon">Lon</label>
-			<input name="lon" type="text" class="form-control">
+			<input name="lon" type="number" step="any" class="form-control">
 		</div>
 		<div class="form-group">
 			<select name="user_id" class="form-control" id="user_id" required>

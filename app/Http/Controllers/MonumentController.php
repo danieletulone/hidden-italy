@@ -6,6 +6,7 @@ use App\Models\Monument;
 use App\Models\User;
 use App\Models\Image;
 use Illuminate\Http\Request;
+use App\http\Requests\MonumentRequest;
 
 class MonumentController extends Controller
 {
@@ -41,7 +42,8 @@ class MonumentController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    //public function store(MonumentRequest $request)
+		public function store(MonumentRequest $request)
     {
 			Monument::create([
 				'name' => $request['name'],
@@ -63,8 +65,8 @@ class MonumentController extends Controller
     public function show(Monument $monument)
     {
 			return view('monuments.show', ['monument' => $monument]);
-    }
 
+		}
     /**
      * Show the form for editing the specified resource.
      *
@@ -79,8 +81,8 @@ class MonumentController extends Controller
 				->with('users', $users)
 				->with('monument', $monument)
 				->with('images', $images);
-		}
 
+		}
     /**
      * Update the specified resource in storage.
      *
@@ -88,7 +90,7 @@ class MonumentController extends Controller
      * @param  \App\ModelsMonument  $modelsMonument
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Monument $monument)
+    public function update(MonumentRequest $request, Monument $monument)
     {
 			Monument::where('id', $monument->id)->update([
 				'name' => $request['name'],
@@ -99,8 +101,8 @@ class MonumentController extends Controller
 				'image_id' => $request['image_id'],
 			]);
 			return redirect()->action('MonumentController@index');
-    }
 
+		}
     /**
      * Remove the specified resource from storage.
      *
@@ -111,5 +113,6 @@ class MonumentController extends Controller
     {
 			$monument->delete();
 			return redirect()->action('MonumentController@index');
-    }
+
+		}
 }

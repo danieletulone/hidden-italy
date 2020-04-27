@@ -8,11 +8,11 @@ use App\Models\Image;
 use Faker\Generator as Faker;
 
 $factory->define(Monument::class, function (Faker $faker) {
-    return [
+	    return [
         'name' => $faker->city,
 				'description' => $faker->text($maxNbChars = 200),
-				'lat' => $faker->latitude,
-				'lon' => $faker->longitude,
+				'lat' => $faker->latitude($min = -90, $max = 90),
+				'lon' => $faker->longitude($min = -180, $max = 180),
 				'user_id' => $faker->numberBetween(1, User::orderBy('id', 'DESC')->first()->id),
 				'image_id' => $faker->numberBetween(1, Image::orderBy('id', 'DESC')->first()->id),
     ];
