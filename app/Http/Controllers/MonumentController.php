@@ -9,11 +9,6 @@ use Illuminate\Http\Request;
 
 class MonumentController extends Controller
 {
-		// public function __construct()
-		// {
-		// 	$this->middleware('auth');
-		// }
-
     /**
      * Display a listing of the resource.
      *
@@ -22,10 +17,10 @@ class MonumentController extends Controller
     public function index()
     {
 			$monuments = Monument::orderBy('id', 'DESC')->get();
-			return view('monuments.index')->with('monuments', $monuments);
+			return view('monuments.index')
+				->with('monuments', $monuments);
 
     }
-
     /**
      * Show the form for creating a new resource.
      *
@@ -36,11 +31,10 @@ class MonumentController extends Controller
         $users = User::get()->pluck('name', 'id');
 				$images = Image::get()->pluck('title', 'id');
 				return view('monuments.create')
-				->with('users', $users)
-				->with('images', $images);
+					->with('users', $users)
+					->with('images', $images);
 
     }
-
     /**
      * Store a newly created resource in storage.
      *
@@ -60,7 +54,6 @@ class MonumentController extends Controller
 			return redirect()->action('MonumentController@index');
 
 		}
-
     /**
      * Display the specified resource.
      *
@@ -70,7 +63,6 @@ class MonumentController extends Controller
     public function show(Monument $monument)
     {
 			return view('monuments.show', ['monument' => $monument]);
-
     }
 
     /**
@@ -84,10 +76,9 @@ class MonumentController extends Controller
 			$users = User::get()->pluck('name', 'id');
 			$images = Image::get()->pluck('title', 'id');
 			return view('monuments.edit')
-			->with('users', $users)
-			->with('monument', $monument)
-			->with('images', $images);
-
+				->with('users', $users)
+				->with('monument', $monument)
+				->with('images', $images);
 		}
 
     /**
