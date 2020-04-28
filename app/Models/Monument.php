@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class Monument extends Model
 {
 	protected $fillable = [
-			'name', 'description', 'lat', 'lon', 'user_id', 'image_id'
+		'name', 'description', 'lat', 'lon', 'user_id', 'image_id'
 	];
 
 	public function user()
@@ -15,14 +15,13 @@ class Monument extends Model
 		return $this->belongsTo('App\Models\User');
 	}
 
-	public function image()
+	public function monumentImages()
 	{
-		return $this->belongsTo('App\Models\Image');
+		return $this->hasMany('App\Models\MonumentImage');
 	}
-
 	public function comments()
 	{
-	return $this->hasMany('App\Models\Comment');
+		return $this->hasMany('App\Models\Comment');
 	}
-	
+
 }

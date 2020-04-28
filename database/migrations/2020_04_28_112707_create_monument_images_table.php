@@ -15,6 +15,8 @@ class CreateMonumentImagesTable extends Migration
     {
         Schema::create('monument_images', function (Blueprint $table) {
             $table->id();
+						$table->foreignId('monument_id')->constrained()->onDelete('cascade');
+						$table->foreignId('image_id')->constrained()->onDelete('cascade');
             $table->timestamps();
         });
     }

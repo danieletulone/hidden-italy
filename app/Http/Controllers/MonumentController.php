@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Monument;
 use App\Models\User;
 use App\Models\Image;
+use App\Models\MonumentImage;
 use Illuminate\Http\Request;
 use App\http\Requests\MonumentRequest;
 
@@ -61,7 +62,9 @@ class MonumentController extends Controller
 
 			$monumentImage = new MonumentImage();
 			$monumentImage->monument_id = $monument->id;
-			$monumentImage->image_id = $monument->id;
+			$monumentImage->image_id = $image->id;
+			//dd($monumentImage);
+			$monumentImage->save();
 
 			return redirect()->action('MonumentController@index');
 
