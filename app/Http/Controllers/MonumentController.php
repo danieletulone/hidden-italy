@@ -46,6 +46,8 @@ class MonumentController extends Controller
 		public function store(MonumentRequest $request)
     {
 			$monument = new Monument();
+			//new Monument::create(["name"=>$request->input('name');])
+			//fare array $monument = []
 			$monument->name = $request->input('name');
 			$monument->description = $request->input('description');
 			$monument->lat = $request->input('lat');
@@ -62,7 +64,7 @@ class MonumentController extends Controller
 			$monumentImage->image_id = $image->id;
 			$monumentImage->save();
 			return redirect()->action('MonumentController@index');
-
+			//prima chiamata image poi chiama munument
 		}
     /**
      * Display the specified resource.
