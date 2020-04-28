@@ -18,8 +18,7 @@ class MonumentController extends Controller
     public function index()
     {
 			$monuments = Monument::orderBy('id', 'DESC')->get();
-			return view('monuments.index')
-				->with('monuments', $monuments);
+			return view('monuments.index')->with('monuments', $monuments);
 
     }
     /**
@@ -29,11 +28,11 @@ class MonumentController extends Controller
      */
     public function create()
     {
-        $users = User::get()->pluck('name', 'id');
-				$images = Image::get()->pluck('title', 'id');
-				return view('monuments.create')
-					->with('users', $users)
-					->with('images', $images);
+	    $users = User::get()->pluck('name', 'id');
+			//$images = Image::get()->pluck('title', 'id');
+			return view('monuments.create')
+				->with('users', $users)
+				->with('images', $images);
 
     }
     /**
@@ -53,6 +52,7 @@ class MonumentController extends Controller
 				'user_id' => $request['user_id'],
 				'image_id' => $request['image_id'],
 			]);
+			Image::create([])
 			return redirect()->action('MonumentController@index');
 
 		}
@@ -64,7 +64,12 @@ class MonumentController extends Controller
      */
     public function show(Monument $monument)
     {
-			return view('monuments.show', ['monument' => $monument]);
+			$user = User::where('id', $monument->user_id)->pluck('name');
+			$image = Image::where('id', $monument->image_id)->pluck('url');
+			dd($image);
+			return view('monuments.show')
+			->with('monument', $monument)
+			->with('user', $user);
 
 		}
     /**
