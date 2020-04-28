@@ -29,7 +29,7 @@ class MonumentController extends Controller
     public function create()
     {
 	    $users = User::get()->pluck('name', 'id');
-			//$images = Image::get()->pluck('title', 'id');
+			$images = Image::get()->pluck('title', 'id');
 			return view('monuments.create')
 				->with('users', $users)
 				->with('images', $images);
@@ -44,18 +44,45 @@ class MonumentController extends Controller
     //public function store(MonumentRequest $request)
 		public function store(MonumentRequest $request)
     {
-			Monument::create([
-				'name' => $request['name'],
-				'description' => $request['description'],
-				'lat' => $request['lat'],
-				'lon' => $request['lon'],
-				'user_id' => $request['user_id'],
-				'image_id' => $request['image_id'],
-			]);
-			Image::create([])
+			$monument = new Monument();
+			$monument->name = $request->input('name');
+			$monument->description = $request->input('description');
+			$monument->lat = $request->input('lat');
+			$monument->lon = $request->input('lon');
+			$monument->user_id = $request->input('user_id');
+			$monument->image_id = $request->input('image_id');
+			$monument->save();
+
+			$image = new Image();
+			$image->title = $request->input('name');
+			$image->description = "Desscrizione non disponibile";
+			$image->url = $request->file('url')->store('public/images');
+			$image->save();
+
+			$monumentImage = new MonumentImage();
+			$monumentImage->monument_id = $monument->id;
+			$monumentImage->image_id = $monument->id;
+
 			return redirect()->action('MonumentController@index');
 
 		}
+
+		// public function store(Request $request)
+    // {
+		// 		$validator = $request->validate([
+		// 			'title' => 'required|max:255',
+		// 			'description' =>  'required|max:255',
+		// 			'url' => 'mimes:jpeg,jpg,png,gif|required|max:10000', //max 10000kb
+		// 		]);
+		// 		$image = new Image();
+		// 		$image->title = $request->input('title');
+		// 		$image->description = $request->input('description');
+		// 		$image->url = $request->file('url')->store('public/images');
+		// 		$image->save();
+		// 		return redirect()->action('ImageController@index');
+		//
+		// }
+
     /**
      * Display the specified resource.
      *

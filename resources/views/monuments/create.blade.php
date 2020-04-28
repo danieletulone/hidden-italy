@@ -2,7 +2,7 @@
 @section('content')
 <div class="container">
 	<a class="btn btn-primary mb-3" href="{{ route('monuments.index') }}" role="button">Back to Monuments</a>
-	<form action="{{ route('monuments.store') }}" method="POST">
+	<form action="{{ route('monuments.store') }}" method="POST" enctype="multipart/form-data">
 		@csrf
 		<div class="form-group">
 			<label for="Name">Name</label>
@@ -27,10 +27,17 @@
 				@endforeach
 			</select>
 		</div>
+		<div class="form-group">
+			<select name="image_id" class="form-control" id="image_id" required>
+				@foreach($images as $id => $display)
+				<option value="{{ $id }}" {{ (isset($monument->images_id) && $id === $monument->images_id) ? 'selected' : ''}}>{{ $display }}</option>
+				@endforeach
+			</select>
+		</div>
 		<div class="form-grop">
 			<div class="custom-file">
 				<label class="custom-file-label" for="picture">Picture</label>
-				<input name="image_id" type="file" class="custom-file-input" placeholder="Picture"/>
+				<input name="url" type="file" class="custom-file-input" placeholder="Picture"/>
 			</div>
 		</div>
 		<div class="form-group">
