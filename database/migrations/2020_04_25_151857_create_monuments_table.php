@@ -20,7 +20,6 @@ class CreateMonumentsTable extends Migration
 						$table->decimal('lat');
 						$table->decimal('lon');
 						$table->foreignId('user_id')->constrained()->onDelete('cascade');
-						$table->foreignId('image_id')->constrained()->onDelete('cascade');
             $table->timestamps();
         });
     }

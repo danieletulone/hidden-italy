@@ -51,21 +51,16 @@ class MonumentController extends Controller
 			$monument->lat = $request->input('lat');
 			$monument->lon = $request->input('lon');
 			$monument->user_id = $request->input('user_id');
-			$monument->image_id = $request->input('image_id');
 			$monument->save();
-
 			$image = new Image();
 			$image->title = $request->input('name');
 			$image->description = "Desscrizione non disponibile";
 			$image->url = $request->file('url')->store('public/images');
 			$image->save();
-
 			$monumentImage = new MonumentImage();
 			$monumentImage->monument_id = $monument->id;
 			$monumentImage->image_id = $image->id;
-			//dd($monumentImage);
 			$monumentImage->save();
-
 			return redirect()->action('MonumentController@index');
 
 		}
