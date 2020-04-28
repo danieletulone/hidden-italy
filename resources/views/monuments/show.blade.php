@@ -16,8 +16,7 @@
 		<dt class="col-sm-3">User ID</dt>
 		<dd class="col-sm-9">{{ $user }}</dd>
 		<dt class="col-sm-3">Image</dt>
-		<dd class="col-sm-9"><img width="50px"
-			src="@php echo \Illuminate\Support\Facades\Storage::url($image->url) @endphp"</dd>
+		<dd class="col-sm-9">{{ $image }}</dd>
 	</dl>
 </div>
 @endsection

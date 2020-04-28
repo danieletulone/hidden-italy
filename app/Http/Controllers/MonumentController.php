@@ -64,23 +64,6 @@ class MonumentController extends Controller
 			return redirect()->action('MonumentController@index');
 
 		}
-
-		// public function store(Request $request)
-    // {
-		// 		$validator = $request->validate([
-		// 			'title' => 'required|max:255',
-		// 			'description' =>  'required|max:255',
-		// 			'url' => 'mimes:jpeg,jpg,png,gif|required|max:10000', //max 10000kb
-		// 		]);
-		// 		$image = new Image();
-		// 		$image->title = $request->input('title');
-		// 		$image->description = $request->input('description');
-		// 		$image->url = $request->file('url')->store('public/images');
-		// 		$image->save();
-		// 		return redirect()->action('ImageController@index');
-		//
-		// }
-
     /**
      * Display the specified resource.
      *
@@ -89,10 +72,11 @@ class MonumentController extends Controller
      */
     public function show(Monument $monument)
     {
-			$user = User::where('id', $monument->user_id)->pluck('name');
-			$image = Image::where('id', $monument->image_id)->pluck('url');
-			dd($image);
+			$user = User::where('id', $monument->user_id)->pluck('name', 'id');
+			$monumentImage = MonumentImage::where('monument_id', $monument->id)->pluck('image_id', 'id');
+			$image = Image::where('id', $monumentImage)->pluck('url', 'id');
 			return view('monuments.show')
+			->with('image', $image)
 			->with('monument', $monument)
 			->with('user', $user);
 
