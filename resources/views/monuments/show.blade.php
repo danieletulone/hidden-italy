@@ -13,10 +13,13 @@
 		<dd class="col-sm-9">{{ $monument->lat }}</dd>
 		<dt class="col-sm-3">Lonitude</dt>
 		<dd class="col-sm-9">{{ $monument->lon }}</dd>
-		<dt class="col-sm-3">User ID</dt>
-		<dd class="col-sm-9">{{ $user }}</dd>
+		<dt class="col-sm-3">Creator</dt>
+		<dd class="col-sm-9">{{ $monument->user["name"] }}</dd>
 		<dt class="col-sm-3">Image</dt>
-		<dd class="col-sm-9">{{ $image }}</dd>
+					<dd>
+						<img width="100px" src="{{ asset('storage/' . $monument->images[0]->image->url) }}"/>
+					</dd>
+
 
 	</dl>
 </div>

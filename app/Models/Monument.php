@@ -15,7 +15,7 @@ class Monument extends Model
 		return $this->belongsTo('App\Models\User');
 	}
 
-	public function monumentImages()
+	public function images()
 	{
 		return $this->hasMany('App\Models\MonumentImage');
 	}
