@@ -8,6 +8,7 @@ use App\Models\Image;
 use App\Models\MonumentImage;
 use Illuminate\Http\Request;
 use App\http\Requests\MonumentRequest;
+use Illuminate\Support\Facades\Storage;
 
 class MonumentController extends Controller
 {
@@ -32,10 +33,8 @@ class MonumentController extends Controller
 	public function create()
 	{
 		$users = User::get()->pluck('name', 'id');
-		$images = Image::get()->pluck('title', 'id');
 		return view('monuments.create')
-		->with('users', $users)
-		->with('images', $images);
+		->with('users', $users);
 
 	}
 	/**
@@ -122,8 +121,13 @@ class MonumentController extends Controller
 
 	public function destroy(Monument $monument)
 	{
-		$monument->delete();
-		return redirect()->action('MonumentController@index');
+		// $result = $monument->with('user')->with('images.image')->orderBy('id', 'desc')->first();
+		// $image_path = $result->images[0]->image->url;
+    // if(file_exists($image_path)) {
+    //     File::delete($image_path);
+    // }
+		// $monument->delete();
+		// return redirect()->action('MonumentController@index');
 
 	}
 }

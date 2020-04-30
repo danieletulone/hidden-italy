@@ -10,8 +10,6 @@
 				<th>Description</th>
 				<th>Lat</th>
 				<th>Lon</th>
-				<th>User ID</th>
-				<th>Image ID</th>
 				<th class="Actions">Actions</th>
 			</tr>
 		</thead>
@@ -23,8 +21,6 @@
 				<td>{{ $monument->description }}</td>
 				<td>{{ $monument->lat }}</td>
 				<td>{{ $monument->lon }}</td>
-				<td>{{ $monument->user_id }}</td>
-				<td>{{ $monument->image_id }}</td>
 				<td class="actions">
 					<a
 					href="{{ action('MonumentController@show', ['monument' => $monument->id]) }}"
