@@ -17,9 +17,7 @@
 		<dd class="col-sm-9">{{ $monument->user["name"] }}</dd>
 		<dt class="col-sm-3">Image</dt>
 		<dd>
-			<!-- <img width="100px" height=100px src="{{ asset($monument->images[0]->image->url) }}"/>  -->
-			<img width="100px" height=100px src="{{ asset($monument->image_id) }}"/>
-			<img width="100px" height=100px src="@php echo \Illuminate\Support\Facades\Storage::url($monument->images[0]->image->url) @endphp"/>
+			<img width="650px"src="{{ Storage::url($monument->images[0]->image->url) }}"/>
 		</dd>
 	</dl>
 </div>

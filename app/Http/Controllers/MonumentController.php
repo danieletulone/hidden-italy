@@ -9,6 +9,7 @@ use App\Models\MonumentImage;
 use Illuminate\Http\Request;
 use App\http\Requests\MonumentRequest;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Http\File;
 
 class MonumentController extends Controller
 {
@@ -18,6 +19,10 @@ class MonumentController extends Controller
 	* @return \Illuminate\Http\Response
 	*/
 
+    public function __construct()
+    {
+        // $this->middleware('auth');
+    }
 	public function index()
 	{
 		$monuments = Monument::orderBy('id', 'DESC')->get();
@@ -65,20 +70,20 @@ class MonumentController extends Controller
 	/**
 	* Display the specified resource.
 	*
-	* @param  \App\ModelsMonument  $modelsMonument
+	* @param  \App\Models\Monument  $modelsMonument
 	* @return \Illuminate\Http\Response
 	*/
 
 	public function show(Monument $monument)
 	{
-		$result = $monument->with('user')->with('images.image')->orderBy('id', 'desc')->first();
+        $result = $monument->with('user')->with('images.image')->orderBy('id', 'desc')->first();
 		return view('monuments.show')->with('monument', $result);
 
 	}
 	/**
 	* Show the form for editing the specified resource.
 	*
-	* @param  \App\ModelsMonument  $modelsMonument
+	* @param  \App\Models\Monument  $modelsMonument
 	* @return \Illuminate\Http\Response
 	*/
 
@@ -86,11 +91,11 @@ class MonumentController extends Controller
 	{
 		$result = $monument->with('user')->with('images.image')->orderBy('id', 'desc')->first();
 		$users = User::get()->pluck('name', 'id');
-		$images = Image::get()->pluck('title', 'id');
+		// $images = Image::get()->pluck('title', 'id');
 		return view('monuments.edit')
 		->with('users', $users)
-		->with('monument', $monument)
-		->with('images', $images);
+		->with('monument', $result);
+		// ->with('images', $images);
 
 
 	}
@@ -98,7 +103,7 @@ class MonumentController extends Controller
 	* Update the specified resource in storage.
 	*
 	* @param  \Illuminate\Http\Request  $request
-	* @param  \App\ModelsMonument  $modelsMonument
+	* @param  \App\Models\Monument  $modelsMonument
 	* @return \Illuminate\Http\Response
 	*/
 
@@ -118,19 +123,19 @@ class MonumentController extends Controller
 	/**
 	* Remove the specified resource from storage.
 	*
-	* @param  \App\ModelsMonument  $modelsMonument
+	* @param  \App\Models\Monument  $modelsMonument
 	* @return \Illuminate\Http\Response
 	*/
 
 	public function destroy(Monument $monument)
 	{
-		// $result = $monument->with('user')->with('images.image')->orderBy('id', 'desc')->first();
-		// $image_path = $result->images[0]->image->url;
-    // if(file_exists($image_path)) {
-    //     File::delete($image_path);
-    // }
-		// $monument->delete();
-		// return redirect()->action('MonumentController@index');
+		$result = $monument->with('user')->with('images.image')->orderBy('id', 'desc')->first();
+		$image_path = $result->images[0]->image->url;
+        if(Storage::exists($image_path)) {
+            Storage::delete($image_path);
+        }
+		$monument->delete();
+		return redirect()->action('MonumentController@index');
 
 	}
 }

@@ -21,19 +21,25 @@
 			<label for="Lon">Lon</label>
 			<input name="lon" type="number" step="any" class="form-control" value="{{ $monument->lon }}">
 		</div>
-		<div class="form-group">
+		{{-- <div class="form-group">
 			<select name="user_id" class="form-control" id="user_id" required>
-				@foreach($users as $id => $display)
+				@foreach($monument->users as $id => $display)
 				<option value="{{ $id }}" {{ (isset($monument->users_id) && $id === $monument->user_id) ? 'selected' : ''}}>{{ $display }}</option>
 				@endforeach
 			</select>
-		</div>
-		<div class="form-group">
-			<select name="image_id" class="form-control" id="image_id" required>
+		</div> --}}
+		<div class="form-group input-group">
+			{{-- <select name="image_id" class="form-control" id="image_id" required>
 				@foreach($images as $id => $display)
 				<option value="{{ $id }}" {{ (isset($monument->images_id) && $id === $monument->images_id) ? 'selected' : ''}}>{{ $display }}</option>
-				@endforeach
-			</select>
+                @endforeach
+            </select> --}}
+
+            <div class="file">
+                <input type="file" name="url" class="file-input" src="{{Storage::get($monument->images[0]->image->url)}}">
+                <label class="file-label">Choose file</label>
+            {{-- <img width="650px"src="{{  }}"/> --}}
+            </div>
 		</div>
 		<div class="form-group">
 			<button type="submit" class="btn btn-primary" role="button">Update Monument</button>
