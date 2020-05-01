@@ -16,14 +16,11 @@
 		<dt class="col-sm-3">Creator</dt>
 		<dd class="col-sm-9">{{ $monument->user["name"] }}</dd>
 		<dt class="col-sm-3">Image</dt>
-					<dd>
-						<img width="100px" src="{{ asset($monument->images[0]->image->url) }}"/>
-					</dd>
-					<img width="50px"
-                    src="@php echo \Illuminate\Support\Facades\Storage::url($monument->images[0]->image->url) @endphp"
-                    />
-
-
+		<dd>
+			<!-- <img width="100px" height=100px src="{{ asset($monument->images[0]->image->url) }}"/>  -->
+			<img width="100px" height=100px src="{{ asset($monument->image_id) }}"/>
+			<img width="100px" height=100px src="@php echo \Illuminate\Support\Facades\Storage::url($monument->images[0]->image->url) @endphp"/>
+		</dd>
 	</dl>
 </div>
 @endsection

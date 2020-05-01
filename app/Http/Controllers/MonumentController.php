@@ -72,7 +72,8 @@ class MonumentController extends Controller
 	public function show(Monument $monument)
 	{
 		$result = $monument->with('user')->with('images.image')->orderBy('id', 'desc')->first();
-		return view('monuments.show')->with('monument', $monument);
+		return view('monuments.show')->with('monument', $result);
+
 	}
 	/**
 	* Show the form for editing the specified resource.
@@ -83,12 +84,14 @@ class MonumentController extends Controller
 
 	public function edit(Monument $monument)
 	{
+		$result = $monument->with('user')->with('images.image')->orderBy('id', 'desc')->first();
 		$users = User::get()->pluck('name', 'id');
 		$images = Image::get()->pluck('title', 'id');
 		return view('monuments.edit')
 		->with('users', $users)
 		->with('monument', $monument)
 		->with('images', $images);
+
 
 	}
 	/**

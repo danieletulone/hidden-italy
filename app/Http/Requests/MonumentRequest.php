@@ -28,7 +28,7 @@ class MonumentRequest extends FormRequest
 					'description' => ['required', 'max:500'],
 					'lat' => ['required', 'max:10'],
 					'lon' => ['required', 'max:10'],
-					'url' => ['mimes:jpeg,jpg,png,gif','required','max:10000'], //max 10000kb
+					'url' => ['image','mimes:jpeg,jpg,png,gif','required','max:10000'], //max 10000kb
         ];
     }
 }
