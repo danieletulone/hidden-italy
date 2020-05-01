@@ -1,8 +1,21 @@
 // Fonts
 @import url('https://fonts.googleapis.com/css?family=Nunito');
 
+// Bootstrap
+@import '~bootstrap/scss/bootstrap';
+
+//Larevel Default
+@import 'default-welcome';
+
 // Variables
 @import 'variables';
 
-// Bootstrap
-@import '~bootstrap/scss/bootstrap';
+// Menu
+@import 'menu';
+
+// Footer
+@import 'footer';
+
+#logo-big{
+    height: 15em;
+}
