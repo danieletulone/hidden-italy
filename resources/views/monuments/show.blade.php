@@ -17,7 +17,10 @@
 		<dd class="col-sm-9">{{ $monument->user["name"] }}</dd>
 		<dt class="col-sm-3">Image</dt>
 		<dd>
-			<img width="100px"src="{{ Storage::url($monument->images->url) }}"/>
+            @foreach ($monument->images as $item)
+            <img width="450px"src="{{ Storage::url($item->url) }}"/>
+            @endforeach
+
 		</dd>
 	</dl>
 </div>

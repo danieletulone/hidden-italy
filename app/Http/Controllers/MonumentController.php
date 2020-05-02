@@ -51,6 +51,8 @@ class MonumentController extends Controller
 
 	public function store(MonumentRequest $request)
 	{
+
+
 		$monument = Monument::create([
             'name' => $request->input('name'),
             'description' => $request->input('description'),
@@ -60,13 +62,18 @@ class MonumentController extends Controller
 
         ]);
 
-		Image::create([
-			'title' => $request->input('name'),
-			'description' => 'Descrizione non disponibile',
-            'url' => $request->file('url')->store('public/images'),
-            'monument_id' => $monument->id,
-            'user_id' => '1', // Da migliorare
-		]);
+        $file=$request->file('url');
+        if(!empty($files)){
+            foreach ($file as $item) {
+                Image::create([
+                    'title' => $request->input('name'),
+                    'description' => 'Descrizione non disponibile',
+                    'url' =>  $item->store('public/images'),
+                    'monument_id' => $monument->id,
+                    'user_id' => '1', // Da migliorare
+                ]);
+            }
+        };
 
 		return redirect()->action('MonumentController@index');
 
@@ -80,9 +87,8 @@ class MonumentController extends Controller
 
 	public function show(Monument $monument)
 	{
-        $result = $monument->with('user')->with('images.image')->orderBy('id', 'desc')->first();
-		return view('monuments.show')->with('monument', $result);
-
+        // $result = $monument->with('user')->with('images')->first();
+		return view('monuments.show')->with('monument', $monument);
 	}
 	/**
 	* Show the form for editing the specified resource.
@@ -93,12 +99,12 @@ class MonumentController extends Controller
 
 	public function edit(Monument $monument)
 	{
-		$result = $monument->with('user')->with('images.image')->orderBy('id', 'desc')->first();
-		$users = User::get()->pluck('name', 'id');
+		// $result = $monument->with('user')->with('images')->orderBy('id', 'desc')->first();
+		// $users = User::get()->pluck('name', 'id');
 		// $images = Image::get()->pluck('title', 'id');
-		return view('monuments.edit')
-		->with('users', $users)
-		->with('monument', $result);
+		return view('monuments.edit')->with('monument', $monument);
+		// ->with('users', $users)
+		// ->with('monument', $result);
 		// ->with('images', $images);
 
 
@@ -118,9 +124,17 @@ class MonumentController extends Controller
 			'description' => $request['description'],
 			'lat' => $request['lat'],
 			'lon' => $request['lon'],
-			'user_id' => $request['user_id'],
-			'image_id' => $request['image_id'],
+            'user_id' => '1',
+        ]);
+
+        Image::update([
+			'title' => $request->input('name'),
+			'description' => 'Descrizione non disponibile',
+            'url' => $request->file('url')->store('public/images'),
+            'monument_id' => $monument->id,
+            'user_id' => '1', // Da migliorare
 		]);
+
 		return redirect()->action('MonumentController@index');
 
 	}
@@ -133,11 +147,14 @@ class MonumentController extends Controller
 
 	public function destroy(Monument $monument)
 	{
-		$result = $monument->with('user')->with('images.image')->orderBy('id', 'desc')->first();
-		$image_path = $result->images[0]->image->url;
-        if(Storage::exists($image_path)) {
-            Storage::delete($image_path);
+        // $result = $monument->with('user')->with('images')->orderBy('id', 'desc')->first();
+        foreach ($monument->images as $image) {
+            $image_path = $image->url;
+            if(Storage::exists($image_path)) {
+                 Storage::delete($image_path);
+            }
         }
+
 		$monument->delete();
 		return redirect()->action('MonumentController@index');
 

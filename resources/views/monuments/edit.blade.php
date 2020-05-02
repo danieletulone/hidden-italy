@@ -2,7 +2,7 @@
 @section('content')
 <div class="container">
 	<a class="btn btn-primary mb-3" href="{{ route('monuments.index') }}" role="button">Back to Monuments</a>
-	<form action="{{ route('monuments.update', ['monument' => $monument]) }}" method="POST">
+	<form action="{{ route('monuments.update', ['monument' => $monument]) }}" method="POST" enctype="multipart/form-data">
 		@method('PUT')
 		@csrf
 		<div class="form-group">
@@ -28,18 +28,18 @@
 				@endforeach
 			</select>
 		</div> --}}
-		<div class="form-group input-group">
+		<div class="form-group">
 			{{-- <select name="image_id" class="form-control" id="image_id" required>
 				@foreach($images as $id => $display)
 				<option value="{{ $id }}" {{ (isset($monument->images_id) && $id === $monument->images_id) ? 'selected' : ''}}>{{ $display }}</option>
                 @endforeach
             </select> --}}
 
-            <div class="file">
-                <input type="file" name="url" class="file-input" src="{{Storage::get($monument->images[0]->image->url)}}">
-                <label class="file-label">Choose file</label>
+
+            <label for="picture">Choose a Picture to upload</label> <br>
+            <input type="file" name="url" multiple type="file" class="file-input" placeholder="Picture" src="{{Storage::get($monument->images[0]->url)}}">
             {{-- <img width="650px"src="{{  }}"/> --}}
-            </div>
+
 		</div>
 		<div class="form-group">
 			<button type="submit" class="btn btn-primary" role="button">Update Monument</button>
