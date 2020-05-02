@@ -15,11 +15,11 @@ class CreateMonumentsTable extends Migration
     {
         Schema::create('monuments', function (Blueprint $table) {
             $table->id();
-						$table->string('name');
-						$table->string('description');
-						$table->decimal('lat');
-						$table->decimal('lon');
-						$table->foreignId('user_id')->constrained()->onDelete('cascade');
+			$table->string('name');
+			$table->string('description');
+			$table->decimal('lat');
+			$table->decimal('lon');
+			$table->foreignId('user_id')->constrained()->onDelete('cascade');
             $table->timestamps();
         });
     }

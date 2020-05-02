@@ -15,9 +15,11 @@ class CreateImagesTable extends Migration
     {
         Schema::create('images', function (Blueprint $table) {
             $table->bigIncrements('id');
-						$table->string('title');
-						$table->string('description');
-						$table->string('url');
+			$table->string('title');
+			$table->string('description');
+			$table->string('url');
+			$table->foreignId('monument_id')->constrained()->onDelete('cascade');
+			$table->foreignId('user_id')->constrained()->onDelete('cascade');
             $table->timestamps();
 
         });

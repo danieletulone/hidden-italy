@@ -24,13 +24,11 @@
 			<input name="lon" type="number" step="any" class="form-control">
 		</div>
 
-		<div class="form-group">
-			<select name="user_id" class="form-control" id="user_id" required>
-				@foreach($users as $id => $display)
-				<option value="{{ $id }}" {{ (isset($monument->users_id) && $id === $monument->user_id) ? 'selected' : ''}}>{{ $display }}</option>
-				@endforeach
-			</select>
-		</div>
+		{{-- <div class="form-group">
+
+            <label for="disabledTextInput">Created by</label>
+            <input type="text" id="disabledTextInput" class="form-control" placeholder={{'user_id'}}>
+		</div> --}}
 
 		<div class="form-grop">
 			<div class="custom-file">

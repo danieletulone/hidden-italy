@@ -17,7 +17,7 @@ class Monument extends Model
 
 	public function images()
 	{
-		return $this->hasMany('App\Models\MonumentImage');
+		return $this->hasMany('App\Models\Image');
 	}
 	public function comments()
 	{

@@ -5,11 +5,12 @@ namespace App\Http\Controllers;
 use App\Models\Monument;
 use App\Models\User;
 use App\Models\Image;
-use App\Models\MonumentImage;
 use Illuminate\Http\Request;
 use App\http\Requests\MonumentRequest;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Http\File;
+use Illuminate\Support\Facades\App;
+use Illuminate\Support\Facades\Auth;
 
 class MonumentController extends Controller
 {
@@ -38,8 +39,7 @@ class MonumentController extends Controller
 	public function create()
 	{
 		$users = User::get()->pluck('name', 'id');
-		return view('monuments.create')
-		->with('users', $users);
+		return view('monuments.create')->with('users', $users);
 
 	}
 	/**
@@ -51,18 +51,22 @@ class MonumentController extends Controller
 
 	public function store(MonumentRequest $request)
 	{
-		$monument = Monument::create($request->all());
+		$monument = Monument::create([
+            'name' => $request->input('name'),
+            'description' => $request->input('description'),
+            'lat'=> $request->input('lat'),
+            'lon'=> $request->input('lon'),
+            'user_id' => '1',  // Auth::id()
 
-		$image = Image::create([
+        ]);
+
+		Image::create([
 			'title' => $request->input('name'),
-			'description' => 'Desscrizione non disponibile',
-			'url' => $request->file('url')->store('public/images'),
+			'description' => 'Descrizione non disponibile',
+            'url' => $request->file('url')->store('public/images'),
+            'monument_id' => $monument->id,
+            'user_id' => '1', // Da migliorare
 		]);
-
-		$monumentImage = new MonumentImage();
-		$monumentImage->monument_id = $monument->id;
-		$monumentImage->image_id = $image->id;
-		$monumentImage->save();
 
 		return redirect()->action('MonumentController@index');
 

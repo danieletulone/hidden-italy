@@ -2,6 +2,8 @@
 
 use Illuminate\Database\Seeder;
 use App\Models\User;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Str;
 
 class UsersTableSeeder extends Seeder
 {
@@ -22,7 +24,6 @@ class UsersTableSeeder extends Seeder
 					'password' => '1234',
 					'remember_token' => Str::random(10),
 					'role_id' => 2, //DA COLLEGARE A DB
-					'image_id' => 1, //DA COLLEGARE A DB
 			]);
 
 			// factory(User::class, 1)->create(); //NON FUNZIONA IL FACORIES DEL USER
