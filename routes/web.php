@@ -31,4 +31,4 @@ Route::resource('monuments', 'MonumentController');
 
 Route::resource('monumentsCategories', 'MonumentsCategoriesController');
 
-Route::resource('monumentsCategoriesInt', 'MonumentsCategoriesIntController');
+Route::resource('categories', 'CategoriesController');

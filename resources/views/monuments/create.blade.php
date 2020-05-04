@@ -33,7 +33,7 @@
 		<div class="form-grop">
 			<div class="custom-file">
 				<label class="file-label" for="picture">Picture</label>
-				<input name="url[]" multiple type="file" class="file-input" placeholder="Picture"/>
+				<input name="url" multiple type="file" class="file-input" placeholder="Picture"/>
 			</div>
 		</div>
 

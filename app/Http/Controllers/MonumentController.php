@@ -20,10 +20,11 @@ class MonumentController extends Controller
 	* @return \Illuminate\Http\Response
 	*/
 
-    public function __construct()
-    {
-        // $this->middleware('auth');
-    }
+	public function __construct()
+	{
+		// $this->middleware('auth');
+	}
+
 	public function index()
 	{
 		$monuments = Monument::orderBy('id', 'DESC')->get();
@@ -54,26 +55,26 @@ class MonumentController extends Controller
 
 
 		$monument = Monument::create([
-            'name' => $request->input('name'),
-            'description' => $request->input('description'),
-            'lat'=> $request->input('lat'),
-            'lon'=> $request->input('lon'),
-            'user_id' => '1',  // Auth::id()
+			'name' => $request->input('name'),
+			'description' => $request->input('description'),
+			'lat'=> $request->input('lat'),
+			'lon'=> $request->input('lon'),
+			'user_id' => '1',  // Auth::id()
+		]);
 
-        ]);
-
-        $file=$request->file('url');
-        if(!empty($files)){
-            foreach ($file as $item) {
-                Image::create([
-                    'title' => $request->input('name'),
-                    'description' => 'Descrizione non disponibile',
-                    'url' =>  $item->store('public/images'),
-                    'monument_id' => $monument->id,
-                    'user_id' => '1', // Da migliorare
-                ]);
-            }
-        };
+		//  $file=$request->file('url');
+		//if(!empty($files)){
+		//  foreach ($file as $item) {
+		Image::create([
+			'title' => $request->input('name'),
+			'description' => 'Descrizione non disponibile',
+			//	'url' =>  $item->store('public/images'),
+			'url' =>  $request->file('url')->store('public/images'),
+			'monument_id' => $monument->id,
+			'user_id' => '1', // Da migliorare
+		]);
+		//  }
+		//};
 
 		return redirect()->action('MonumentController@index');
 
@@ -87,7 +88,7 @@ class MonumentController extends Controller
 
 	public function show(Monument $monument)
 	{
-        // $result = $monument->with('user')->with('images')->first();
+		// $result = $monument->with('user')->with('images')->first();
 		return view('monuments.show')->with('monument', $monument);
 	}
 	/**
@@ -124,15 +125,21 @@ class MonumentController extends Controller
 			'description' => $request['description'],
 			'lat' => $request['lat'],
 			'lon' => $request['lon'],
-            'user_id' => '1',
-        ]);
+			'user_id' => '1',
+		]);
 
-        Image::update([
+		$image_path = $monument->images[0]->url;
+		if(Storage::exists($image_path)) {
+			Storage::delete($image_path);
+		}
+
+
+		Image::where('monument_id', $monument->id)->update([
 			'title' => $request->input('name'),
 			'description' => 'Descrizione non disponibile',
-            'url' => $request->file('url')->store('public/images'),
-            'monument_id' => $monument->id,
-            'user_id' => '1', // Da migliorare
+			'url' => $request->file('url')->store('public/images'),
+			'monument_id' => $monument->id,
+			'user_id' => '1', // Da migliorare
 		]);
 
 		return redirect()->action('MonumentController@index');
@@ -147,13 +154,13 @@ class MonumentController extends Controller
 
 	public function destroy(Monument $monument)
 	{
-        // $result = $monument->with('user')->with('images')->orderBy('id', 'desc')->first();
-        foreach ($monument->images as $image) {
-            $image_path = $image->url;
-            if(Storage::exists($image_path)) {
-                 Storage::delete($image_path);
-            }
-        }
+		// $result = $monument->with('user')->with('images')->orderBy('id', 'desc')->first();
+		foreach ($monument->images as $image) {
+			$image_path = $image->url;
+			if(Storage::exists($image_path)) {
+				Storage::delete($image_path);
+			}
+		}
 
 		$monument->delete();
 		return redirect()->action('MonumentController@index');
