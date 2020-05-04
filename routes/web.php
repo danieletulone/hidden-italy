@@ -29,6 +29,6 @@ Route::get('/image', 'ImageController@index')->name('image');
 
 Route::resource('monuments', 'MonumentController');
 
-Route::resource('monumentsCategories', 'MonumentsCategoriesController');
+Route::resource('monumentsCategories', 'MonumentCategoryController');
 
-Route::resource('categories', 'CategoriesController');
+Route::resource('categories', 'CategoryController');
