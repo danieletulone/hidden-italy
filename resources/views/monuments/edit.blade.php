@@ -21,6 +21,13 @@
 			<label for="Lon">Lon</label>
 			<input name="lon" type="number" step="any" class="form-control" value="{{ $monument->lon }}">
 		</div>
+		<div class="form-group">
+				<select name="category_id" class="form-control" id="category_id" required>
+				@foreach($categories as $id => $display)
+				<option value="{{ $id }}" {{ (isset($monument->category->id) && $id === $monument->category->id) ? 'selected' : ''}}>{{ $display }}</option>
+				@endforeach
+			</select>
+		</div>
 		{{-- <div class="form-group">
 			<select name="user_id" class="form-control" id="user_id" required>
 				@foreach($monument->users as $id => $display)

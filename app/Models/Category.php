@@ -11,8 +11,8 @@ class Category extends Model
 			'description'
 	];
 
-	public function monumentCategories()
+	public function monuments()
 	{
-		return $this->hasMany('App\Models\MonumentCategory');
+		return $this->hasMany('App\Models\Monument');
 	}
 }

@@ -6,31 +6,32 @@ use Illuminate\Support\Facades\Schema;
 
 class CreateMonumentsTable extends Migration
 {
-    /**
-     * Run the migrations.
-     *
-     * @return void
-     */
-    public function up()
-    {
-        Schema::create('monuments', function (Blueprint $table) {
-            $table->id();
+	/**
+	* Run the migrations.
+	*
+	* @return void
+	*/
+	public function up()
+	{
+		Schema::create('monuments', function (Blueprint $table) {
+			$table->id();
 			$table->string('name');
 			$table->string('description');
 			$table->decimal('lat');
 			$table->decimal('lon');
 			$table->foreignId('user_id')->constrained()->onDelete('cascade');
-            $table->timestamps();
-        });
-    }
+			$table->foreignId('category_id')->constrained()->onDelete('cascade');
+			$table->timestamps();
+		});
+	}
 
-    /**
-     * Reverse the migrations.
-     *
-     * @return void
-     */
-    public function down()
-    {
-        Schema::dropIfExists('monuments');
-    }
+	/**
+	* Reverse the migrations.
+	*
+	* @return void
+	*/
+	public function down()
+	{
+		Schema::dropIfExists('monuments');
+	}
 }

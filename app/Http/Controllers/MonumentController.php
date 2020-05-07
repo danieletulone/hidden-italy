@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Monument;
 use App\Models\User;
 use App\Models\Image;
+use App\Models\Category;
 use Illuminate\Http\Request;
 use App\http\Requests\MonumentRequest;
 use Illuminate\Support\Facades\Storage;
@@ -39,8 +40,11 @@ class MonumentController extends Controller
 
 	public function create()
 	{
+		$categories = Category::get()->pluck('description', 'id');
 		$users = User::get()->pluck('name', 'id');
-		return view('monuments.create')->with('users', $users);
+		return view('monuments.create')
+		->with('users', $users)
+		->with('categories', $categories);
 
 	}
 	/**
@@ -60,6 +64,7 @@ class MonumentController extends Controller
 			'lat'=> $request->input('lat'),
 			'lon'=> $request->input('lon'),
 			'user_id' => '1',  // Auth::id()
+			'category_id' => $request->input('category_id'),
 		]);
 
 		//  $file=$request->file('url');
@@ -103,7 +108,10 @@ class MonumentController extends Controller
 		// $result = $monument->with('user')->with('images')->orderBy('id', 'desc')->first();
 		// $users = User::get()->pluck('name', 'id');
 		// $images = Image::get()->pluck('title', 'id');
-		return view('monuments.edit')->with('monument', $monument);
+		$categories = Category::get()->pluck('description', 'id');
+		return view('monuments.edit')
+		->with('categories', $categories)
+		->with('monument', $monument);
 		// ->with('users', $users)
 		// ->with('monument', $result);
 		// ->with('images', $images);
@@ -125,6 +133,7 @@ class MonumentController extends Controller
 			'description' => $request['description'],
 			'lat' => $request['lat'],
 			'lon' => $request['lon'],
+			'category_id' => $request['category_id'],
 			'user_id' => '1',
 		]);
 
