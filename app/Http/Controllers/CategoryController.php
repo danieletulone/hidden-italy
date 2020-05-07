@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\Category;
 use Illuminate\Http\Request;
+use App\http\Requests\CategoryRequest;
+
 
 class CategoryController extends Controller
 {
@@ -36,7 +38,7 @@ class CategoryController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(CategoryRequest $request)
     {
         Category::create([
 					'description' => $request->input('description'),
@@ -75,7 +77,7 @@ class CategoryController extends Controller
      * @param  \App\Models\Category  $category
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Category $category)
+    public function update(CategoryRequest $request, Category $category)
     {
 			Category::where('id', $category->id)->update([
 				'description' => $request['description'],

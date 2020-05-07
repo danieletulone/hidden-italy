@@ -28,6 +28,11 @@
 				@endforeach
 			</select>
 		</div>
+		<div class="form-grup">
+			<label for="Image">Image:</label></br>
+      <img width="450px"src="{{ Storage::url($monument->images[0]->url) }}"/>
+		</div>
+
 		{{-- <div class="form-group">
 			<select name="user_id" class="form-control" id="user_id" required>
 				@foreach($monument->users as $id => $display)
