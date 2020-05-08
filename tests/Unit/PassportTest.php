@@ -6,7 +6,37 @@ use Tests\TestCase;
 
 class PassportTest extends TestCase
 {
-    const LOGIN_ROUTE = '/api/login';
+
+    private function getLoginPath()
+    {
+        return '/api/auth/login';
+    }
+
+    private function getRegisterPath()
+    {
+        return '/api/auth/register';
+    }
+
+    /**
+     * Testing login with right data.
+     *
+     * @return void
+     */
+    public function testRegistrationSuccess()
+    {
+        $this->artisan('migrate:refresh');
+        $this->artisan('passport:install');
+
+        $response = $this->postJson($this->getRegisterPath(), [
+            'firstname' => 'Daniele',
+            'lastname' => 'Tulone',
+            'email' => 'test@example.com',
+            'password' => 'password',
+            'password_confirmation' => 'password',
+        ]);
+        
+        $response->assertStatus(201);
+    }
 
     /**
      * Test login sending no data.
@@ -15,7 +45,7 @@ class PassportTest extends TestCase
      */
     public function testSendNoDataToLogin()
     {
-        $response = $this->postJson('/api/login');
+        $response = $this->postJson($this->getLoginPath());
         $response->assertStatus(422);
     }
 
@@ -26,7 +56,7 @@ class PassportTest extends TestCase
      */
     public function testSendWrongEmailFormatToLogin()
     {
-        $response = $this->postJson('/api/login', [
+        $response = $this->postJson($this->getLoginPath(), [
             'email' => 'test',
             'password' => 'test'
         ]);
@@ -41,9 +71,9 @@ class PassportTest extends TestCase
      */
     public function testNoAuthenticationOnLogin()
     {
-        $response = $this->postJson('/api/login', [
-            'email'     => 'danieletulone.work@gmail.com',
-            'password'  => 'Hacksombrero'
+        $response = $this->postJson($this->getLoginPath(), [
+            'email'     => 'test@example.com',
+            'password'  => 'pass'
         ]);
 
         $response->assertStatus(401);
@@ -59,9 +89,9 @@ class PassportTest extends TestCase
      */
     public function testAuthenticationOnLogin()
     {
-        $response = $this->postJson('/api/login', [
-            'email'     => 'danieletulone.work@gmail.com',
-            'password'  => 'Hacksombrero1'
+        $response = $this->postJson($this->getLoginPath(), [
+            'email'     => 'test@example.com',
+            'password'  => 'password'
         ]);
         
         $response->assertStatus(201);
@@ -72,28 +102,34 @@ class PassportTest extends TestCase
      *
      * @return void
      */
-    public function testRegistrationSuccess()
+    public function testRegistrationFailureEmailWrong()
     {
-        $response = $this->postJson('/api/login', [
-            'email'     => 'danieletulone.work@gmail.com',
-            'password'  => 'Hacksombrero1'
+        $response = $this->postJson($this->getRegisterPath(), [
+            'firstname' => 'Daniele',
+            'lastname' => 'Tulone',
+            'email' => 'test@example',
+            'password' => 'password',
+            'password_confirmation' => 'password',
         ]);
         
-        $response->assertStatus(201);
+        $response->assertStatus(422);
     }
 
-    /**
+     /**
      * Testing login with right data.
      *
      * @return void
      */
-    public function testRegistrationFailure()
+    public function testRegistrationFailurePasswordWrong()
     {
-        $response = $this->postJson('/api/login', [
-            'email'     => 'danieletulone.work@gmail.com',
-            'password'  => 'Hacksombrero1'
+        $response = $this->postJson($this->getRegisterPath(), [
+            'firstname' => 'Daniele',
+            'lastname' => 'Tulone',
+            'email' => 'test@example',
+            'password' => 'password',
+            'password_confirmation' => 'pass',
         ]);
         
-        $response->assertStatus(201);
+        $response->assertStatus(422);
     }
 }
