@@ -7,6 +7,7 @@ use App\Http\Requests\Auth\PassportLoginRequest;
 use App\Http\Requests\Auth\PassportRegisterRequest;
 use App\Http\Responses\Auth\PassportLoginResponse;
 use App\Http\Responses\Auth\PassportRegisterResponse;
+use App\Http\Responses\Auth\UnauthorisedResponse;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
@@ -47,10 +48,10 @@ class PassportController extends Controller
         if (Auth::attempt($credentials)) {
             $user = Auth::user();
             $token = $this->generateToken($user); 
-             
+            
             return new PassportLoginResponse($user, $token);
         } else { 
-            return response()->json(['error'=>'Unauthorised'], 401); 
+            return new UnauthorisedResponse(); 
         }
     }
 

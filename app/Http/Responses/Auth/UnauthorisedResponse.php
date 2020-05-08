@@ -4,7 +4,7 @@ namespace App\Http\Responses\Auth;
 
 use Illuminate\Contracts\Support\Responsable;
 
-class PassportUnauthorizeResponse implements Responsable
+class UnauthorisedResponse implements Responsable
 {
     private const HTTP_CODE = 401;
 

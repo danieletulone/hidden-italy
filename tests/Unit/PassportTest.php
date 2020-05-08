@@ -78,7 +78,7 @@ class PassportTest extends TestCase
 
         $response->assertStatus(401);
         $response->assertJson([
-            "error" => "Unauthorised"
+            "message" => "Unauthorised."
         ]);
     }
 
