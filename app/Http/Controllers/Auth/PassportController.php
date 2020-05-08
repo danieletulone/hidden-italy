@@ -6,10 +6,19 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\Auth\PassportLoginRequest;
 use App\Http\Requests\Auth\PassportRegisterRequest;
 use App\Http\Responses\Auth\PassportLoginResponse;
+use App\Http\Responses\Auth\PassportRegisterResponse;
+use App\Models\User;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 
 class PassportController extends Controller
 {
+    /**
+     * Get creden
+     *
+     * @param PassportLoginRequest $request
+     * @return void
+     */
     public function getCredentials(PassportLoginRequest $request)
     {
         return $request->only([
@@ -45,8 +54,15 @@ class PassportController extends Controller
         }
     }
 
-    public function registration(PassportRegisterRequest $request)
+    public function register(PassportRegisterRequest $request)
     {
-        
+        $user = User::create([
+            'firstname' => $request->firstname,
+            'lastname'  => $request->lastname,
+            'email'     => $request->email,
+            'password'  => Hash::make($request->password),
+        ]);
+
+        return new PassportRegisterResponse($user);
     }
 }
