@@ -49,8 +49,7 @@
 
 
             <label for="picture">Choose a Picture to upload</label> <br>
-            <input type="file" name="url" multiple type="file" class="file-input" placeholder="Picture" src="{{Storage::get($monument->images[0]->url)}}">
-            {{-- <img width="650px"src="{{  }}"/> --}}
+            <input type="file" name="url" multiple type="file" class="file-input" src="{{Storage::get($monument->images[0]->url)}}">
 
 		</div>
 		<div class="form-group">
