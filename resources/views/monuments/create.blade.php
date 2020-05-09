@@ -28,8 +28,8 @@
 			<label for="main_category_id">Categoria Principale: </label>
 
 			<select name="main_category_id" class="form-control" id="main_category_id" required>
-				@foreach($categories as $id => $display)
-				<option value="{{ $id }}" {{ (isset($monument->category_id) && $id === $monument->cataegory_id) ? 'selected' : ''}}>{{ $display }}</option>
+				@foreach($categories as $id => $description)
+				<option value="{{ $id }}" {{ (isset($monument->category_id) && $id === $monument->category_id) ? 'selected' : ''}}>{{ $description }}</option>
 				@endforeach
 			</select>
 		</div>
@@ -38,9 +38,9 @@
 			<label>Altre categorie: </label>
 
 			<div>
-				@foreach($categories as $id => $display)
+				@foreach($categories as $id => $description)
 					<input type="checkbox" name="categories[]" value="{{ $id }}" />
-					<label>{{ $display }}</label>
+					<label>{{ $description }}</label>
 				@endforeach
 			</div>
 
