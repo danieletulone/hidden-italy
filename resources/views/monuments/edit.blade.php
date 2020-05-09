@@ -29,9 +29,17 @@
 			</select>
 		</div>
 		<div class="form-grup">
-            <label for="Image">Image:</label></br>
+			<label for="Image">Image:</label></br>
       <img width="450px"src="{{ Storage::url($monument->images[0]->url) }}"/>
-        </div>
+		</div>
+
+		{{-- <div class="form-group">
+			<select name="user_id" class="form-control" id="user_id" required>
+				@foreach($monument->users as $id => $display)
+				<option value="{{ $id }}" {{ (isset($monument->users_id) && $id === $monument->user_id) ? 'selected' : ''}}>{{ $display }}</option>
+				@endforeach
+			</select>
+		</div> --}}
 		<div class="form-group">
 			{{-- <select name="image_id" class="form-control" id="image_id" required>
 				@foreach($images as $id => $display)
@@ -41,7 +49,7 @@
 
 
             <label for="picture">Choose a Picture to upload</label> <br>
-            <input type="file" name="url" multiple type="file" class="file-input" placeholder="Picture" src="{{Storage::get($monument->images[0]->url)}}">
+            <input type="file" name="url" multiple type="file" class="file-input" src="{{Storage::get($monument->images[0]->url)}}">
 
 		</div>
 		<div class="form-group">

@@ -194,3 +194,8 @@ class MonumentController extends Controller
         return redirect()->action('MonumentController@index');
     }
 }
+
+// $pet_name = $request['name'].".jpg";
+// $dom = 'http://localhost:8000';
+// $path = $dom.'/storage/'. Storage::putFileAs('product_image', $request->file('product_img')),$pet_name
+// CAMBIARE FILESYSTEM DEFAULT IN PUBLIC
