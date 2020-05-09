@@ -4,10 +4,12 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-class monumentCategory extends Model
+class MonumentCategory extends Model
 {
-	// public function category()
-	// {
-	// 	return $this->belongsTo('App\Models\Category');
-	// }
+    protected $fillable = [
+        'monument_id',
+        'category_id'
+    ];
+
+    public $timestamps = false;
 }

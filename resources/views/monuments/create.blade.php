@@ -23,12 +23,27 @@
 			<label for="Lon">Lon</label>
 			<input name="lon" type="number" step="any" class="form-control">
 		</div>
+
 		<div class="form-group">
-				<select name="category_id" class="form-control" id="category_id" required>
+			<label for="main_category_id">Categoria Principale: </label>
+
+			<select name="main_category_id" class="form-control" id="main_category_id" required>
 				@foreach($categories as $id => $display)
 				<option value="{{ $id }}" {{ (isset($monument->category_id) && $id === $monument->cataegory_id) ? 'selected' : ''}}>{{ $display }}</option>
 				@endforeach
 			</select>
+		</div>
+
+		<div class="form-group">
+			<label>Altre categorie: </label>
+
+			<div>
+				@foreach($categories as $id => $display)
+					<input type="checkbox" name="categories[]" value="{{ $id }}" />
+					<label>{{ $display }}</label>
+				@endforeach
+			</div>
+
 		</div>
 
 		{{-- <div class="form-group">
@@ -40,7 +55,7 @@
 		<div class="form-grop">
 			<div class="custom-file">
 				<label class="file-label" for="picture">Picture</label>
-				<input name="url" multiple type="file" class="file-input" placeholder="Picture"/>
+				<input name="url[]" multiple type="file" class="file-input" placeholder="Picture"/>
 			</div>
 		</div>
 

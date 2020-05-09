@@ -13,10 +13,16 @@
 		<dd class="col-sm-9">{{ $monument->lat }}</dd>
 		<dt class="col-sm-3">Lonitude</dt>
 		<dd class="col-sm-9">{{ $monument->lon }}</dd>
-		<dt class="col-sm-3">Category</dt>
+		<dt class="col-sm-3">Main Category</dt>
 		<dd class="col-sm-9">{{ $monument->category->description }}</dd>
 		<dt class="col-sm-3">Creator</dt>
 		<dd class="col-sm-9">{{ $monument->user["name"] }}</dd>
+		<dt class="col-sm-3">Categories</dt>
+		<dd class="col-sm-9">
+			@foreach ($monument->categories as $category)
+            	<span class="badge badge-primary">{{ $category->description }}</span>
+            @endforeach
+		</dd>
 		<dt class="col-sm-3">Image</dt>
 		<dd>
             @foreach ($monument->images as $item)

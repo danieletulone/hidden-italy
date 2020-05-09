@@ -23,9 +23,9 @@ class UsersTableSeeder extends Seeder
 					'email_verified_at' => now(),
 					'password' => '1234',
 					'remember_token' => Str::random(10),
-					'role_id' => 2, //DA COLLEGARE A DB
+					'role_id' => 1, //DA COLLEGARE A DB
 			]);
 
-			// factory(User::class, 1)->create(); //NON FUNZIONA IL FACORIES DEL USER
+			// factory(User::class, 1)->create(); //NON FUNZIONA IL FACTORIES DEL USER
     }
 }

@@ -10,7 +10,8 @@
 				<th>Description</th>
 				<th>Lat</th>
 				<th>Lon</th>
-				<th>Category</th>
+				<th>Main Category</th>
+				<th>Others Categories</th>
 				<th class="Actions">Actions</th>
 			</tr>
 		</thead>
@@ -22,7 +23,12 @@
 				<td>{{ $monument->description }}</td>
 				<td>{{ $monument->lat }}</td>
 				<td>{{ $monument->lon }}</td>
-				<td>{{ $monument->category->description }}</td>
+                <td>{{ $monument->category->description }}</td>
+                <td>
+					@foreach ($monument->categories as $category)
+						<span class="badge badge-primary">{{ $category->description }}</span>
+					@endforeach
+				</td>
 
 				<td class="actions">
 					<a

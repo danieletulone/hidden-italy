@@ -28,4 +28,16 @@ class Monument extends Model
 		return $this->belongsTo('App\Models\Category');
 	}
 
+	public function categories()
+	{
+		return $this->hasManyThrough(
+			'App\Models\Category',
+			'App\Models\MonumentCategory',
+			'monument_id',
+			'id',
+			'id',
+			'category_id'
+		);
+	}
+
 }
