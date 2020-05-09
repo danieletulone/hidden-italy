@@ -95,8 +95,6 @@ class MonumentController extends Controller
             ]);
         };
 
-
-
         return redirect()->action('MonumentController@index');
     }
     /**
@@ -125,7 +123,8 @@ class MonumentController extends Controller
         // $users = User::get()->pluck('name', 'id');
         // $images = Image::get()->pluck('title', 'id');
         $categories = Category::get()->pluck('description', 'id');
-        $monumentCategories = MonumentCategory::get()->pluck('description', 'id');
+        $monumentCategories = MonumentCategory::get()->where('monument_id', $monument->id);
+
         return view('monuments.edit')
             ->with('categories', $categories)
             ->with('monumentCategories', $monumentCategories)
@@ -133,8 +132,6 @@ class MonumentController extends Controller
         // ->with('users', $users)
         // ->with('monument', $result);
         // ->with('images', $images);
-
-
     }
     /**
      * Update the specified resource in storage.
@@ -172,7 +169,6 @@ class MonumentController extends Controller
                 ]);
             }
         }
-
 
         return redirect()->action('MonumentController@index');
     }

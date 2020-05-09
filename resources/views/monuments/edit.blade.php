@@ -32,26 +32,39 @@
         <div class="form-group">
 			<label>Altre categorie: </label>
 			<div>
-                @foreach($monument->categories as  $id => $category )
+                {{-- @foreach($categories as  $id => $description ) --}}
                 {{--##  Se risulta errore Form not found
                         composer update
                     ##  e se non funziona ancora
                         composer require laravelcollective/html
                 --}}
 
+                @foreach($categories as  $category => $categoryName )
 
-
-					{{-- @foreach ($monumentCategories as $id => $monumentCategory)
-												@if($monumentCategory->category_id == $category->id )
-											{!! Form::checkbox( $category, $category->id, true)!!}
-											@else
-											{!! Form::checkbox( $category, $category->id, false)!!}
-                                            @endif
-                    @endforeach
-                    {!! Form::label($category,  $category) !!}--}} {{-- Funziona --}}
+                    <input name="categories[]" type="checkbox" value="{{ $category }}"
+                        @foreach ($monumentCategories as $monumentCategory => $display)
+			                    @if ($display->category_id == $category)
+                                    checked
+                                {{-- @else
+                                    check="False" --}}
+                                @endif
+			            @endforeach
+                    />
+			    <label>{{ $categoryName }}</label>
                 @endforeach
-
             </div>
+
+                {{-- {!! Form::checkbox( $description,
+                                    $id,
+                                    @if ($loop->index)
+                                        isset($monuments->categories->description) ? true : false
+                                    )
+                                    @endif
+                                    !!}
+                --}}
+
+                {{-- {!! Form::label($description, $description) !!}Funziona --}}
+
                 {{-- STRUTTURA Form
                     {{ Form::checkbox( 1st argument, 2nd argument, 3rd argument, 4th argument ) }}
                     First argument : name
