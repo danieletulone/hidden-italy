@@ -4,7 +4,8 @@
 	<a class="btn btn-primary mb-3" href="{{ route('monuments.index') }}" role="button">Back to Monuments</a>
 	<form action="{{ route('monuments.update', ['monument' => $monument]) }}" method="POST" enctype="multipart/form-data">
 		@method('PUT')
-		@csrf
+        @csrf
+        {{var_dump($errors)}}
 		<div class="form-group">
 			<label for="Name">Name</label>
 			<input name="name" type="input" class="form-control" aria-describedby="Monument Name" value="{{ $monument->name }}">
@@ -42,61 +43,34 @@
                 @foreach($categories as  $category => $categoryName )
 
                     <input name="categories[]" type="checkbox" value="{{ $category }}"
-                        @foreach ($monumentCategories as $monumentCategory => $display)
+                        {{-- @foreach ($monumentCategories as $monumentCategory => $display)
 			                    @if ($display->category_id == $category)
                                     checked
-                                {{-- @else
-                                    check="False" --}}
                                 @endif
-			            @endforeach
+                        @endforeach --}}
+                        @if (in_array($category,$selectedCategories))
+                            checked
+                        @endif
                     />
 			    <label>{{ $categoryName }}</label>
                 @endforeach
             </div>
 
-                {{-- {!! Form::checkbox( $description,
-                                    $id,
-                                    @if ($loop->index)
-                                        isset($monuments->categories->description) ? true : false
-                                    )
-                                    @endif
-                                    !!}
-                --}}
-
-                {{-- {!! Form::label($description, $description) !!}Funziona --}}
-
-                {{-- STRUTTURA Form
-                    {{ Form::checkbox( 1st argument, 2nd argument, 3rd argument, 4th argument ) }}
-                    First argument : name
-                    Second argument : value
-                    Third argument : checked or not checked this takes: true or false
-                    Fourth argument : additional attributes (e.g., checkbox css classe)
-                --}}
-
-                {{-- ESEMPIO DI UTILIZZO FORM
-                    $working_days = array( 0 => 'Mon', 1 => 'Tue', 2 => 'Wed',
-                       3 => 'Thu', 4 => 'Fri', 5 => 'Sat', 6 => 'Sun' );
-
-                    @foreach ( $working_days as $i => $working_day )
-                        {!! Form::checkbox( 'working_days[]',
-                            $working_day,
-                            !in_array($working_days[$i],$saved_working_days),
-                            ['class' => 'md-check', 'id' => $working_day]
-                            ) !!}
-                        {!! Form::label($working_day,  $working_day) !!}
-                    @endforeach
-                    $saved_working_days is an array of days (have 7 days, checked & unchecked) --}}
-
 		</div>
 		<div class="form-grup">
-			<label for="Image">Images:</label></br>
-			@foreach ($monument->images as $item)
-           		<img width="350px"src="{{ Storage::url($item->url) }}"/>
+			<label for="Image">Images:</label>
+            @foreach ($monument->images as $image)
+                <form action="{{ route('monument.image.delete', ['id' => $image->id ]) }}" method="POST" >
+					@csrf
+					@method('DELETE')
+                    <img width="350px"src="{{ Storage::url($image->url) }}"/><br>
+                    <input type="submit" class="btn btn-success" title="Delete" value="Delete" />
+				</form>
 			@endforeach
         </div>
 		<div class="form-group">
             <label for="picture">Choose a Picture to upload</label> <br>
-            <input type="file" name="url" multiple type="file" class="file-input" src="{{Storage::get($monument->images[0]->url)}}">
+            <input type="file" name="url[]" multiple type="file" class="file-input" />
 		</div>
 		<div class="form-group">
 			<button type="submit" class="btn btn-primary" role="button">Update Monument</button>

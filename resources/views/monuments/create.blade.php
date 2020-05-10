@@ -8,42 +8,34 @@
 			<label for="Name">Name</label>
 			<input name="name" type="input" class="form-control" aria-describedby="Monument Name">
 		</div>
-
 		<div class="form-group">
 			<label for="Description">Description</label>
 			<input name="description" type="text" class="form-control">
 		</div>
-
 		<div class="form-group">
 			<label for="Lat">Lat</label>
 			<input name="lat" type="number" step="any" class="form-control">
 		</div>
-
 		<div class="form-group">
 			<label for="Lon">Lon</label>
 			<input name="lon" type="number" step="any" class="form-control">
 		</div>
-
 		<div class="form-group">
 			<label for="main_category_id">Categoria Principale: </label>
-
 			<select name="main_category_id" class="form-control" id="main_category_id" required>
 				@foreach($categories as $id => $description)
 				<option value="{{ $id }}" {{ (isset($monument->category_id) && $id === $monument->category_id) ? 'selected' : ''}}>{{ $description }}</option>
 				@endforeach
 			</select>
 		</div>
-
 		<div class="form-group">
 			<label>Altre categorie: </label>
-
 			<div>
 				@foreach($categories as $id => $description)
 					<input type="checkbox" name="categories[]" value="{{ $id }}" />
 					<label>{{ $description }}</label>
 				@endforeach
 			</div>
-
 		</div>
 
 		{{-- <div class="form-group">
@@ -58,7 +50,6 @@
 				<input name="url[]" multiple type="file" class="file-input" placeholder="Picture"/>
 			</div>
 		</div>
-
 		<div class="form-group">
 			<button type="submit" class="btn btn-primary" role="button">Add Monument</button>
 		</div>

@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Auth;
 
 /*
 |--------------------------------------------------------------------------
@@ -28,6 +29,8 @@ Route::get('/role', 'RoleController@index')->name('role');
 Route::get('/image', 'ImageController@index')->name('image');
 
 Route::resource('monuments', 'MonumentController');
+
+Route::delete('monuments/image/{id}', 'MonumentController@deleteImage')->name('monument.image.delete');
 
 Route::resource('monumentsCategories', 'MonumentCategoryController');
 

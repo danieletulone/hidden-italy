@@ -41,7 +41,7 @@ class MonumentRequest extends FormRequest
     {
         $rules = $this->rules;
 
-        if ($this->has('id')) {
+        if ($this->monument != null) {
             $rules['url'] = ['array'];
         }
 
