@@ -15,8 +15,7 @@ class ImageController extends Controller
      */
     public function index()
     {
-			return DB::table('images')->get();
-
+        return DB::table('images')->get();
     }
 
     /**
@@ -48,7 +47,6 @@ class ImageController extends Controller
      */
     public function show($id)
     {
-
     }
 
     /**

@@ -9,11 +9,11 @@ use Faker\Generator as Faker;
 
 $factory->define(Image::class, function (Faker $faker) {
     return [
-			'title' => $faker->word,
-			'description' => $faker->word,
-      'url' => '',
-      'monument_id' => $faker->numberBetween(1, Monument::orderBy('id', 'DESC')->first()->id),
-			'user_id' => $faker->numberBetween(1, User::orderBy('id', 'DESC')->first()->id),
+        'title' => $faker->word,
+        'description' => $faker->word,
+        'url' => '',
+        'monument_id' => $faker->numberBetween(1, Monument::orderBy('id', 'DESC')->first()->id),
+        'user_id' => $faker->numberBetween(1, User::orderBy('id', 'DESC')->first()->id),
 
     ];
 });

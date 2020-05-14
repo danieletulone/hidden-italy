@@ -13,21 +13,21 @@ class CategorySeeder extends Seeder
      */
     public function run()
     {
-			Category::insert([
-					'description' => 'Chiesa',
-					'created_at' => date('Y-m-d H:i:s'),
-			]);
-			Category::insert([
-					'description' => 'Piazza',
-					'created_at' => date('Y-m-d H:i:s'),
-			]);
-			Category::insert([
-					'description' => 'Monumento',
-					'created_at' => date('Y-m-d H:i:s'),
-			]);
-			Category::insert([
-					'description' => 'Edificio',
-					'created_at' => date('Y-m-d H:i:s'),
-			]);
+        Category::insert([
+            'description' => 'Chiesa',
+            'created_at' => date('Y-m-d H:i:s'),
+        ]);
+        Category::insert([
+            'description' => 'Piazza',
+            'created_at' => date('Y-m-d H:i:s'),
+        ]);
+        Category::insert([
+            'description' => 'Monumento',
+            'created_at' => date('Y-m-d H:i:s'),
+        ]);
+        Category::insert([
+            'description' => 'Edificio',
+            'created_at' => date('Y-m-d H:i:s'),
+        ]);
     }
 }

@@ -12,6 +12,5 @@ class MonumentCategorySeeder extends Seeder
      */
     public function run()
     {
-
     }
 }

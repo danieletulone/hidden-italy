@@ -16,9 +16,8 @@ class CategoryController extends Controller
      */
     public function index()
     {
-				$categories = Category::orderBy('id', 'desc')->get();
+        $categories = Category::orderBy('id', 'desc')->get();
         return view('categories.index')->with('categories', $categories);
-
     }
 
     /**
@@ -29,7 +28,6 @@ class CategoryController extends Controller
     public function create()
     {
         return view('categories.create');
-
     }
 
     /**
@@ -41,9 +39,9 @@ class CategoryController extends Controller
     public function store(CategoryRequest $request)
     {
         Category::create([
-					'description' => $request->input('description'),
-				]);
-				return redirect()->action('CategoryController@index');
+            'description' => $request->input('description'),
+        ]);
+        return redirect()->action('CategoryController@index');
     }
 
     /**
@@ -54,8 +52,7 @@ class CategoryController extends Controller
      */
     public function show(Category $category)
     {
-			return view('categories.show')->with('category', $category);
-
+        return view('categories.show')->with('category', $category);
     }
 
     /**
@@ -66,8 +63,7 @@ class CategoryController extends Controller
      */
     public function edit(Category $category)
     {
-			return view('categories.edit')->with('category', $category);
-
+        return view('categories.edit')->with('category', $category);
     }
 
     /**
@@ -79,11 +75,10 @@ class CategoryController extends Controller
      */
     public function update(CategoryRequest $request, Category $category)
     {
-			Category::where('id', $category->id)->update([
-				'description' => $request['description'],
-			]);
-			return redirect()->action('CategoryController@index');
-
+        Category::where('id', $category->id)->update([
+            'description' => $request['description'],
+        ]);
+        return redirect()->action('CategoryController@index');
     }
 
     /**
@@ -94,7 +89,7 @@ class CategoryController extends Controller
      */
     public function destroy(Category $category)
     {
-				$category->delete();
-				return redirect()->action('CategoryController@index');
+        $category->delete();
+        return redirect()->action('CategoryController@index');
     }
 }

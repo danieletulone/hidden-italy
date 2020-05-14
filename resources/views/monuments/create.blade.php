@@ -37,13 +37,6 @@
 				@endforeach
 			</div>
 		</div>
-
-		{{-- <div class="form-group">
-
-            <label for="disabledTextInput">Created by</label>
-            <input type="text" id="disabledTextInput" class="form-control" placeholder={{'user_id'}}>
-		</div> --}}
-
 		<div class="form-grop">
 			<div class="custom-file">
 				<label class="file-label" for="picture">Picture</label>

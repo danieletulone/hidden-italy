@@ -7,12 +7,12 @@ use Illuminate\Database\Eloquent\Model;
 class Category extends Model
 {
 
-	protected $fillable = [
-			'description'
-	];
+    protected $fillable = [
+        'description'
+    ];
 
-	public function monuments()
-	{
-		return $this->hasMany('App\Models\Monument');
-	}
+    public function monuments()
+    {
+        return $this->hasMany('App\Models\Monument');
+    }
 }

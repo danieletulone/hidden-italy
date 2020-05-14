@@ -29,30 +29,29 @@
 						<span class="badge badge-primary">{{ $category->description }}</span>
 					@endforeach
 				</td>
-
 				<td class="actions">
 					<a
 					href="{{ action('MonumentController@show', ['monument' => $monument->id]) }}"
 					alt="View"
 					title="View">
 					View
-				</a>
-				<a
-				href="{{ action('MonumentController@edit', ['monument' => $monument->id]) }}"
-				alt="Edit"
-				title="Edit">
-				Edit
-			</a>
-			<form action="{{ action('MonumentController@destroy', ['monument' => $monument->id]) }}" method="POST">
-				@method('DELETE')
-				@csrf
-				<button type="submit" class="btn btn-link" title="Delete" value="DELETE">Delete</button>
-			</form>
-		</td>
-	</tr>
-	@empty
-	@endforelse
-</tbody>
-</table>
+				    </a>
+				    <a
+				    href="{{ action('MonumentController@edit', ['monument' => $monument->id]) }}"
+				    alt="Edit"
+				    title="Edit">
+				    Edit
+			        </a>
+			        <form action="{{ action('MonumentController@destroy', ['monument' => $monument->id]) }}" method="POST">
+				    @method('DELETE')
+				    @csrf
+				    <button type="submit" class="btn btn-link" title="Delete" value="DELETE">Delete</button>
+			        </form>
+		        </td>
+	        </tr>
+	        @empty
+	        @endforelse
+        </tbody>
+    </table>
 </div>
 @endsection

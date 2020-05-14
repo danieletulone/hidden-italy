@@ -5,7 +5,6 @@
 	<form action="{{ route('monuments.update', ['monument' => $monument]) }}" method="POST" enctype="multipart/form-data">
 		@method('PUT')
         @csrf
-        <!-- {{var_dump($errors)}} -->
 		<div class="form-group">
 			<label for="Name">Name</label>
 			<input name="name" type="input" class="form-control" aria-describedby="Monument Name" value="{{ $monument->name }}">
@@ -33,16 +32,8 @@
         <div class="form-group">
 			<label>Altre categorie: </label>
 			<div>
-                
-
                 @foreach($categories as  $category => $categoryName )
-
                     <input name="categories[]" type="checkbox" value="{{ $category }}"
-                        {{-- @foreach ($monumentCategories as $monumentCategory => $display)
-			                    @if ($display->category_id == $category)
-                                    checked
-                                @endif
-                        @endforeach --}}
                         @if (in_array($category,$selectedCategories))
                             checked
                         @endif
@@ -50,20 +41,17 @@
 			    <label>{{ $categoryName }}</label>
                 @endforeach
             </div>
-
 		</div>
 		<div class="form-grup">
 			<label for="Image">Images:</label> <br>
             @foreach ($monument->images as $image)
                     <img width="350px"src="{{ Storage::url($image->url) }}"/><br>
                     <input type="submit" class="btn btn-primary delete" title="Delete" value="Delete" id="{{$image->id }}"/>
-				{{-- </form> --}}
 			@endforeach
         </div>
 		<div class="form-group">
             <label for="picture">Choose a Picture to upload</label> <br>
             <input type="file" name="url[]" multiple type="file" class="file-input" />
-
 		</div>
 		<div class="form-group">
 			<button type="submit" class="btn btn-primary" role="button">Update Monument</button>
@@ -71,8 +59,6 @@
 		</div>
 	</form>
 </div>
-
-
 @endsection
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>

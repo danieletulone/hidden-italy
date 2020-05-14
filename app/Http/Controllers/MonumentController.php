@@ -30,7 +30,7 @@ class MonumentController extends Controller
     {
         if ($request->categories != null && count($request->categories) > 0) {
             $monumentCategories = MonumentCategory::get()->where('monument_id', $monument->id);
-            foreach ($monumentCategories as $monumentCategory){
+            foreach ($monumentCategories as $monumentCategory) {
                 $monumentCategory->delete();
             }
             foreach ($request->categories as $category) {
@@ -41,18 +41,6 @@ class MonumentController extends Controller
             }
         }
     }
-
-    // public function updateCategories($request, $monument)
-    // {
-    //     if ($request->categories != null && count($request->categories) > 0) {
-    //         foreach ($request->categories as $category) {
-    //             MonumentCategory::create([
-    //                 'monument_id' => $monument->id,
-    //                 'category_id' => $category
-    //             ]);
-    //         }
-    //     }
-    // }
 
     public function index()
     {
@@ -86,7 +74,6 @@ class MonumentController extends Controller
      */
     public function store(MonumentRequest $request)
     {
-        // dd($request->allFiles('url'));
         $monument = Monument::create([
             'name' => $request->input('name'),
             'description' => $request->input('description'),
@@ -98,12 +85,10 @@ class MonumentController extends Controller
 
         $this->saveCategories($request, $monument);
 
-
         foreach ($request->file('url') as $image) {
             Image::create([
                 'title' => $request->input('name'),
                 'description' => 'Descrizione non disponibile',
-                //	'url' =>  $item->store('public/images'),
                 'url' =>  $image->store('public/images'),
                 'monument_id' => $monument->id,
                 'user_id' => '1', // Auth::id()
@@ -121,8 +106,6 @@ class MonumentController extends Controller
 
     public function show(Monument $monument)
     {
-        // $result = $monument->with('user')->with('images')->first();
-
         return view('monuments.show')->with('monument', $monument);
     }
     /**
@@ -134,10 +117,6 @@ class MonumentController extends Controller
 
     public function edit(Monument $monument)
     {
-
-        // $result = $monument->with('user')->with('images')->orderBy('id', 'desc')->first();
-        // $users = User::get()->pluck('name', 'id');
-        // $images = Image::get()->pluck('title', 'id');
         $categories = Category::get()->pluck('description', 'id');
         $monumentCategories = MonumentCategory::get()->where('monument_id', $monument->id);
         return view('monuments.edit')
@@ -155,7 +134,6 @@ class MonumentController extends Controller
      */
     public function update(MonumentRequest $request, Monument $monument)
     {
-
         Monument::where('id', $monument->id)->update([
             'name' => $request['name'],
             'description' => $request['description'],
@@ -165,15 +143,11 @@ class MonumentController extends Controller
             'user_id' => '1',  //Auth::id()
         ]);
 
-
         $this->saveCategories($request, $monument);
 
         if ($request->file('url') != null) {
 
             foreach ($request->file('url') as $image_path) {
-
-
-                // dd($request->file('url'));
 
                 Image::create([
                     'title' => $request->input('name'),
@@ -191,7 +165,7 @@ class MonumentController extends Controller
     /**
      * Remove an image.
      */
-    public function deleteImage ($id)
+    public function deleteImage($id)
     {
         $image = Image::findOrFail($id);
         Storage::delete($image->url);
@@ -208,7 +182,6 @@ class MonumentController extends Controller
      */
     public function destroy(Monument $monument)
     {
-        // $result = $monument->with('user')->with('images')->orderBy('id', 'desc')->first();
         foreach ($monument->images as $image) {
             $image_path = $image->url;
 
@@ -222,5 +195,3 @@ class MonumentController extends Controller
         return redirect()->action('MonumentController@index');
     }
 }
-
-

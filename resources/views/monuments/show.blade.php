@@ -28,7 +28,6 @@
             @foreach ($monument->images as $item)
             <img width="450px"src="{{ Storage::url($item->url) }}"/>
             @endforeach
-
 		</dd>
 	</dl>
 </div>

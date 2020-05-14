@@ -21,23 +21,23 @@
 					alt="View"
 					title="View">
 					View
-				</a>
-				<a
-				href="{{ action('CategoryController@edit', ['category' => $category->id]) }}"
-				alt="Edit"
-				title="Edit">
-				Edit
-			</a>
-			<form action="{{ action('CategoryController@destroy', ['category' => $category->id]) }}" method="POST">
-				@method('DELETE')
-				@csrf
-				<button type="submit" class="btn btn-link" title="Delete" value="DELETE">Delete</button>
-			</form>
-		</td>
-	</tr>
-	@empty
-	@endforelse
-</tbody>
-</table>
+				    </a>
+				    <a
+				    href="{{ action('CategoryController@edit', ['category' => $category->id]) }}"
+				    alt="Edit"
+				    title="Edit">
+				    Edit
+			        </a>
+			        <form action="{{ action('CategoryController@destroy', ['category' => $category->id]) }}" method="POST">
+				    @method('DELETE')
+				    @csrf
+				    <button type="submit" class="btn btn-link" title="Delete" value="DELETE">Delete</button>
+			        </form>
+		        </td>
+	        </tr>
+	        @empty
+	        @endforelse
+        </tbody>
+    </table>
 </div>
 @endsection
