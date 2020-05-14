@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\Monument;
 use App\Models\MonumentCategory;
 use App\Http\Requests;
+use App\http\Requests\MonumentRequest;
 use App\Http\Controllers\Controller;
 use App\Http\Controllers\Api\ApiController as ApiController;
 use App\Http\Resources\Monument as MonumentResource;
@@ -24,8 +25,7 @@ class MonumentController extends ApiController
 		public function show($id)
 		{
 			$monument = Monument::find($id);
-			$monumentCategories = MonumentCategories::where('monument_id', $monument->id);
-			if (is_null($monumentCategories)) {
+			if (is_null($monument)) {
 				return $this->sendError('Monument non found');
 			}
 			return $this->SendResponse($monument, 'Specific monument');
@@ -34,7 +34,16 @@ class MonumentController extends ApiController
 
 		public function store(Request $request)
 		{
-			//
+			$monument = Monument::create([
+					'name' => $request->input('name'),
+					'description' => $request->input('description'),
+					'lat' => $request->input('lat'),
+					'lon' => $request->input('lon'),
+					'user_id' => '1',  // Auth::id()
+					'category_id' => $request->input('main_category_id'),
+			]);
+			return $this->SendResponse($monument, 'Monument added');
+
 		}
 
 		public function update(Request $request, Monument $monument)
@@ -45,7 +54,7 @@ class MonumentController extends ApiController
 		public function destroy(Monument $monument)
 		{
 			$monument->delete();
-			return $this->sendResponse([], 'Task deleted'); //nessuna risposta
+			return $this->sendResponse([], 'Monument deleted'); //nessuna risposta
 
 		}
 }
