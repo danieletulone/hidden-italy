@@ -45,10 +45,10 @@
 		<div class="form-grup">
 			<label for="Image">Images:</label> <br>
             @foreach ($monument->images as $image)
-                    <img width="350px"src="{{ Storage::url($image->url) }}"/><br>
+                    <img height="100" src="{{ Storage::url($image->url) }}"/><br>
                     <input type="submit" class="btn btn-primary delete" title="Delete" value="Delete" id="{{$image->id }}"/>
-			@endforeach
-        </div>
+						@endforeach
+        </label>
 		<div class="form-group">
             <label for="picture">Choose a Picture to upload</label> <br>
             <input type="file" name="url[]" multiple type="file" class="file-input" />
@@ -58,8 +58,20 @@
 			<a href="{{ route('monuments.index') }}" class="btn btn-secondary">Cancel</a>
 		</div>
 	</form>
+
+	<label for="Image">Images:</label> <br>
+				@foreach ($monument->images as $image)
+				<form action="{{ route('image.destroy', ['image' => $image]) }}" method="POST" enctype="multipart/form-data">
+					@method('DELETE')
+			        @csrf
+							<img height="100" src="{{ Storage::url($image->url) }}"/><br>
+								<input type="submit" class="btn btn-primary delete" title="Delete" value="Delete" id="{{$image->id }}"/>
+				</form>
+				@endforeach
+		</label>
+
 </div>
 @endsection
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-<script src="{{ asset('js/deleteImage.js') }}" type="text/javascript"></script>
+<!-- <script src="{{ asset('js/deleteImage.js') }}" type="text/javascript"></script> -->

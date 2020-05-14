@@ -26,7 +26,7 @@
 		<dt class="col-sm-3">Image</dt>
 		<dd>
             @foreach ($monument->images as $item)
-            <img width="450px"src="{{ Storage::url($item->url) }}"/>
+            <img height="100" src="{{ Storage::url($item->url) }}"/>
             @endforeach
 		</dd>
 	</dl>

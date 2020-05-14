@@ -26,7 +26,7 @@ Route::get('/user', 'UserController@index')->name('user');
 
 Route::get('/role', 'RoleController@index')->name('role');
 
-Route::get('/image', 'ImageController@index')->name('image');
+//Route::get('/image', 'ImageController@index')->name('image');
 
 Route::resource('monuments', 'MonumentController');
 
@@ -35,3 +35,5 @@ Route::delete('monuments/image/{id}', 'MonumentController@deleteImage')->name('m
 Route::resource('monumentsCategories', 'MonumentCategoryController');
 
 Route::resource('categories', 'CategoryController');
+
+Route::resource('image', 'ImageController');

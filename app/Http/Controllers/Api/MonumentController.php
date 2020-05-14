@@ -24,11 +24,17 @@ class MonumentController extends ApiController
 
 		public function show($id)
 		{
-			$monument = Monument::find($id);
+			$monument = Monument::findOrFail($id);
 			if (is_null($monument)) {
 				return $this->sendError('Monument non found');
 			}
-			return $this->SendResponse($monument, 'Specific monument');
+			$response = $monument;
+			$response->images = $monument->images()->get();
+			$response->user = $monument->user()->get();
+			$response->category = $monument->category()->get();
+			$response->categories = $monument->categories()->get();
+			
+			return $this->SendResponse($response, 'Specific monument');
 
 		}
 
