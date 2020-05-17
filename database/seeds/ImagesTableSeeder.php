@@ -12,6 +12,14 @@ class ImagesTableSeeder extends Seeder
      */
     public function run()
     {
-        factory(Image::class, 10)->create();
-    }
+        // factory(Image::class, 10)->create();
+
+        Image::insert([
+        'title' => '',
+        'description' => '',
+        'url' => '',
+        'monument_id' => '',
+        'user_id' => ''
+        ]);
+        }
 }

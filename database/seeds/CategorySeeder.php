@@ -29,5 +29,17 @@ class CategorySeeder extends Seeder
             'description' => 'Edificio',
             'created_at' => date('Y-m-d H:i:s'),
         ]);
+        Category::insert([
+            'description' => 'Parco',
+            'created_at' => date('Y-m-d H:i:s'),
+        ]);
+        Category::insert([
+            'description' => 'Evento',
+            'created_at' => date('Y-m-d H:i:s'),
+        ]);
+        Category::insert([
+            'description' => 'Museo',
+            'created_at' => date('Y-m-d H:i:s'),
+        ]);
     }
 }

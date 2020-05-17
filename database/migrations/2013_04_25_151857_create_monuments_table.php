@@ -16,7 +16,7 @@ class CreateMonumentsTable extends Migration
         Schema::create('monuments', function (Blueprint $table) {
             $table->id();
             $table->string('name');
-            $table->string('description');
+            $table->longText('description');
             $table->decimal('lat', 10, 7);
             $table->decimal('lon', 10, 7);
             $table->foreignId('user_id')->constrained()->onDelete('cascade');
