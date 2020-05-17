@@ -28,11 +28,11 @@ class MonumentController extends Controller
 
     public function saveCategories($request, $monument)
     {
+        $monumentCategories = MonumentCategory::get()->where('monument_id', $monument->id);
+        foreach ($monumentCategories as $monumentCategory) {
+            $monumentCategory->delete();
+        }
         if ($request->categories != null && count($request->categories) > 0) {
-            $monumentCategories = MonumentCategory::get()->where('monument_id', $monument->id);
-            foreach ($monumentCategories as $monumentCategory) {
-                $monumentCategory->delete();
-            }
             foreach ($request->categories as $category) {
                 MonumentCategory::create([
                     'monument_id' => $monument->id,
@@ -47,8 +47,8 @@ class MonumentController extends Controller
         $monuments = Monument::orderBy('id', 'DESC')
             ->with('categories')
             ->get();
-
         return view('monuments.index')->with('monuments', $monuments);
+
     }
 
     /**
@@ -60,7 +60,6 @@ class MonumentController extends Controller
     {
         $categories = Category::get()->pluck('description', 'id');
         $users = User::get()->pluck('name', 'id');
-
         return view('monuments.create')
             ->with('users', $users)
             ->with('categories', $categories);
@@ -94,8 +93,8 @@ class MonumentController extends Controller
                 'user_id' => '1', // Auth::id()
             ]);
         };
-
         return redirect()->action('MonumentController@index');
+
     }
     /**
      * Display the specified resource.
@@ -107,6 +106,7 @@ class MonumentController extends Controller
     public function show(Monument $monument)
     {
         return view('monuments.show')->with('monument', $monument);
+
     }
     /**
      * Show the form for editing the specified resource.
@@ -124,6 +124,7 @@ class MonumentController extends Controller
             ->with('monumentCategories', $monumentCategories)
             ->with('monument', $monument)
             ->with('selectedCategories', $monumentCategories->pluck('category_id')->toArray());
+
     }
     /**
      * Update the specified resource in storage.
@@ -160,6 +161,7 @@ class MonumentController extends Controller
         }
 
         return redirect()->action('MonumentController@index');
+
     }
 
     /**
@@ -170,8 +172,8 @@ class MonumentController extends Controller
         $image = Image::findOrFail($id);
         Storage::delete($image->url);
         $image->delete();
-
         return redirect()->back();
+
     }
 
     /**
@@ -184,14 +186,13 @@ class MonumentController extends Controller
     {
         foreach ($monument->images as $image) {
             $image_path = $image->url;
-
             if (Storage::exists($image_path)) {
                 Storage::delete($image_path);
             }
         }
 
         $monument->delete();
-
         return redirect()->action('MonumentController@index');
+
     }
 }

@@ -42,13 +42,7 @@
                 @endforeach
             </div>
 		</div>
-		<div class="form-grup">
-			<label for="Image">Images:</label> <br>
-            @foreach ($monument->images as $image)
-                    <img height="100" src="{{ Storage::url($image->url) }}"/><br>
-                    <input type="submit" class="btn btn-primary delete" title="Delete" value="Delete" id="{{$image->id }}"/>
-						@endforeach
-        </label>
+
 		<div class="form-group">
             <label for="picture">Choose a Picture to upload</label> <br>
             <input type="file" name="url[]" multiple type="file" class="file-input" />

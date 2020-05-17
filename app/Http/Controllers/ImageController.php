@@ -82,11 +82,10 @@ class ImageController extends Controller
      */
     public function destroy($id)
     {
-				$image = Image::findOrFail($id);
+        $image = Image::findOrFail($id);
         Storage::delete($image->url);
         $image->delete();
 
         return redirect()->back();
-
     }
 }

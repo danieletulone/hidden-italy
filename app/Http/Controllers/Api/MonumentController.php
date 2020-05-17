@@ -11,10 +11,46 @@ use App\Http\Controllers\Controller;
 use App\Http\Controllers\Api\ApiController as ApiController;
 use App\Http\Resources\Monument as MonumentResource;
 use Validator;
-
+use App\Models\Image;
 
 class MonumentController extends ApiController
 {
+	public function createResponse($monument)
+	{
+		$response = $monument;
+		$response->images = $monument->images()->get();
+		$response->user = $monument->user()->get();
+		$response->category = $monument->category()->get();
+		$response->categories = $monument->categories()->get();
+		return $response;
+
+	}
+
+	public function saveCategories($request, $monument)
+    {
+        if ($request->categories != null && count($request->categories) > 0) {
+            foreach ($request->categories as $category) {
+                MonumentCategory::create([
+                    'monument_id' => $monument->id,
+                    'category_id' => $category
+                ]);
+            }
+		}
+	}
+
+    public function saveImages($request, $monument)
+    {
+        foreach ($request->file('url') as $image) {
+            Image::create([
+            'title' => $request->input('name'),
+            'description' => 'Descrizione non disponibile',
+            'url' =>  $image->store('public/images'),
+            'monument_id' => $monument->id,
+            'user_id' => '1', // Auth::id()
+            ]);
+        }
+    }
+
     public function index()
 		{
 			$monuments = Monument::all();
@@ -27,13 +63,9 @@ class MonumentController extends ApiController
 			$monument = Monument::findOrFail($id);
 			if (is_null($monument)) {
 				return $this->sendError('Monument non found');
+
 			}
-			$response = $monument;
-			$response->images = $monument->images()->get();
-			$response->user = $monument->user()->get();
-			$response->category = $monument->category()->get();
-			$response->categories = $monument->categories()->get();
-			
+			$response = $this->createResponse($monument);
 			return $this->SendResponse($response, 'Specific monument');
 
 		}
@@ -47,8 +79,11 @@ class MonumentController extends ApiController
 					'lon' => $request->input('lon'),
 					'user_id' => '1',  // Auth::id()
 					'category_id' => $request->input('main_category_id'),
-			]);
-			return $this->SendResponse($monument, 'Monument added');
+            ]);
+            $this->saveImages($request, $monument);
+			$this->saveCategories($request, $monument);
+			$response = $this->createResponse($monument);
+			return $this->SendResponse($response, 'Monument added');
 
 		}
 
