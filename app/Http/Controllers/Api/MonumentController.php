@@ -53,8 +53,14 @@ class MonumentController extends ApiController
 
     public function index()
 		{
-			$monuments = Monument::all();
-			return $this->SendResponse($monuments, 'List of Monuments');
+			$monuments = Monument::orderBy('id', 'DESC')
+					->with('categories')
+					->with('images')
+					->get();
+			//dd($monuments);
+			//$response = $this->createResponse($monuments);
+			//return $this->SendResponse($monuments, 'List of Monuments');
+			return response()->json($monuments, 200);
 
 		}
 
@@ -66,7 +72,8 @@ class MonumentController extends ApiController
 
 			}
 			$response = $this->createResponse($monument);
-			return $this->SendResponse($response, 'Specific monument');
+			//return $this->SendResponse($response, 'Specific monument');
+			return response()->json($monument, 200);
 
 		}
 

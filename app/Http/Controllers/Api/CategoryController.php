@@ -18,7 +18,8 @@ class CategoryController extends ApiController
     public function index()
 		{
 			$categories = Category::all();
-			return $this->SendResponse($categories, 'List of Category');
+			//return $this->SendResponse($categories, 'List of Category');
+			return response()->json($categories, 200);
 
 		}
 
@@ -28,7 +29,9 @@ class CategoryController extends ApiController
 			if (is_null($category)) {
 				return $this->sendError('Monument non found');
 			}
-			return $this->SendResponse($category, 'Specific category');
+			//return $this->SendResponse($category, 'Specific category');
+			return response()->json($category, 200);
+
 
 		}
 }
