@@ -1,0 +1,1 @@
+<a class="btn btn-primary mb-3" href="{{ route($goTo) }}" role="button">{{ __('forms.back.' . $goTo) }}</a>

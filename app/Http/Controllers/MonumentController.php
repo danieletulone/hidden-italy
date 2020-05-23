@@ -18,10 +18,11 @@ class MonumentController extends Controller
      */
     public function index()
     {
-			$monuments = Monument::orderBy('id', 'DESC')->get();
-			return view('monuments.index')->with('monuments', $monuments);
+        $monuments = Monument::orderBy('id', 'DESC')->get();
 
+        return view('monuments.index')->with('monuments', $monuments);
     }
+    
     /**
      * Show the form for creating a new resource.
      *
@@ -30,11 +31,11 @@ class MonumentController extends Controller
     public function create()
     {
 	    $users = User::get()->pluck('name', 'id');
-			$images = Image::get()->pluck('title', 'id');
-			return view('monuments.create')
-				->with('users', $users)
-				->with('images', $images);
-
+        $images = Image::get()->pluck('title', 'id');
+      
+        return view('monuments.create')
+            ->with('users', $users)
+            ->with('images', $images);
     }
     /**
      * Store a newly created resource in storage.
@@ -42,8 +43,7 @@ class MonumentController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    //public function store(MonumentRequest $request)
-		public function store(MonumentRequest $request)
+    public function store(MonumentRequest $request)
     {
 			$monument = new Monument();
 			//new Monument::create(["name"=>$request->input('name');])
@@ -74,15 +74,16 @@ class MonumentController extends Controller
      */
     public function show(Monument $monument)
     {
-			$user = User::where('id', $monument->user_id)->pluck('name', 'id');
-			$monumentImage = MonumentImage::where('monument_id', $monument->id)->pluck('image_id', 'id');
-			$image = Image::where('id', $monumentImage)->pluck('url', 'id');
-			return view('monuments.show')
-			->with('image', $image)
-			->with('monument', $monument)
-			->with('user', $user);
+        $user = User::where('id', $monument->user_id)->pluck('name', 'id');
+        $monumentImage = MonumentImage::where('monument_id', $monument->id)->pluck('image_id', 'id');
+        $image = Image::where('id', $monumentImage)->pluck('url', 'id');
+        
+        return view('monuments.show')
+            ->with('image', $image)
+            ->with('monument', $monument)
+            ->with('user', $user);
+    }
 
-		}
     /**
      * Show the form for editing the specified resource.
      *
@@ -91,14 +92,15 @@ class MonumentController extends Controller
      */
     public function edit(Monument $monument)
     {
-			$users = User::get()->pluck('name', 'id');
-			$images = Image::get()->pluck('title', 'id');
-			return view('monuments.edit')
-				->with('users', $users)
-				->with('monument', $monument)
-				->with('images', $images);
+        $users = User::get()->pluck('name', 'id');
+        $images = Image::get()->pluck('title', 'id');
+        
+        return view('monuments.edit')
+            ->with('users', $users)
+            ->with('monument', $monument)
+            ->with('images', $images);
+    }
 
-		}
     /**
      * Update the specified resource in storage.
      *
@@ -108,17 +110,18 @@ class MonumentController extends Controller
      */
     public function update(MonumentRequest $request, Monument $monument)
     {
-			Monument::where('id', $monument->id)->update([
-				'name' => $request['name'],
-				'description' => $request['description'],
-				'lat' => $request['lat'],
-				'lon' => $request['lon'],
-				'user_id' => $request['user_id'],
-				'image_id' => $request['image_id'],
-			]);
-			return redirect()->action('MonumentController@index');
-
-		}
+        Monument::where('id', $monument->id)->update([
+            'name' => $request['name'],
+            'description' => $request['description'],
+            'lat' => $request['lat'],
+            'lon' => $request['lon'],
+            'user_id' => $request['user_id'],
+            'image_id' => $request['image_id'],
+        ]);
+        
+        return redirect()->action('MonumentController@index');
+    }
+    
     /**
      * Remove the specified resource from storage.
      *
@@ -127,8 +130,8 @@ class MonumentController extends Controller
      */
     public function destroy(Monument $monument)
     {
-			$monument->delete();
-			return redirect()->action('MonumentController@index');
+        $monument->delete();
 
-		}
+        return redirect()->action('MonumentController@index');
+    }
 }

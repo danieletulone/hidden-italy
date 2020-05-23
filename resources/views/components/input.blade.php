@@ -1,10 +1,13 @@
 <div class="form-group">
-    <label>{{ $placeholder }}</label>
+    <label>{{ __('forms.' . $placeholder) }}</label>
     <input 
-        class="form-control @error('email') is-invalid @enderror"
+        class="form-control @error($name) is-invalid @enderror border-primary"
         name="{{ $name }}" 
         type="{{ $type }}"
-        placeholder="{{ __($placeholder) }}"
+        placeholder="{{ __('forms.' . $placeholder) }}"
+        @if (old($name))
+            value="{{ old($name) }}"
+        @endif
     />
 
     @error($name)
