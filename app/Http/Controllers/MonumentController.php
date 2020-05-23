@@ -49,9 +49,8 @@ class MonumentController extends Controller
             ->get();
         return view('monuments.index')->with('monuments', $monuments);
 
-        return view('monuments.index')->with('monuments', $monuments);
     }
-    
+
     /**
      * Show the form for creating a new resource.
      *

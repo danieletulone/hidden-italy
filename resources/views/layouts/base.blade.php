@@ -49,5 +49,8 @@
 
     <body class="bg-primary">
         @yield('main')
+
+        @include('components.footer')
     </body>
+
 </html>
