@@ -1,7 +1,7 @@
 <div class="form-group">
     <label>{{ __('forms.' . $placeholder) }}</label>
     <input 
-        class="form-control @error($name) is-invalid @enderror border-primary"
+        class="form-control @error($name) is-invalid @enderror"
         name="{{ $name }}" 
         type="{{ $type }}"
         placeholder="{{ __('forms.' . $placeholder) }}"
