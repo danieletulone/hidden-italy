@@ -22,8 +22,8 @@
 			@forelse ($monuments as $monument)
 			<tr>
 				<td>{{ $monument->id }}</td>
-				<td>{{ $monument->name }}</td>
-				<td>{{ $monument->description }}</td>
+				<td>{{ Str::limit($monument->name, 20) }}</td>
+				<td>{{ Str::limit($monument->description, 50) }}</td>
 				<td>{{ $monument->lat }}</td>
 				<td>{{ $monument->lon }}</td>
                 <td>{{ $monument->category->description }}</td>
