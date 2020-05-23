@@ -1,9 +1,9 @@
-@extends('layouts.app')
+@extends('layouts.dashboard')
 
 @section('content')
 <x-container>
 	<x-back-button />
-
+	<br>
 	<x-form :action="route('monuments.store')" enctype="multipart/form-data" btnText='add.monuments'>
 		<x-input name="name" type="text" placeholder="Name" />
 		<x-input name="description" type="text" placeholder="Description" />

@@ -11,7 +11,7 @@ return [
     ],
     'back' => [
         'monuments' => [
-            'index' => 'Vai alla pagina principale dei monumenti'
+            'index' => 'Tutti i monumenti'
         ]
     ]
 ];

@@ -1,8 +1,11 @@
-@extends('layouts.app')
+@extends('layouts.dashboard')
 @section('content')
 <div class="container">
-	<a class="btn btn-primary mb-3" href="{{ route('monuments.create') }}" role="button">Add New Monuments</a>
-	<table class="table">
+	<a href="{{ route('monuments.create') }}" style="position:absolute;top:-25px;right:50px;width:50px;height:50px;" class="shadow-sm bg-success rounded-circle d-flex align-items-center justify-content-center">
+		<img src="{{ asset('icons/add.png') }}" class="animated-icon rotate" width="25px" />
+	</a>
+
+	<table class="table mt-5">
 		<thead>
 			<tr>
 				<th>ID</th>
