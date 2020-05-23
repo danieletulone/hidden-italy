@@ -5,9 +5,14 @@ namespace App\Http\Controllers;
 use App\Models\Monument;
 use App\Models\User;
 use App\Models\Image;
-use App\Models\MonumentImage;
+use App\Models\Category;
 use Illuminate\Http\Request;
 use App\http\Requests\MonumentRequest;
+use App\Models\MonumentCategory;
+use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\App;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 
 class MonumentController extends Controller
 {
@@ -16,9 +21,33 @@ class MonumentController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+    public function __construct()
+    {
+        // $this->middleware('auth');
+    }
+
+    public function saveCategories($request, $monument)
+    {
+        $monumentCategories = MonumentCategory::get()->where('monument_id', $monument->id);
+        foreach ($monumentCategories as $monumentCategory) {
+            $monumentCategory->delete();
+        }
+        if ($request->categories != null && count($request->categories) > 0) {
+            foreach ($request->categories as $category) {
+                MonumentCategory::create([
+                    'monument_id' => $monument->id,
+                    'category_id' => $category
+                ]);
+            }
+        }
+    }
+
     public function index()
     {
-        $monuments = Monument::orderBy('id', 'DESC')->get();
+        $monuments = Monument::orderBy('id', 'DESC')
+            ->with('categories')
+            ->get();
+        return view('monuments.index')->with('monuments', $monuments);
 
         return view('monuments.index')->with('monuments', $monuments);
     }
@@ -30,13 +59,13 @@ class MonumentController extends Controller
      */
     public function create()
     {
-	    $users = User::get()->pluck('name', 'id');
-        $images = Image::get()->pluck('title', 'id');
-      
+        $categories = Category::get()->pluck('description', 'id');
+        $users = User::get()->pluck('name', 'id');
         return view('monuments.create')
             ->with('users', $users)
-            ->with('images', $images);
+            ->with('categories', $categories);
     }
+
     /**
      * Store a newly created resource in storage.
      *
@@ -45,67 +74,64 @@ class MonumentController extends Controller
      */
     public function store(MonumentRequest $request)
     {
-			$monument = new Monument();
-			//new Monument::create(["name"=>$request->input('name');])
-			//fare array $monument = []
-			$monument->name = $request->input('name');
-			$monument->description = $request->input('description');
-			$monument->lat = $request->input('lat');
-			$monument->lon = $request->input('lon');
-			$monument->user_id = $request->input('user_id');
-			$monument->save();
-			$image = new Image();
-			$image->title = $request->input('name');
-			$image->description = "Desscrizione non disponibile";
-			$image->url = $request->file('url')->store('public/images');
-			$image->save();
-			$monumentImage = new MonumentImage();
-			$monumentImage->monument_id = $monument->id;
-			$monumentImage->image_id = $image->id;
-			$monumentImage->save();
-			return redirect()->action('MonumentController@index');
-			//prima chiamata image poi chiama munument
-		}
+        $monument = Monument::create([
+            'name' => $request->input('name'),
+            'description' => $request->input('description'),
+            'lat' => $request->input('lat'),
+            'lon' => $request->input('lon'),
+            'user_id' => '1',  // Auth::id()
+            'category_id' => $request->input('main_category_id'),
+        ]);
+
+        $this->saveCategories($request, $monument);
+
+        foreach ($request->file('url') as $image) {
+            Image::create([
+                'title' => $request->input('name'),
+                'description' => 'Descrizione non disponibile',
+                'url' =>  $image->store('public/images'),
+                'monument_id' => $monument->id,
+                'user_id' => '1', // Auth::id()
+            ]);
+        };
+        return redirect()->action('MonumentController@index');
+
+    }
     /**
      * Display the specified resource.
      *
-     * @param  \App\ModelsMonument  $modelsMonument
+     * @param  \App\Models\Monument  $modelsMonument
      * @return \Illuminate\Http\Response
      */
+
     public function show(Monument $monument)
     {
-        $user = User::where('id', $monument->user_id)->pluck('name', 'id');
-        $monumentImage = MonumentImage::where('monument_id', $monument->id)->pluck('image_id', 'id');
-        $image = Image::where('id', $monumentImage)->pluck('url', 'id');
-        
-        return view('monuments.show')
-            ->with('image', $image)
-            ->with('monument', $monument)
-            ->with('user', $user);
-    }
+        return view('monuments.show')->with('monument', $monument);
 
+    }
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\ModelsMonument  $modelsMonument
+     * @param  \App\Models\Monument  $modelsMonument
      * @return \Illuminate\Http\Response
      */
+
     public function edit(Monument $monument)
     {
-        $users = User::get()->pluck('name', 'id');
-        $images = Image::get()->pluck('title', 'id');
-        
+        $categories = Category::get()->pluck('description', 'id');
+        $monumentCategories = MonumentCategory::get()->where('monument_id', $monument->id);
         return view('monuments.edit')
-            ->with('users', $users)
+            ->with('categories', $categories)
+            ->with('monumentCategories', $monumentCategories)
             ->with('monument', $monument)
-            ->with('images', $images);
-    }
+            ->with('selectedCategories', $monumentCategories->pluck('category_id')->toArray());
 
+    }
     /**
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\ModelsMonument  $modelsMonument
+     * @param  \App\Models\Monument  $modelsMonument
      * @return \Illuminate\Http\Response
      */
     public function update(MonumentRequest $request, Monument $monument)
@@ -115,21 +141,57 @@ class MonumentController extends Controller
             'description' => $request['description'],
             'lat' => $request['lat'],
             'lon' => $request['lon'],
-            'user_id' => $request['user_id'],
-            'image_id' => $request['image_id'],
+            'category_id' => $request['main_category_id'],
+            'user_id' => '1',  //Auth::id()
         ]);
-        
+
+        $this->saveCategories($request, $monument);
+
+        if ($request->file('url') != null) {
+
+            foreach ($request->file('url') as $image_path) {
+
+                Image::create([
+                    'title' => $request->input('name'),
+                    'description' => 'Descrizione non disponibile',
+                    'url' => $image_path->store('public/images'),
+                    'monument_id' => $monument->id,
+                    'user_id' => '1', // Auth::id()
+                ]);
+            }
+        }
+
         return redirect()->action('MonumentController@index');
+
     }
-    
+
+    /**
+     * Remove an image.
+     */
+    public function deleteImage($id)
+    {
+        $image = Image::findOrFail($id);
+        Storage::delete($image->url);
+        $image->delete();
+        return redirect()->back();
+
+    }
+
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\ModelsMonument  $modelsMonument
+     * @param  \App\Models\Monument  $modelsMonument
      * @return \Illuminate\Http\Response
      */
     public function destroy(Monument $monument)
     {
+        foreach ($monument->images as $image) {
+            $image_path = $image->url;
+            if (Storage::exists($image_path)) {
+                Storage::delete($image_path);
+            }
+        }
+
         $monument->delete();
 
         return redirect()->action('MonumentController@index');

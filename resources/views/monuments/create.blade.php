@@ -11,17 +11,28 @@
 		<x-input name="lon" type="text" placeholder="Lon" />
 		
 		<div class="form-group">
-			<select name="user_id" class="form-control" id="user_id" required>
-				@foreach($users as $id => $display)
-				<option value="{{ $id }}" {{ (isset($monument->users_id) && $id === $monument->user_id) ? 'selected' : ''}}>{{ $display }}</option>
+			<label for="main_category_id">Categoria Principale: </label>
+			<select name="main_category_id" class="form-control" id="main_category_id" required>
+				@foreach($categories as $id => $description)
+				<option value="{{ $id }}" {{ (isset($monument->category_id) && $id === $monument->category_id) ? 'selected' : ''}}>{{ $description }}</option>
 				@endforeach
 			</select>
 		</div>
 
+		<div class="form-group">
+			<label>Altre categorie: </label>
+			<div>
+				@foreach($categories as $id => $description)
+					<input type="checkbox" name="categories[]" value="{{ $id }}" />
+					<label>{{ $description }}</label>
+				@endforeach
+			</div>
+		</div>
+		
 		<div class="form-grop">
 			<div class="custom-file">
-				<label class="custom-file-label" for="picture">Picture</label>
-				<input name="url" type="file" class="custom-file-input" placeholder="Picture"/>
+				<label class="file-label" for="picture">Picture</label>
+				<input name="url[]" multiple type="file" class="file-input" placeholder="Picture"/>
 			</div>
 		</div>
 	</x-form>
