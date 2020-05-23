@@ -25,4 +25,10 @@ Route::get('/user', 'UserController@index')->name('user');
 
 Route::get('/role', 'RoleController@index')->name('role');
 
-Route::resource('/images', 'ImageController');
+Route::get('/image', 'ImageController@index')->name('image');
+
+Route::resource('monuments', 'MonumentController');
+
+Route::resource('monumentsCategories', 'MonumentsCategoriesController');
+
+Route::resource('monumentsCategoriesInt', 'MonumentsCategoriesIntController');
