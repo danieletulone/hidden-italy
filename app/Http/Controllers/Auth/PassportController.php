@@ -15,7 +15,9 @@ use Illuminate\Support\Facades\Hash;
 class PassportController extends Controller
 {
     /**
-     * Get creden
+     * Get credentials from request.
+     * 
+     * @author Daniele Tulone <danieletulone.work@gmail.com>
      *
      * @param PassportLoginRequest $request
      * @return void
@@ -27,7 +29,15 @@ class PassportController extends Controller
             'password'
         ]);
     }
-
+    
+    /**
+     * Generate token for user with Passport.
+     * 
+     * @author Daniele Tulone <danieletulone.work@gmail.com>
+     *
+     * @param [type] $user
+     * @return void
+     */
     public function generateToken($user)
     {
         return $user->createToken('HiddenItaly')->accessToken;
@@ -55,6 +65,14 @@ class PassportController extends Controller
         }
     }
 
+    /**
+     * Register a user.
+     *
+     * @author Daniele Tulone <danieletulone.work@gmail.com>
+     * 
+     * @param PassportRegisterRequest $request
+     * @return void
+     */
     public function register(PassportRegisterRequest $request)
     {
         $user = User::create([
