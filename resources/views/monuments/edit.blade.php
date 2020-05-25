@@ -1,7 +1,7 @@
-@extends('layouts.app')
+@extends('layouts.dashboard')
 @section('content')
-<div class="container">
-	<a class="btn btn-primary mb-3" href="{{ route('monuments.index') }}" role="button">Back to Monuments</a>
+<x-container>
+	<x-back-button />
 	<form action="{{ route('monuments.update', ['monument' => $monument]) }}" method="POST" enctype="multipart/form-data">
 		@method('PUT')
         @csrf
@@ -64,7 +64,7 @@
 				@endforeach
 		</label>
 
-</div>
+</x-container>
 @endsection
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>

@@ -1,6 +1,6 @@
 @extends('layouts.dashboard')
 @section('content')
-<div class="container">
+<x-container>
 	<a href="{{ route('monuments.create') }}" style="position:absolute;top:-25px;right:50px;width:50px;height:50px;" class="shadow-sm bg-success rounded-circle d-flex align-items-center justify-content-center">
 		<img src="{{ asset('icons/add.png') }}" class="animated-icon rotate" width="25px" />
 	</a>
@@ -56,5 +56,5 @@
 	        @endforelse
         </tbody>
     </table>
-</div>
+</x-container>
 @endsection

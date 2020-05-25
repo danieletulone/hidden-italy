@@ -57,11 +57,7 @@ class MonumentsTableSeeder extends Seeder
 
         Monument::insert([
             'name' => 'Duomo di Milano',
-            'description' => 'Il Duomo di Milano, ufficialmente Basilica Cattedrale Metropolitana della Natività della Beata Vergine Maria,
-            è la cattedrale dell\' arcidiocesi di Milano. Simbolo del capoluogo lombardo, e situato nell\'omonima piazza al centro della
-            metropoli, è dedicata a Santa Maria Nascente. È la chiesa più grande d\'Italia (la Basilica di San Pietro, più grande, è
-            infatti nel territorio della Città del Vaticano), la quarta nel mondo per superficie, la sesta per volume.
-            È sede della parrocchia di Santa Tecla nel Duomo di Milano.',
+            'description' => 'Il Duomo di Milano, ufficialmente Basilica Cattedrale Metropolitana della Natività della Beata Vergine Maria, è la cattedrale dell\' arcidiocesi di Milano. Simbolo del capoluogo lombardo, e situato nell\'omonima piazza al centro della metropoli, è dedicata a Santa Maria Nascente. È la chiesa più grande d\'Italia (la Basilica di San Pietro, più grande, è infatti nel territorio della Città del Vaticano), la quarta nel mondo per superficie, la sesta per volume. È sede della parrocchia di Santa Tecla nel Duomo di Milano.',
             'lat' => '45.4885364992',
             'lon' => '9.1873',
             'user_id' => '1',
@@ -71,8 +67,7 @@ class MonumentsTableSeeder extends Seeder
 
         Monument::insert([
             'name' => 'Colonne di San Lorenzo',
-            'description' => 'Sito archeologico composto da 16 colonne romane in marmo, accanto ai
-            resti di un anfiteatro e delle terme.',
+            'description' => 'Sito archeologico composto da 16 colonne romane in marmo, accanto ai resti di un anfiteatro e delle terme.',
             'lat' => '45.4564312',
             'lon' => '9.1807165',
             'user_id' => '1',
@@ -82,9 +77,7 @@ class MonumentsTableSeeder extends Seeder
 
         Monument::insert([
             'name' => 'Piazza Affari',
-            'description' => 'Simbolo non solo dell\'economia milanese ma anche delle attività finanziarie
-            italiane, la piazza è principalmente conosciuta per la presenza della Borsa di Milano,
-            sede del mercato finanziario nazionale',
+            'description' => 'Simbolo non solo dell\'economia milanese ma anche delle attività finanziarie italiane, la piazza è principalmente conosciuta per la presenza della Borsa di Milano, sede del mercato finanziario nazionale',
             'lat' => '45.4646165',
             'lon' => '9.1833044',
             'user_id' => '1',

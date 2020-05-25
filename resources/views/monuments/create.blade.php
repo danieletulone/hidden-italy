@@ -3,13 +3,12 @@
 @section('content')
 <x-container>
 	<x-back-button />
-	<br>
 	<x-form :action="route('monuments.store')" enctype="multipart/form-data" btnText='add.monuments'>
 		<x-input name="name" type="text" placeholder="Name" />
 		<x-input name="description" type="text" placeholder="Description" />
-		<x-input name="lat" type="text" placeholder="Lat" />
-		<x-input name="lon" type="text" placeholder="Lon" />
-		
+		<x-input name="lat" type="number" placeholder="Lat" />
+		<x-input name="lon" type="number" placeholder="Lon" />
+
 		<div class="form-group">
 			<label for="main_category_id">Categoria Principale: </label>
 			<select name="main_category_id" class="form-control" id="main_category_id" required>
@@ -28,7 +27,7 @@
 				@endforeach
 			</div>
 		</div>
-		
+
 		<div class="form-grop">
 			<div class="custom-file">
 				<label class="file-label" for="picture">Picture</label>

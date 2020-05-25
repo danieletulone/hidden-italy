@@ -1,7 +1,7 @@
-@extends('layouts.app')
+@extends('layouts.dashboard')
 @section('content')
-<div class="container">
-	<a class="btn btn-primary mb-3" href="{{ route('categories.index') }}" role="button">Back to Categories</a>
+<x-container>
+	<x-back-button />
 	<form action="{{ route('categories.update', ['category' => $category]) }}" method="POST" enctype="multipart/form-data">
 		@method('PUT')
 		@csrf
@@ -14,5 +14,5 @@
 			<a href="{{ route('monuments.index') }}" class="btn btn-secondary">Cancel</a>
 		</div>
 	</form>
-</div>
+</x-container>
 @endsection

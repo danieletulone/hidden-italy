@@ -7,3 +7,4 @@
     <img src="{{ asset('icons/arrows.png') }}" class="animated-icon mr-2" width="25px" />
     {{ __('forms.back.' . $goTo) }}
 </a>
+<br>

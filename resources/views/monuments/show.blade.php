@@ -1,8 +1,8 @@
-@extends('layouts.app')
+@extends('layouts.dashboard')
 @section('content')
-<div class="container">
-	<a class="btn btn-primary mb-3" href="{{ route('monuments.index') }}" role="button">Back to Monuments</a>
-	<dl class="row">
+<x-container>
+		<x-back-button />
+		<dl class="row">
 		<dt class="col-sm-3">ID</dt>
 		<dd class="col-sm-9">{{ $monument->id }}</dd>
 		<dt class="col-sm-3">Name</dt>
@@ -30,5 +30,5 @@
             @endforeach
 		</dd>
 	</dl>
-</div>
+</x-container>
 @endsection
