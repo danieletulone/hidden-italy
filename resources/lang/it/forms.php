@@ -1,10 +1,10 @@
 <?php
 
 return [
-    'Name' => 'Nome',
-    'Description' => 'Descrizione',
-    'Lat' => 'Latitudine',
-    'Lon' => 'Longitudine',
+    'name' => 'Nome',
+    'description' => 'Descrizione',
+    'lat' => 'Latitudine',
+    'lon' => 'Longitudine',
     'add' => [
         'default' => 'Aggiungi',
         'monuments' => 'Aggiungi Monumento'
