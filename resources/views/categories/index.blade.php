@@ -41,5 +41,8 @@
 	        @endforelse
         </tbody>
     </table>
+		<x-container>
+			{{ $categories->links() }}
+		</x-container>
 </div>
 @endsection

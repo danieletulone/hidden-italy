@@ -11,7 +11,7 @@
         class="form-control @error($name) is-invalid @enderror"
         name="{{ $name }}"
         type="{{ $type }}"
-                value="{{ $value }}"
+        value="{{ $value }}"
         @if ($type == "double")
             placeholder="{{ $placeholder }}"
         @else

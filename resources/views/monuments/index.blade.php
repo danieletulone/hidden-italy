@@ -56,5 +56,8 @@
 	        @endforelse
         </tbody>
     </table>
+		<x-container>
+			{{ $monuments->links() }}
+		</x-container>
 </x-container>
 @endsection

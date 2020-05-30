@@ -13,6 +13,7 @@ use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Pagination\Paginator;
 
 class MonumentController extends Controller
 {
@@ -46,7 +47,7 @@ class MonumentController extends Controller
     {
         $monuments = Monument::orderBy('id', 'DESC')
             ->with('categories')
-            ->get();
+						->paginate(5);
         return view('monuments.index')->with('monuments', $monuments);
 
     }
