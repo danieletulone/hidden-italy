@@ -22,23 +22,21 @@
 			<label>Altre categorie: </label>
 			<div>
 				@foreach($categories as $id => $description)
-					<input type="checkbox" name="categories[]" value="{{ $id }}" />
+					<input type="checkbox" name="categories[]" value="{{ $id }}"/>
 					<label>{{ $description }}</label>
 				@endforeach
 			</div>
 		</div>
 
-		<div class="form-grop">
-			<div class="custom-file">
+		<div class="form-grop custom-file">
 				<label class="file-label" for="picture">Picture</label>
-				<input name="url[]" multiple type="file" class="file-input" placeholder="Picture"/>
-            </div>
-            @error('url')
-             <span class="invalid-feedback" role="alert">
-            	<strong>{{ $message }}</strong>
-			</span>
-			@enderror
-        </div>
+				<input name="url[]" multiple type="file" class="file-input form-control @error('url') is-invalid @enderror" placeholder="Picture"/>
+				@error('url')
+				 <span class="invalid-feedback" role="alert">
+					<strong>{{ $message }}</strong>
+				</span>
+				@enderror
+    </div>
 	</x-form>
 </x-container>
 @endsection
