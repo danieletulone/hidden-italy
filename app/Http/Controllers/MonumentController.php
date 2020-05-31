@@ -43,12 +43,25 @@ class MonumentController extends Controller
         }
     }
 
-    public function index()
+    public function index(Request $request)
     {
-        $monuments = Monument::orderBy('id', 'DESC')
-            ->with('categories')
-						->paginate(5);
-        return view('monuments.index')->with('monuments', $monuments);
+		$categories = Category::orderBy('description', 'asc')->get();
+		if (request()->has('category_id')){
+			$monuments = Monument::where('category_id', $request->category_id)
+			->orderBy('id', 'DESC')
+			->with('categories')
+			->paginate(5)->appends('category_id', request('category_id'));
+
+		} else {
+			$monuments = Monument::orderBy('id', 'DESC')
+			->with('categories')
+			->paginate(5);
+		}
+
+
+        return view('monuments.index')
+			->with('categories', $categories)
+			->with('monuments', $monuments);
 
     }
 

@@ -30,7 +30,7 @@ Route::get('/role', 'RoleController@index')->name('role');
 
 Route::resource('monuments', 'MonumentController');
 
-Route::delete('monuments/image/{id}', 'MonumentController@deleteImage')->name('monument.image.delete');
+//Route::delete('monuments/image/{id}', 'MonumentController@deleteImage')->name('monument.image.delete');
 
 Route::resource('monumentsCategories', 'MonumentCategoryController');
 

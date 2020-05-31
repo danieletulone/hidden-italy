@@ -7,6 +7,14 @@
 
 	<table class="table mt-5">
 		<thead>
+			<p>Filters:</p>
+			@forelse ($categories as $category)
+				<a href="{{ route('monuments.index', ['category_id' => $category->id]) }}"> {{ $category->description}} </a> |
+
+			@endforeach
+			<a href="{{ Request::path() }}">Reset</a>
+
+
 			<tr>
 				<th>ID</th>
 				<th>Name</th>
