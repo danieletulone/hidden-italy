@@ -4,11 +4,19 @@
 	<a href="{{ route('monuments.create') }}" style="position:absolute;top:-25px;right:50px;width:50px;height:50px;" class="shadow-sm bg-success rounded-circle d-flex align-items-center justify-content-center">
 		<img src="{{ asset('icons/add.png') }}" class="animated-icon rotate" width="25px" />
 	</a>
-	<div class="mt-5">
+	<div class="mt-5 form-inline mb-3">
 		<form class="form-inline mr-auto" action="{{ route('monuments.index') }}">
       <input class="form-control" type="search" placeholder="Search" name="search">
 			<button type="submit" class="btn btn-primary ml-2">Cerca</button>
     </form>
+		<span>Order by: </span>
+			<a href="{{ route('monuments.index', ['name' => "ASC"]) }}" class=" btn btn-primary ml-2">A - Z</a>
+			<a href="{{ route('monuments.index', ['name' => "DESC"]) }}" class=" btn btn-primary ml-2">Z - A</a>
+			<a href="{{ route('monuments.index', ['id' => "ASC"]) }}" class=" btn btn-primary ml-2">First</a>
+			<a href="{{ route('monuments.index', ['id' => "DESC"]) }}" class=" btn btn-primary ml-2">Last</a>
+			<a href="" class=" btn btn-primary ml-2">Standing</a>
+			<a href="" class=" btn btn-primary ml-2">Approved</a>
+			<a href="{{ Request::path() }}" class=" btn btn-primary ml-2">Reset</a>
 	</div>
 	<table class="table">
 		<thead>
@@ -16,9 +24,10 @@
 				<th>ID</th>
 				<th>Name</th>
 				<th>Description</th>
-				<th>Lat</th>
-				<th>Lon</th>
+				<!-- <th>Lat</th>
+				<th>Lon</th> -->
 				<!-- <th>Main Category</th> -->
+				<th>Visible</th>
 				<td class="dropdown">
 					<a class=" dropdown nav-link dropdown-toggle" data-toggle="dropdown"
 		aria-haspopup="true" aria-expanded="false">Main category</a>
@@ -39,8 +48,9 @@
 				<td>{{ $monument->id }}</td>
 				<td>{{ Str::limit($monument->name, 20) }}</td>
 				<td>{{ Str::limit($monument->description, 50) }}</td>
-				<td>{{ $monument->lat }}</td>
-				<td>{{ $monument->lon }}</td>
+				<td>Yes</td>
+				<!-- <td>{{ $monument->lat }}</td>
+				<td>{{ $monument->lon }}</td> -->
         <td>{{ $monument->category->description }}</td>
         <td>
 					@foreach ($monument->categories as $category)
@@ -73,13 +83,6 @@
     </table>
 		<x-container>
 			{{ $monuments->links() }}
-			<x-container>
-				Categorie:
-				@forelse ($categories as $category)
-					<a href="{{ route('monuments.index', ['category_id' => $category->id]) }}"> {{ $category->description}} </a> |
-				@endforeach
-				<a href="{{ Request::path() }}">Reset</a>
-			</x-container>
 		</x-container>
 </x-container>
 @endsection
