@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class Monument extends Model
 {
     protected $fillable = [
-        'name', 'description', 'lat', 'lon', 'user_id', 'category_id'
+        'name', 'description', 'lat', 'lon', 'user_id', 'category_id', 'visible',
     ];
 
     public function user()

@@ -5,39 +5,70 @@
 		<img src="{{ asset('icons/add.png') }}" class="animated-icon rotate" width="25px" />
 	</a>
 	<div class="mt-5 form-inline mb-3">
-		<form class="form-inline mr-auto" action="{{ route('monuments.index') }}">
-      <input class="form-control" type="search" placeholder="Search" name="search">
-			<button type="submit" class="btn btn-primary ml-2">Cerca</button>
-    </form>
-		<span>Order by: </span>
-			<a href="{{ route('monuments.index', ['name' => "ASC"]) }}" class=" btn btn-primary ml-2">A - Z</a>
-			<a href="{{ route('monuments.index', ['name' => "DESC"]) }}" class=" btn btn-primary ml-2">Z - A</a>
-			<a href="{{ route('monuments.index', ['id' => "ASC"]) }}" class=" btn btn-primary ml-2">First</a>
-			<a href="{{ route('monuments.index', ['id' => "DESC"]) }}" class=" btn btn-primary ml-2">Last</a>
-			<a href="" class=" btn btn-primary ml-2">Standing</a>
-			<a href="" class=" btn btn-primary ml-2">Approved</a>
-			<a href="{{ Request::path() }}" class=" btn btn-primary ml-2">Reset</a>
-	</div>
+	    <form class="form-inline mr-auto" action="{{ route('monuments.index') }}">
+            <input class="form-control" type="search" placeholder="Search" name="search">
+	    	<button type="submit" class="btn btn-primary ml-2">Cerca</button>
+        </form>
+    </div>
+    <div>
+        @if ($filter->name != "") Ordered by: <p class="badge badge-pill badge-primary"> @if ($filter->name == "ASC") A - Z @else Z - A @endif  <a href="{{ Request::path() }}" class="badge badge-pill badge-primary">X</a></p>
+		@elseif ($filter->id != "") Ordered by: <p class="badge badge-pill badge-primary"> @if ($filter->id == "ASC") ↑ First @else ↓ Last @endif  <a href="{{ Request::path() }}" class="badge badge-pill badge-primary">X</a></p>
+		@elseif ($filter->visible != "") Ordered by: <p class="badge badge-pill badge-primary">Visible @if ($filter->visible == "0") no @else yes @endif  <a href="{{ Request::path() }}" class="badge badge-pill badge-primary">X</a></p>
+		@elseif ($filter->search != "") Ordered by: <p class="badge badge-pill badge-primary">{{$filter->search}}  <a href="{{ Request::path() }}" class="badge badge-pill badge-primary">X</a></p>
+		@elseif ($filter->category_id != "")
+			Ordered by: <p class="badge badge-pill badge-primary">
+				@foreach($categories as $category)
+					@if($category->id == $filter->category_id)
+						{{ $category->description}}
+					@endif
+				@endforeach
+		</p> <a href="{{ Request::path() }}" class="badge badge-pill badge-danger">X</a>
+		@endif
+
+    </div>
 	<table class="table">
 		<thead>
 			<tr>
-				<th>ID</th>
-				<th>Name</th>
+				<th class="dropdown">
+					<a class=" dropdown nav-link dropdown-toggle" style="padding: 0" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+						ID
+                    </a>
+					<div class="dropdown-menu dropdown-primary" aria-labelledby="navbarDropdownMenuLink">
+					<a href="{{ route('monuments.index', ['id' => "ASC"]) }}" class="dropdown-item">↑ First</a>
+					<a href="{{ route('monuments.index', ['id' => "DESC"]) }}" class="dropdown-item">↓ Last</a>
+					</div>
+                </th>
+				<th class="dropdown">
+					<a class=" dropdown nav-link dropdown-toggle" style="padding: 0" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+						Name
+                    </a>
+					<div class="dropdown-menu dropdown-primary" aria-labelledby="navbarDropdownMenuLink">
+						<a href="{{ route('monuments.index', ['name' => "ASC"]) }}" class="dropdown-item">A - Z</a>
+						<a href="{{ route('monuments.index', ['name' => "DESC"]) }}" class="dropdown-item">Z - A</a>
+					</div>
+                </th>
 				<th>Description</th>
-				<!-- <th>Lat</th>
-				<th>Lon</th> -->
-				<!-- <th>Main Category</th> -->
-				<th>Visible</th>
-				<td class="dropdown">
-					<a class=" dropdown nav-link dropdown-toggle" data-toggle="dropdown"
-		aria-haspopup="true" aria-expanded="false">Main category</a>
+				<th class="dropdown">
+					<a class=" dropdown nav-link dropdown-toggle" style="padding: 0" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        Visible
+                    </a>
+					<div class="dropdown-menu dropdown-primary" aria-labelledby="navbarDropdownMenuLink">
+						<a href="{{ route('monuments.index', ['visible' => 0]) }}" class="dropdown-item">No</a>
+						<a href="{{ route('monuments.index', ['visible' => 1]) }}" class="dropdown-item">Yes</a>
+						<a href="{{ Request::path() }}" class="dropdown-item">All</a>
+					</div>
+                </th>
+				<th class="dropdown">
+					<a class=" dropdown nav-link dropdown-toggle" style="padding: 0" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        Main category
+                    </a>
 					<div class="dropdown-menu dropdown-primary" aria-labelledby="navbarDropdownMenuLink">
 						@forelse ($categories as $category)
 							<a href="{{ route('monuments.index', ['category_id' => $category->id]) }}" class="dropdown-item"> {{ $category->description}} </a>
 						@endforeach
-						<a href="{{ Request::path() }}" class="dropdown-item">Reset</a>
+						<a href="{{ Request::path() }}" class="dropdown-item">All</a>
 					</div>
-				</td>
+				</th>
 				<th>Others Categories</th>
 				<th class="Actions">Actions</th>
 			</tr>
@@ -48,13 +79,20 @@
 				<td>{{ $monument->id }}</td>
 				<td>{{ Str::limit($monument->name, 20) }}</td>
 				<td>{{ Str::limit($monument->description, 50) }}</td>
-				<td>Yes</td>
-				<!-- <td>{{ $monument->lat }}</td>
-				<td>{{ $monument->lon }}</td> -->
-        <td>{{ $monument->category->description }}</td>
-        <td>
+                <td>
+                    @if ($monument->visible == 0)
+                    {{ 'no'}}
+                    @else
+					{{ 'yes' }}
+                    @endif
+
+				</td>
+				{{-- <td>{{ $monument->lat }}</td>
+				<td>{{ $monument->lon }}</td> --}}
+                <td>{{ $monument->category->description }}</td>
+                <td>
 					@foreach ($monument->categories as $category)
-						<span class="badge badge-primary">{{ $category->description }}</span>
+						<span class="badge badge-pill badge-primary">{{ $category->description }}</span>
 					@endforeach
 				</td>
 				<td class="actions">

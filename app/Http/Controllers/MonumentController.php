@@ -45,8 +45,8 @@ class MonumentController extends Controller
 
     public function index(Request $request)
     {
-		$paginate = 5;
-		$categories = Category::orderBy('description', 'asc')->get();
+        $paginate = 5;
+        $categories = Category::orderBy('description', 'asc')->get();
 		if (request()->has('category_id')){
 			$monuments = Monument::where('category_id', $request->category_id)->orderBy('id', 'DESC')->with('categories')->paginate($paginate)->appends('category_id', request('category_id'));
 		} elseif (request()->has('search')){
@@ -55,12 +55,16 @@ class MonumentController extends Controller
 			$monuments = Monument::orderBy('name', $request->name)->with('categories')->paginate($paginate)->appends('name', request('name'));
 		} elseif (request()->has('id')){
 			$monuments = Monument::orderBy('id', $request->id)->with('categories')->paginate($paginate)->appends('id', request('created_at'));
+        } elseif (request()->has('visible')){
+			$monuments = Monument::where('visible', $request->visible)->orderBy('id', 'DESC')->with('categories')->paginate($paginate)->appends('visible', request('visible'));
 		} else {
 			$monuments = Monument::orderBy('id', 'DESC')->with('categories')->paginate($paginate);
-		}
+        }
         return view('monuments.index')
-			->with('categories', $categories)
-			->with('monuments', $monuments);    }
+            ->with('categories', $categories)
+            ->with('monuments', $monuments)
+            ->with('filter', $request);
+    }
 
     /**
      * Show the form for creating a new resource.
