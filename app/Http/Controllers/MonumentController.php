@@ -86,13 +86,16 @@ class MonumentController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(MonumentRequest $request)
+    // public function store(MonumentRequest $request)
+    public function store(Request $request)
     {
+        dd($request);
         $monument = Monument::create([
             'name' => $request->input('name'),
             'description' => $request->input('description'),
             'lat' => $request->input('lat'),
             'lon' => $request->input('lon'),
+            'visible' => $request->input('visible'),
             'user_id' => '1',  // Auth::id()
             'category_id' => $request->input('main_category_id'),
         ]);

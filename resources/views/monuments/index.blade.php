@@ -55,7 +55,6 @@
 					<div class="dropdown-menu dropdown-primary" aria-labelledby="navbarDropdownMenuLink">
 						<a href="{{ route('monuments.index', ['visible' => 0]) }}" class="dropdown-item">No</a>
 						<a href="{{ route('monuments.index', ['visible' => 1]) }}" class="dropdown-item">Yes</a>
-						<a href="{{ Request::path() }}" class="dropdown-item">All</a>
 					</div>
                 </th>
 				<th class="dropdown">
@@ -66,7 +65,6 @@
 						@forelse ($categories as $category)
 							<a href="{{ route('monuments.index', ['category_id' => $category->id]) }}" class="dropdown-item"> {{ $category->description}} </a>
 						@endforeach
-						<a href="{{ Request::path() }}" class="dropdown-item">All</a>
 					</div>
 				</th>
 				<th>Others Categories</th>

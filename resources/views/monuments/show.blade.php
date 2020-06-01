@@ -15,6 +15,10 @@
 		<dd class="col-sm-9">{{ $monument->lon }}</dd>
 		<dt class="col-sm-3">Creator</dt>
 		<dd class="col-sm-9">{{ $monument->user["name"] }}</dd>
+		<dt class="col-sm-3">Visible</dt>
+		<dd class="col-sm-9">@if ( $monument->visible == 0) No @else Yes @endif</dd>
+		<dt class="col-sm-3">Created at</dt>
+		<dd class="col-sm-9">{{ $monument->created_at }}</dd>
 		<dt class="col-sm-3">Main Category</dt>
 		<dd class="col-sm-9">{{ $monument->category->description }}</dd>
 		<dt class="col-sm-3">Categories</dt>
@@ -26,7 +30,7 @@
 		<dt class="col-sm-3">Image</dt>
 		<dd>
             @foreach ($monument->images as $item)
-            <img height="100" src="{{ Storage::url($item->url) }}"/>
+            <img height="250" src="{{ Storage::url($item->url) }}"/>
             @endforeach
 		</dd>
 	</dl>
