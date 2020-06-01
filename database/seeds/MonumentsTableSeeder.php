@@ -2,6 +2,7 @@
 
 use Illuminate\Database\Seeder;
 use App\Models\Monument;
+use Phaza\LaravelPostgis\Geometries\Point;
 
 class MonumentsTableSeeder extends Seeder
 {
@@ -30,6 +31,9 @@ class MonumentsTableSeeder extends Seeder
             'description' => 'Arco trionfale con bassorilievi e statue, commissionato da Napoleone a Luigi Cagnola.',
             'lat' => '45.4641839',
             'lon' => '9.1707071',
+            // 'position' => (new Point(51.16257,-0.58042))->toWKT(),
+            // 'position' => ('45.4641839, 9.1707071'),
+            'visible' => '1',
             'user_id' => '1',
             'category_id' => '3',
             'created_at' => date('Y-m-d H:i:s')
@@ -40,6 +44,7 @@ class MonumentsTableSeeder extends Seeder
             'description' => 'Museo con esibizioni di design permanenti e temporanee su temi che spaziano dall\'architettura all\'arredamento.',
             'lat' => '45.4692148',
             'lon' => '9.1755992',
+            'visible' => '1',
             'user_id' => '1',
             'category_id' => '7',
             'created_at' => date('Y-m-d H:i:s')
@@ -50,6 +55,7 @@ class MonumentsTableSeeder extends Seeder
             'description' => 'Complesso di due palazzi',
             'lat' => '45.4640976',
             'lon' => '9.1897378',
+            'visible' => '1',
             'user_id' => '1',
             'category_id' => '4',
             'created_at' => date('Y-m-d H:i:s')
@@ -61,6 +67,7 @@ class MonumentsTableSeeder extends Seeder
             'lat' => '45.4885364992',
             'lon' => '9.1873',
             'user_id' => '1',
+            'visible' => '1',
             'category_id' => '1',
             'created_at' => date('Y-m-d H:i:s')
         ]);
@@ -71,6 +78,7 @@ class MonumentsTableSeeder extends Seeder
             'lat' => '45.4564312',
             'lon' => '9.1807165',
             'user_id' => '1',
+            'visible' => '1',
             'category_id' => '3',
             'created_at' => date('Y-m-d H:i:s')
         ]);
@@ -81,6 +89,7 @@ class MonumentsTableSeeder extends Seeder
             'lat' => '45.4646165',
             'lon' => '9.1833044',
             'user_id' => '1',
+            'visible' => '0',
             'category_id' => '2',
             'created_at' => date('Y-m-d H:i:s')
 
@@ -90,6 +99,7 @@ class MonumentsTableSeeder extends Seeder
             'lat' => '45.4627778',
             'lon' => '9.1877778',
             'user_id' => '1',
+            'visible' => '0',
             'category_id' => '1',
             'created_at' => date('Y-m-d H:i:s')
         ]);

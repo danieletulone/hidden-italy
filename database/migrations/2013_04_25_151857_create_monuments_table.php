@@ -19,6 +19,8 @@ class CreateMonumentsTable extends Migration
             $table->longText('description');
             $table->decimal('lat', 10, 7);
             $table->decimal('lon', 10, 7);
+            // $table->point('position')->spatialIndex();
+            $table->boolean('visible');
             $table->foreignId('user_id')->constrained()->onDelete('cascade');
             $table->foreignId('category_id')->constrained()->onDelete('cascade');
             $table->timestamps();
