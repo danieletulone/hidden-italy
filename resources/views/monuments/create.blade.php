@@ -8,10 +8,10 @@
 		<x-input name="description" type="text" placeholder="description" />
 		<x-input name="lat" type="double" placeholder="123.111" />
 		<x-input name="lon" type="double" placeholder="-123.111" />
-		{{-- <div class="form-group">
-            <input type="checkbox" name="visible" checked value="@if 'checked' ?? 1 : 0 @endif"/>
-            <label>Visible</label>
-		</div> --}}
+		<div class="form-check">
+	    <label>Visible</label>
+			<input type="checkbox" name="visible" class="switch-input" value="1"/>
+		</div>
 		<div class="form-group">
 			<label for="main_category_id">Categoria Principale: </label>
 			<select name="main_category_id" class="form-control" id="main_category_id" required>

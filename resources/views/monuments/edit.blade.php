@@ -21,6 +21,10 @@
 			<label for="Lon">Lon</label>
 			<input name="lon" type="number" step="any" class="form-control" value="{{ $monument->lon }}">
         </div>
+				<div class="form-check">
+			    <label>Visible</label>
+					<input type="checkbox" name="visible" class="switch-input" value="1" {{ ($monument->visible) ? 'checked="checked"' : '' }} />
+				</div>
 		<div class="form-group">
             <label for="Main Category">Main Category</label>
 				<select name="main_category_id" class="form-control" id="main_category_id" required>

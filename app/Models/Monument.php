@@ -10,6 +10,12 @@ class Monument extends Model
         'name', 'description', 'lat', 'lon', 'user_id', 'category_id', 'visible',
     ];
 
+		protected $casts = [
+			'lat' => 'double',
+			'lon' => 'double',
+			'visible' => 'boolean'
+		];
+
     public function user()
     {
         return $this->belongsTo('App\Models\User');

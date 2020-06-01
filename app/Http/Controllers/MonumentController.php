@@ -50,7 +50,7 @@ class MonumentController extends Controller
 		if (request()->has('category_id')){
 			$monuments = Monument::where('category_id', $request->category_id)->orderBy('id', 'DESC')->with('categories')->paginate($paginate)->appends('category_id', request('category_id'));
 		} elseif (request()->has('search')){
-			$monuments = Monument::where('name', 'like', '%' .$request->search .'%')->paginate($paginate)->appends('category_id', request('category_id'));
+			$monuments = Monument::where('name', 'like', '%' .$request->search .'%')->orderBy('id', 'DESC')->paginate($paginate)->appends('category_id', request('category_id'));
 		} elseif (request()->has('name')){
 			$monuments = Monument::orderBy('name', $request->name)->with('categories')->paginate($paginate)->appends('name', request('name'));
 		} elseif (request()->has('id')){
@@ -86,16 +86,14 @@ class MonumentController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    // public function store(MonumentRequest $request)
-    public function store(Request $request)
+    public function store(MonumentRequest $request)
     {
-        dd($request);
         $monument = Monument::create([
             'name' => $request->input('name'),
             'description' => $request->input('description'),
             'lat' => $request->input('lat'),
             'lon' => $request->input('lon'),
-            'visible' => $request->input('visible'),
+						'visible' => $request->input('visible') ? true : false,
             'user_id' => '1',  // Auth::id()
             'category_id' => $request->input('main_category_id'),
         ]);
@@ -158,6 +156,7 @@ class MonumentController extends Controller
             'description' => $request['description'],
             'lat' => $request['lat'],
             'lon' => $request['lon'],
+						'visible' => $request->input('visible') ? true : false,
             'category_id' => $request['main_category_id'],
             'user_id' => '1',  //Auth::id()
         ]);

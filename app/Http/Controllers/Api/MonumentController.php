@@ -53,7 +53,7 @@ class MonumentController extends ApiController
 
     public function index()
 		{
-			$monuments = Monument::orderBy('id', 'DESC')
+			$monuments = Monument::orderBy('id', 'DESC')->where('visible', true)
 					->with('categories')
 					->with('images')
 					->get();
@@ -84,6 +84,7 @@ class MonumentController extends ApiController
 					'description' => $request->input('description'),
 					'lat' => $request->input('lat'),
 					'lon' => $request->input('lon'),
+					'visible' => 0,
 					'user_id' => '1',  // Auth::id()
 					'category_id' => $request->input('main_category_id'),
             ]);
