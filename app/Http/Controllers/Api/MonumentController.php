@@ -12,6 +12,7 @@ use App\Http\Controllers\Api\ApiController as ApiController;
 use App\Http\Resources\Monument as MonumentResource;
 use Validator;
 use App\Models\Image;
+use Illuminate\Support\Facades\DB;
 
 class MonumentController extends ApiController
 {
@@ -57,11 +58,23 @@ class MonumentController extends ApiController
 					->with('categories')
 					->with('images')
 					->get();
-			//dd($monuments);
 			//$response = $this->createResponse($monuments);
 			//return $this->SendResponse($monuments, 'List of Monuments');
 			return response()->json($monuments, 200);
 
+		}
+
+		public function findNearest(Request $request)
+    {
+			$lat = $request->lat;
+			$lon = $request->lon;
+			$distance = 0.1;
+			$monuments = Monument::where('lat', '<=', $lat + $distance)
+			->where('lat', '>=', $lat - $distance)
+			->where('visible', true)
+			->get();
+			//dd($monuments);
+			return response()->json($monuments, 200);
 		}
 
 		public function show($id)
@@ -77,7 +90,7 @@ class MonumentController extends ApiController
 
 		}
 
-		public function store(Request $request)
+		public function store(MonumentRequest $request)
 		{
 			$monument = Monument::create([
 					'name' => $request->input('name'),

@@ -13,7 +13,7 @@
     <div>
         @if ($filter->name != "") Ordered by: <p class="badge badge-pill badge-primary"> @if ($filter->name == "ASC") A - Z @else Z - A @endif  <a href="{{ Request::path() }}" class="badge badge-pill badge-primary">X</a></p>
 				@elseif ($filter->id != "") Ordered by: <p class="badge badge-pill badge-primary"> @if ($filter->id == "ASC") ↑ First @else ↓ Last @endif  <a href="{{ Request::path() }}" class="badge badge-pill badge-primary">X</a></p>
-				@elseif ($filter->visible != "") Ordered by: <p class="badge badge-pill badge-primary">Visible @if ($filter->visible == "0") no @else yes @endif  <a href="{{ Request::path() }}" class="badge badge-pill badge-primary">X</a></p>
+				@elseif ($filter->visible != "") Fileted by: <p class="badge badge-pill badge-primary">Visible @if ($filter->visible == "0") no @else yes @endif  <a href="{{ Request::path() }}" class="badge badge-pill badge-primary">X</a></p>
 				@elseif ($filter->search != "") Filtered by: <p class="badge badge-pill badge-primary">{{$filter->search}}  <a href="{{ Request::path() }}" class="badge badge-pill badge-primary">X</a></p>
 				@elseif ($filter->category_id != "")
 					Filtered by: <p class="badge badge-pill badge-primary">
