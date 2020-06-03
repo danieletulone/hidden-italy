@@ -53,70 +53,87 @@ class MonumentController extends ApiController
     }
 
     public function index()
-		{
-			$monuments = Monument::orderBy('id', 'DESC')->where('visible', true)
-					->with('categories')
-					->with('images')
-					->get();
-			//$response = $this->createResponse($monuments);
-			//return $this->SendResponse($monuments, 'List of Monuments');
-			return response()->json($monuments, 200);
+	{
+		$monuments = Monument::orderBy('id', 'DESC')->where('visible', true)
+				->with('categories')
+				->with('images')
+				->get();
+		//$response = $this->createResponse($monuments);
+		//return $this->SendResponse($monuments, 'List of Monuments');
+		
+		return response()->json($monuments, 200);
+	}
 
-		}
+	/**
+	 * 
+	 * Seach in the DB the n* nearest monuments to the current location
+	 * where n* is how many monuments u want to return
+	 * 
+     * @author Andrea, Alberto
+     *
+     */
 
-		public function findNearest(Request $request)
+	public function findNearest(Request $request)
     {
-			$lat = $request->lat;
-			$lon = $request->lon;
-			$distance = 0.1;
-			$monuments = Monument::where('lat', '<=', $lat + $distance)
-			->where('lat', '>=', $lat - $distance)
-			->where('visible', true)
-			->get();
-			//dd($monuments);
-			return response()->json($monuments, 200);
+		$lat = $request->lat;
+		$lon = $request->lon;
+		$distance = 3;
+		$limit = 20;
+		$query= DB::select('SELECT id, (
+				* acos (cos ( radians('.$lat.') )
+				* cos( radians( lat ) )
+				* cos( radians( lon ) - radians('.$lon.') )
+				+ sin ( radians('.$lat.') )
+				* sin( radians( lat ) )
+				) ) 
+				AS distance
+				FROM monuments
+				HAVING distance < '.$distance.'
+				ORDER BY distance
+				LIMIT 0 , '.$limit.';');
+				
+		return response()->json($monuments, 200);
+	}
+
+	public function show($id)
+	{
+		$monument = Monument::findOrFail($id);
+		if (is_null($monument)) {
+			return $this->sendError('Monument non found');
 		}
+		$response = $this->createResponse($monument);
+		//return $this->SendResponse($response, 'Specific monument');
 
-		public function show($id)
-		{
-			$monument = Monument::findOrFail($id);
-			if (is_null($monument)) {
-				return $this->sendError('Monument non found');
+		return response()->json($monument, 200);
+	}
 
-			}
-			$response = $this->createResponse($monument);
-			//return $this->SendResponse($response, 'Specific monument');
-			return response()->json($monument, 200);
+	public function store(MonumentRequest $request)
+	{
+		$monument = Monument::create([
+				'name' => $request->input('name'),
+				'description' => $request->input('description'),
+				'lat' => $request->input('lat'),
+				'lon' => $request->input('lon'),
+				'visible' => 0,
+				'user_id' => '1',  // Auth::id()
+				'category_id' => $request->input('main_category_id'),
+        ]);
+        $this->saveImages($request, $monument);
+		$this->saveCategories($request, $monument);
+		$response = $this->createResponse($monument);
 
-		}
+		return $this->SendResponse($response, 'Monument added');
+	}
 
-		public function store(MonumentRequest $request)
-		{
-			$monument = Monument::create([
-					'name' => $request->input('name'),
-					'description' => $request->input('description'),
-					'lat' => $request->input('lat'),
-					'lon' => $request->input('lon'),
-					'visible' => 0,
-					'user_id' => '1',  // Auth::id()
-					'category_id' => $request->input('main_category_id'),
-            ]);
-            $this->saveImages($request, $monument);
-			$this->saveCategories($request, $monument);
-			$response = $this->createResponse($monument);
-			return $this->SendResponse($response, 'Monument added');
+	public function update(Request $request, Monument $monument)
+	{
+		//
+	}
 
-		}
+	public function destroy(Monument $monument)
+	{
+		$monument->delete();
 
-		public function update(Request $request, Monument $monument)
-		{
-			//
-		}
-
-		public function destroy(Monument $monument)
-		{
-			$monument->delete();
-			return $this->sendResponse([], 'Monument deleted'); //nessuna risposta
-
-		}
+		return $this->sendResponse([], 'Monument deleted'); //nessuna risposta
+	}
 }
