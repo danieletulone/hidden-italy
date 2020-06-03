@@ -22,7 +22,7 @@
 								{{ $category->description}}
 							@endif
 						@endforeach
-						<a href="{{ Request::path() }}" class="badge badge-pill badge-primary">X</a>				</p>
+						<a href="{{ Request::path() }}" class="badge badge-pill badge-primary">X</a></p>
 				@endif
     </div>
 	<table class="table">

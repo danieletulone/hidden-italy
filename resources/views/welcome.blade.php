@@ -4,13 +4,11 @@
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
-        <title>Laravel</title>
-
-        <!-- Fonts -->
-        <link href="https://fonts.googleapis.com/css?family=Nunito:200,600" rel="stylesheet">
+        <title>Hidden Italy</title>
 
         <!-- Styles -->
         <style>
+            @import url('https://fonts.googleapis.com/css2?family=Nunito:wght@200;400;600&display=swap');
             html, body {
                 background-color: #fff;
                 color: #636b6f;
