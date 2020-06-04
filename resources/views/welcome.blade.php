@@ -1,101 +1,106 @@
 <!DOCTYPE html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
-    <head>
-        <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
 
-        <title>Hidden Italy</title>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
 
-        <!-- Styles -->
-        <style>
-            @import url('https://fonts.googleapis.com/css2?family=Nunito:wght@200;400;600&display=swap');
-            html, body {
-                background-color: #fff;
-                color: #636b6f;
-                font-family: 'Nunito', sans-serif;
-                font-weight: 200;
-                height: 100vh;
-                margin: 0;
-            }
+    <title>Hidden Italy</title>
 
-            .full-height {
-                height: 100vh;
-            }
+    <!-- Styles -->
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Nunito:wght@200;400;600&display=swap');
 
-            .flex-center {
-                align-items: center;
-                display: flex;
-                justify-content: center;
-            }
+        html,
+        body {
+            background-color: #fff;
+            color: #636b6f;
+            font-family: 'Nunito', sans-serif;
+            font-weight: 200;
+            height: 100vh;
+            margin: 0;
+        }
 
-            .position-ref {
-                position: relative;
-            }
+        .full-height {
+            height: 100vh;
+        }
 
-            .top-right {
-                position: absolute;
-                right: 10px;
-                top: 18px;
-            }
+        .flex-center {
+            align-items: center;
+            display: flex;
+            justify-content: center;
+        }
 
-            .content {
-                text-align: center;
-            }
+        .position-ref {
+            position: relative;
+        }
 
-            .title {
-                font-size: 84px;
-            }
+        .top-right {
+            position: absolute;
+            right: 10px;
+            top: 18px;
+        }
 
-            .links > a {
-                color: #636b6f;
-                padding: 0 25px;
-                font-size: 13px;
-                font-weight: 600;
-                letter-spacing: .1rem;
-                text-decoration: none;
-                text-transform: uppercase;
-            }
+        .content {
+            text-align: center;
+        }
 
-            .m-b-md {
-                margin-bottom: 30px;
-            }
+        .title {
+            font-size: 84px;
+        }
 
-            body{
-                /* background-image: url("{{ url('storage/images/home-bg.png') }}");
+        .links>a {
+            color: #636b6f;
+            padding: 0 25px;
+            font-size: 13px;
+            font-weight: 600;
+            letter-spacing: .1rem;
+            text-decoration: none;
+            text-transform: uppercase;
+        }
+
+        .m-b-md {
+            margin-bottom: 30px;
+        }
+
+        body {
+            /* background-image: url("{{ url('storage/images/home-bg.png') }}");
                 background-repeat: no-repeat;
                 background-size:cover;
                 background-position: center; */
-            }
+        }
 
-        </style>
-    </head>
-    <body>
+    </style>
+</head>
 
-        <div class="flex-center position-ref full-height">
-            @if (Route::has('login'))
-                <div class="top-right links">
-                    @auth
-                        <a href="{{ url('/home') }}">Home</a>
-                    @else
-                        <a href="{{ route('login') }}">Login</a>
+<body>
 
-                        @if (Route::has('register'))
-                            <a href="{{ route('register') }}">Register</a>
-                        @endif
-                    @endauth
-                </div>
+    <div class="flex-center position-ref full-height">
+        @if (Route::has('login'))
+        <div class="top-right links">
+            @auth
+                <a href="{{ url('/home') }}">Home</a>
+            @else
+                <a href="{{ route('login') }}">Login</a>
+
+            @if (Route::has('register'))
+                <a href="{{ route('register') }}">Register</a>
             @endif
+            @endauth
+        </div>
+        @endif
 
-            <div class="content">
-                <img id="logo-big" src="storage\seedImage\Hi.svg" alt="Logo Hidden Italy">
-                <div class="title m-b-md">
-                    Hidden Italy
-                </div>
-                <div class="subtitle m-b-md">
-                    A New Way to Discover your surroundings
-                </div>
+        <div class="content">
+            <img id="logo-big" src="storage\seedImage\Hi.svg" alt="Logo Hidden Italy">
+            <div class="title m-b-md">
+                Hidden Italy
+            </div>
+            <div class="subtitle m-b-md">
+                A New Way to Discover your surroundings
             </div>
         </div>
-        @include('components.footer')
-    </body>
+    </div>
+    @include('components.footer')
+</body>
+
 </html>

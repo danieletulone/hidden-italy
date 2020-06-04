@@ -10882,25 +10882,15 @@ a.text-dark:focus {
   }
 }
 
-.bg-img {
-  background-image: url("https://via.placeholder.com/2000");
-  min-height: 380px;
-  background-position: center;
-  background-repeat: no-repeat;
-  background-size: cover;
-  position: relative;
-}
-
 .sidebar {
+  transform: translateY(-30px);
   background-color: #fff;
-  bottom: 5%;
-  left: 10%;
+  margin: auto;
+  margin-left: 40%;
   padding-top: 15px;
   padding-bottom: 15px;
   position: relative;
-  top: 5%;
   width: 80px;
-  z-index: 1;
   align-content: center;
   border-radius: 50em;
 }
@@ -10923,12 +10913,7 @@ a.text-dark:focus {
   transition: all 0.4s ease-in-out;
 }
 
-.material-icons,
-.icon-text {
-  vertical-align: middle;
-}
-
 .material-icons {
-  padding-bottom: -5px;
+  vertical-align: middle;
 }
 
