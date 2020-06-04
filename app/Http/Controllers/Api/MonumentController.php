@@ -60,15 +60,15 @@ class MonumentController extends ApiController
 				->get();
 		//$response = $this->createResponse($monuments);
 		//return $this->SendResponse($monuments, 'List of Monuments');
-		
+
 		return response()->json($monuments, 200);
 	}
 
 	/**
-	 * 
+	 *
 	 * Seach in the DB the n* nearest monuments to the current location
 	 * where n* is how many monuments u want to return
-	 * 
+	 *
      * @author Andrea, Alberto
      *
      */
@@ -80,19 +80,19 @@ class MonumentController extends ApiController
 		$distance = 3;
 		$limit = 20;
 		$query= DB::select('SELECT id, (
-				* acos (cos ( radians('.$lat.') )
+				6371 * acos (cos ( radians('.$lat.') )
 				* cos( radians( lat ) )
 				* cos( radians( lon ) - radians('.$lon.') )
 				+ sin ( radians('.$lat.') )
 				* sin( radians( lat ) )
-				) ) 
+				) )
 				AS distance
 				FROM monuments
 				HAVING distance < '.$distance.'
 				ORDER BY distance
 				LIMIT 0 , '.$limit.';');
-				
-		return response()->json($monuments, 200);
+
+		return response()->json($query, 200);
 	}
 
 	public function show($id)
