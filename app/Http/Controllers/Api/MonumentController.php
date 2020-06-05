@@ -79,7 +79,7 @@ class MonumentController extends ApiController
 		$lon = $request->lon;
 		$distance = 3;
 		$limit = 20;
-		$query= DB::select('SELECT id, (
+		$query= DB::select('SELECT *, (
 				6371 * acos (cos ( radians('.$lat.') )
 				* cos( radians( lat ) )
 				* cos( radians( lon ) - radians('.$lon.') )
@@ -87,11 +87,10 @@ class MonumentController extends ApiController
 				* sin( radians( lat ) )
 				) )
 				AS distance
-				FROM monuments
+				FROM monuments  WHERE visible = 1
 				HAVING distance < '.$distance.'
 				ORDER BY distance
 				LIMIT 0 , '.$limit.';');
-
 		return response()->json($query, 200);
 	}
 
