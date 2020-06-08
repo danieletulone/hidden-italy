@@ -38,18 +38,42 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
+    /**
+     * Get the role of user.
+     * 
+     * @author Daniele Tulone <danieletulone.work@gmail.com>
+     *
+     * @return void
+     */
     public function role()
     {
         return $this->hasMany('App\Role');
     }
 
+    /**
+     * Get the profile image of user.
+     * 
+     * @author Daniele Tulone <danieletulone.work@gmail.com>
+     *
+     * @return void
+     */
     public function image()
     {
         return $this->hasOne('App\Image'); 
     }
 
+    /**
+     * Scope user by gmail account.
+     * 
+     * @author Daniele Tulone <danieletulone.work@gmail.com>
+     *
+     * @param [type] $query
+     * @return void
+     */
     public function scopeGmail($query)
     {
-        return $query->where('email', 'LIKE', '@gmail.com')->sortBy('created_at', 'DESC')->take(30);
+        return $query->where('email', 'LIKE', '@gmail.com')
+                     ->sortBy('created_at', 'DESC')
+                     ->take(30);
     }
 }
