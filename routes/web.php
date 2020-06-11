@@ -37,3 +37,5 @@ Route::resource('monumentsCategories', 'MonumentCategoryController');
 Route::resource('categories', 'CategoryController');
 
 Route::resource('image', 'ImageController');
+
+Route::resource('comments', 'CommentController');
