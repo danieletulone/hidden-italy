@@ -2,8 +2,6 @@
 /public/hot
 /public/storage
 /storage/*.key
-!/storage/public/seedImage/*.key
-!/storage/public/seedImage/*.svg
 /vendor
 .env
 .env.backup

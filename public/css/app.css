@@ -10917,3 +10917,11 @@ a.text-dark:focus {
   vertical-align: middle;
 }
 
+.ph-image {
+  background: url("/storage/assets/placeholder.png") no-repeat center;
+  background-size: cover;
+  border-radius: 0.75em;
+  height: 30em;
+  padding: 2em;
+}
+

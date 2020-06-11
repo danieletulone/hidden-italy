@@ -8,7 +8,7 @@
 
     @endif
     <input
-        class="form-control @error($name) is-invalid @enderror"
+        class="form-control @error($name) is-invalid @enderror mb-5"
         name="{{ $name }}"
         type="{{ $type }}"
         value="{{ $value }}"

@@ -91,7 +91,7 @@
         @endif
 
         <div class="content">
-            <img id="logo-big" src="storage\seedImage\Hi.svg" alt="Logo Hidden Italy">
+            <img id="logo-big" src="storage\assets\Hi.svg" alt="Logo Hidden Italy">
             <div class="title m-b-md">
                 Hidden Italy
             </div>
