@@ -2,6 +2,7 @@
 
 namespace App\Providers;
 
+use App\Models\Scope;
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
 use Illuminate\Support\Facades\Gate;
 use Laravel\Passport\Passport;
@@ -27,5 +28,14 @@ class AuthServiceProvider extends ServiceProvider
         $this->registerPolicies();
 
         Passport::routes();
+
+        $scopes = Cache::pull('scopes');
+
+        if ($scopes == null) {
+            $scopes = Scope::select(['name', 'description'])->get();
+            
+        }
+
+        Passport::tokensCan($scopes);
     }
 }

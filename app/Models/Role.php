@@ -15,22 +15,12 @@ class Role extends Model
 	 * @var array
 	 */
 	protected $fillable = [
-		'user_id',
-		'scope'
+		'name',
+		'scopes'
 	];
 
-	/**
-	 * List of roles defined.
-	 * 
-	 * @author Daniele Tulone <danieletulone.work@gmail.com>
-	 *
-	 * @var array
-	 */
-	protected $scopes = [
-		'admin',
-		'monument-manager',
-		'superadmin',
-		'user',
+	protected $casts = [
+		'scopes' => 'json'
 	];
 	
 	/**
@@ -42,6 +32,6 @@ class Role extends Model
 	 */
 	public function users()
 	{
-		return $this->belongsTo('App\User');
+		return $this->hasMany('App\Models\User');
 	}
 }
