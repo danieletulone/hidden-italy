@@ -41,6 +41,10 @@ class AuthServiceProvider extends ServiceProvider
      */
     private function getScopes(): array
     {
-        return ScopeHelper::forPassport();
+        if (php_sapi_name() !== 'cli') {
+            return ScopeHelper::forPassport();
+        }
+
+        return [];
     }
 }
