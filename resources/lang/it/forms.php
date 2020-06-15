@@ -1,24 +1,38 @@
 <?php
 
 return [
-    'name' => 'Nome',
+    'name'        => 'Nome',
     'description' => 'Descrizione',
-    'lat' => 'Latitudine',
-    'lon' => 'Longitudine',
+    'lat'         => 'Latitudine',
+    'lon'         => 'Longitudine',
+    'email'       => 'Indirizzo email',
+    'password'    => 'Password',
+    'firstname'   => 'Nome',
+    'lastname'    => 'Cognome',
+    'r-password'  => 'Ripeti password',
+
+    // Add buttons.
     'add' => [
-        'default' => 'Aggiungi',
-        'monuments' => 'Aggiungi Monumento'
+        'default'   => 'Aggiungi',
+        'monuments' => 'Aggiungi monumento'
     ],
-		'update' => [
-        'default' => 'Modifica',
-        'monuments' => 'Modifica Monumento'
+
+    // Update buttons.
+    'update' => [
+        'default'   => 'Modifica',
+        'monuments' => 'Modifica monumento'
     ],
+
+    // Back buttons.
     'back' => [
         'monuments' => [
             'index' => 'Tutti i monumenti'
         ],
-				'catogories' => [
+        'categories' => [
             'index' => 'Tutte le categorie'
-        ]
-    ]
+        ],
+        'users' => [
+            'index' => 'Tutti gli utenti'
+        ],
+    ],
 ];

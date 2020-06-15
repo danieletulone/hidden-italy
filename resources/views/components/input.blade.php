@@ -2,16 +2,15 @@
 
     @if ($type == "double")
         <label>{{ __('forms.' . $name) }}</label>
-
     @else
         <label>{{ __('forms.' . $placeholder) }}</label>
-
     @endif
+
     <input
-        class="form-control @error($name) is-invalid @enderror mb-5"
+        class="form-control @error($name) is-invalid @enderror mb-3"
         name="{{ $name }}"
         type="{{ $type }}"
-        value="{{ $value }}"
+        
         @if ($type == "double")
             placeholder="{{ $placeholder }}"
         @else
@@ -20,6 +19,8 @@
 
         @if (old($name))
             value="{{ old($name) }}"
+        @elseif (isset($value))
+            value="{{ $value }}"
         @endif
     />
 
