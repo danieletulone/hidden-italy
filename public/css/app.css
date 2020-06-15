@@ -10882,3 +10882,46 @@ a.text-dark:focus {
   }
 }
 
+.sidebar {
+  transform: translateY(-30px);
+  background-color: #fff;
+  margin: auto;
+  margin-left: 40%;
+  padding-top: 15px;
+  padding-bottom: 15px;
+  position: relative;
+  width: 80px;
+  align-content: center;
+  border-radius: 50em;
+}
+
+.sidebar a {
+  border-radius: 50%;
+  color: #3490dc;
+  display: block;
+  font-size: 25px;
+  margin: 20px 10px;
+  padding: 20px 0;
+  text-align: center;
+  text-decoration: none;
+}
+
+.sidebar a:hover {
+  transform: scale(100%);
+  background-color: #3490dc;
+  color: #fff;
+  transition: all 0.4s ease-in-out;
+}
+
+.material-icons {
+  vertical-align: middle;
+}
+
+.ph-image {
+  background: url("/storage/assets/placeholder.png") no-repeat center;
+  background-size: cover;
+  border-radius: 0.75em;
+  height: 30em;
+  padding: 2em;
+}
+

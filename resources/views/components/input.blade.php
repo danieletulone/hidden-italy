@@ -1,10 +1,26 @@
 <div class="form-group">
-    <label>{{ $placeholder }}</label>
-    <input 
-        class="form-control @error('email') is-invalid @enderror"
-        name="{{ $name }}" 
+
+    @if ($type == "double")
+        <label>{{ __('forms.' . $name) }}</label>
+
+    @else
+        <label>{{ __('forms.' . $placeholder) }}</label>
+
+    @endif
+    <input
+        class="form-control @error($name) is-invalid @enderror mb-5"
+        name="{{ $name }}"
         type="{{ $type }}"
-        placeholder="{{ __($placeholder) }}"
+        value="{{ $value }}"
+        @if ($type == "double")
+            placeholder="{{ $placeholder }}"
+        @else
+            placeholder="{{ __('forms.' . $placeholder) }}"
+        @endif
+
+        @if (old($name))
+            value="{{ old($name) }}"
+        @endif
     />
 
     @error($name)

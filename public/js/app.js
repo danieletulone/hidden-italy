@@ -49661,8 +49661,8 @@ __webpack_require__.r(__webpack_exports__);
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! /Users/andreaarizzoli/Desktop/HiddenItaly/resources/js/app.js */"./resources/js/app.js");
-module.exports = __webpack_require__(/*! /Users/andreaarizzoli/Desktop/HiddenItaly/resources/sass/app.scss */"./resources/sass/app.scss");
+__webpack_require__(/*! /Users/andreaarizzoli/Documents/GitHub/hidden-italy/resources/js/app.js */"./resources/js/app.js");
+module.exports = __webpack_require__(/*! /Users/andreaarizzoli/Documents/GitHub/hidden-italy/resources/sass/app.scss */"./resources/sass/app.scss");
 
 
 /***/ })

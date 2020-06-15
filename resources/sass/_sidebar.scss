@@ -1,0 +1,36 @@
+.sidebar {
+    transform: translateY(-30px);
+    background-color: $white;
+    margin: auto;
+    margin-left: 40%;
+    padding-top: 15px;
+    padding-bottom: 15px;
+    position: relative;
+    width: 80px;
+    // z-index: 1;
+    align-content: center;
+    border-radius: 50em;
+}
+
+.sidebar a {
+    // padding: 0 10px;
+    border-radius: 50%;
+    color: $blue;
+    display: block;
+    font-size: 25px;
+    margin: 20px 10px;
+    padding: 20px 0;
+    text-align: center;
+    text-decoration: none;
+
+    &:hover {
+        transform: scale(100%);
+        background-color: $blue;
+        color: $white;
+        transition: all 0.4s ease-in-out;
+    }
+}
+
+.material-icons {
+    vertical-align: middle;
+}

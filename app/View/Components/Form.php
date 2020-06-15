@@ -25,16 +25,36 @@ class Form extends Component
     public $method;
 
     /**
+     * The enctype used for current form.
+     * 
+     * @author Daniele Tulone <danieletulone.work@gmail.com>
+     *
+     * @var string
+     */
+    public $enctype;
+
+    /**
+     * Text of submit button.
+     * 
+     * @author Daniele Tulone <danieletulone.work@gmail.com>
+     *
+     * @var [type]
+     */
+    public $btnText;
+
+    /**
      * Create a new component instance.
      * 
      * @author Daniele Tulone <danieletulone.work@gmail.com>
      *
      * @return void
      */
-    public function __construct($action, $method = "POST")
+    public function __construct($action, $method = "POST", $enctype = null, $btnText = 'add.default')
     {
         $this->action = $action;
         $this->method = $method;
+        $this->enctype = $enctype;
+        $this->btnText = $btnText;
     }
 
     /**

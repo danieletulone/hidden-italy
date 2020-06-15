@@ -60,7 +60,12 @@ class User extends Authenticatable
      */
     public function image()
     {
-        return $this->hasOne('App\Image'); 
+        return $this->hasOne('App\Models\Image');
+    }
+
+    public function monuments()
+    {
+        return $this->hasMany('App\Models\Monument');
     }
 
     /**

@@ -3,9 +3,9 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
 use App\Models\Image;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
 
 class ImageController extends Controller
@@ -17,10 +17,8 @@ class ImageController extends Controller
      */
     public function index()
     {
-			$images = Image::orderBy('created_at', 'DESC')->get();
-			return view('images.index')->with('images', $images);
-
-		}
+        return DB::table('images')->get();
+    }
 
     /**
      * Show the form for creating a new resource.
@@ -63,10 +61,7 @@ class ImageController extends Controller
      */
     public function show(Image $image)
     {
-			view('monuments.show', ['monument' => $monument]);
-			return view('images.show')->with('image', $image);
-
-		}
+    }
 
     /**
      * Show the form for editing the specified resource.
@@ -109,15 +104,13 @@ class ImageController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
+     * @param  int  $image
      * @return \Illuminate\Http\Response
      */
     public function destroy(Image $image)
     {
-			$file = $image->url;
-			Storage::delete($file);
-			$image->delete();
-			return redirect()->action('ImageController@index');
-
-		}
+        Storage::delete($image->url);
+        $image->delete();
+        return redirect()->back();
+    }
 }
