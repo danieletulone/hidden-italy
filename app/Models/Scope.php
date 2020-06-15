@@ -11,5 +11,5 @@ class Scope extends Model
         'name'
     ];
 
-    protected $timestamps = false;
+    public $timestamps = false;
 }
