@@ -14,6 +14,16 @@ use Illuminate\Support\Facades\Hash;
 
 class PassportController extends Controller
 {
+    /*
+    |--------------------------------------------------------------------------
+    | Passport Controller
+    |--------------------------------------------------------------------------
+    |
+    | This controller handles the registration of new users as well as their
+    | validation and creation and the login flow from stateless client app
+    | The login flow will provide the access token with right scopes.
+    */
+    
     /**
      * Get credentials from request.
      * 
@@ -49,7 +59,7 @@ class PassportController extends Controller
      * @author Daniele Tulone <danieletulone.work@gmail.com>
      * 
      * @param PassportLoginRequest $request
-     * @return void
+     * @return PassportLoginResponse|UnauthorisedResponse
      */
     public function login(PassportLoginRequest $request)
     {
@@ -71,9 +81,9 @@ class PassportController extends Controller
      * @author Daniele Tulone <danieletulone.work@gmail.com>
      * 
      * @param PassportRegisterRequest $request
-     * @return void
+     * @return PassportRegisterResponse
      */
-    public function register(PassportRegisterRequest $request)
+    public function register(PassportRegisterRequest $request): PassportRegisterResponse
     {
         $user = User::create([
             'firstname' => $request->firstname,

@@ -2,10 +2,10 @@
 
 namespace App\Providers;
 
-use App\Models\Scope;
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
 use Illuminate\Support\Facades\Gate;
 use Laravel\Passport\Passport;
+use App\Helpers\ScopeHelper;
 
 class AuthServiceProvider extends ServiceProvider
 {
@@ -29,13 +29,18 @@ class AuthServiceProvider extends ServiceProvider
 
         Passport::routes();
 
-        $scopes = Cache::pull('scopes');
+        Passport::tokensCan($this->getScopes());
+    }
 
-        if ($scopes == null) {
-            $scopes = Scope::select(['name', 'description'])->get();
-            
-        }
-
-        Passport::tokensCan($scopes);
+    /**
+     * Get scopes from db or cache.
+     * 
+     * @author Daniele Tulone <danieletulone.work@gmail.com>
+     *
+     * @return array
+     */
+    private function getScopes(): array
+    {
+        return ScopeHelper::forPassport();
     }
 }
