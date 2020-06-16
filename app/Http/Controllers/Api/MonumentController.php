@@ -12,6 +12,9 @@ use App\Http\Controllers\Api\ApiController as ApiController;
 use App\Http\Resources\Monument as MonumentResource;
 use Validator;
 use App\Models\Image;
+use Illuminate\Support\Facades\DB;
+use Arr;
+
 
 class MonumentController extends ApiController
 {
@@ -61,8 +64,39 @@ class MonumentController extends ApiController
 			//$response = $this->createResponse($monuments);
 			//return $this->SendResponse($monuments, 'List of Monuments');
 			return response()->json($monuments, 200);
-
 		}
+
+	public function findNearest(Request $request)
+    {
+		$lat = $request->lat;
+		$lon = $request->lon;
+		$distance = 3;
+		$limit = 20;
+		$query= DB::select('SELECT id, (
+				6371 * acos (cos ( radians('.$lat.') )
+				* cos( radians( lat ) )
+				* cos( radians( lon ) - radians('.$lon.') )
+				+ sin ( radians('.$lat.') )
+				* sin( radians( lat ) )
+				) )
+				AS distance
+				FROM monuments  WHERE visible = 1
+				HAVING distance < '.$distance.'
+				ORDER BY distance
+				LIMIT 0 , '.$limit.';');
+	
+		$ids = Arr::pluck($query, 'id');
+		$response = Monument::addSelect(DB::raw('*,(
+			6371 * acos (cos ( radians('.$lat.') )
+			* cos( radians( lat ) )
+			* cos( radians( lon ) - radians('.$lon.') )
+			+ sin ( radians('.$lat.') )
+			* sin( radians( lat ) )
+			) )
+			AS distance'))->with('categories')->with('category')->with('images')->find($ids);
+
+		return $response;
+	}
 
 		public function show($id)
 		{
