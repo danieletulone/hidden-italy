@@ -1,4 +1,4 @@
-@extends('layouts.base')
+@extends('layouts.base', ['bg' => 'bg-primary'])
 
 @section('main')
     <div id="app" class="bg-primary">
@@ -6,11 +6,11 @@
         
         <div class="container-fluid">
             <div class="row">
-                <div class="col-1 justify-content-center">
-                    @include('components.sidebar')
+                <div class="col-12 col-lg-1 pr-3 pl-3 pr-lg-2 pl-lg-4">
+                    <x-sidebar />
                 </div>
                 
-                <div class="container-fluid col-10 bg-white shadow-lg p-4 rounded" style="transform: translateY(-30px)">
+                <div class="col-12 col-lg-11 pl-3 pr-3 pl-lg-2 pr-lg-4 mt-4 mt-lg-0">
                     <x-resource-container>
                         @yield('content')
                     </x-resource-container>
