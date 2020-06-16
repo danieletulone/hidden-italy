@@ -45,21 +45,34 @@ class MonumentController extends Controller
 
     public function index(Request $request)
     {
-        $paginate = 5;
         $categories = Category::orderBy('description', 'asc')->get();
+
+        $monuments = Monument::with('categories');
+
 		if (request()->has('category_id')){
-			$monuments = Monument::where('category_id', $request->category_id)->orderBy('id', 'DESC')->with('categories')->paginate($paginate)->appends('category_id', request('category_id'));
-		} elseif (request()->has('search')){
-			$monuments = Monument::where('name', 'like', '%' .$request->search .'%')->orderBy('id', 'DESC')->paginate($paginate)->appends('category_id', request('category_id'));
-		} elseif (request()->has('name')){
-			$monuments = Monument::orderBy('name', $request->name)->with('categories')->paginate($paginate)->appends('name', request('name'));
-		} elseif (request()->has('id')){
-			$monuments = Monument::orderBy('id', $request->id)->with('categories')->paginate($paginate)->appends('id', request('created_at'));
-        } elseif (request()->has('visible')){
-			$monuments = Monument::where('visible', $request->visible)->orderBy('id', 'DESC')->with('categories')->paginate($paginate)->appends('visible', request('visible'));
-		} else {
-			$monuments = Monument::orderBy('id', 'DESC')->with('categories')->paginate($paginate);
+			$monuments = $monuments->where('category_id', $request->category_id);
         }
+        
+        if (request()->has('search')){
+			$monuments = $monuments->where('name', 'like', '%' .$request->search .'%');
+        }
+        
+        if (request()->has('name')){
+			$monuments = $monuments->orderBy('name', $request->name);
+        } 
+        
+        if (request()->has('id')){
+			$monuments = $monuments->orderBy('id', $request->id);
+        } else {
+            $monuments = $monuments->orderBy('id', 'DESC');
+        }
+        
+        if (request()->has('visible')){
+			$monuments = $monuments->where('visible', $request->visible);
+        }
+
+        $monuments = $monuments->paginate()->appends($request->all());
+
         return view('monuments.index')
             ->with('categories', $categories)
             ->with('monuments', $monuments)
