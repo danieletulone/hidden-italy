@@ -10886,12 +10886,15 @@ a.text-dark:focus {
   display: flex;
   flex-direction: column;
   justify-content: center;
+  position: -webkit-sticky !important;
+  position: sticky !important;
   transform: translateY(-30px);
+  top: 90px;
 }
 
 .sidebar a {
-  padding: 0 !important;
   color: #3490dc;
+  padding: 0 !important;
   text-align: center;
 }
 
@@ -10901,9 +10904,9 @@ a.text-dark:focus {
 }
 
 .sidebar a i {
-  transition: 0.2s;
-  padding: 7.5px !important;
   border-radius: 50%;
+  padding: 7.5px !important;
+  transition: 0.2s;
 }
 
 .ph-image {

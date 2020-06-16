@@ -19,3 +19,7 @@
         </div>
     </div>
 @endsection
+
+@section('footer')
+    <x-footer text-color="text-white" />
+@endsection

@@ -4,11 +4,13 @@
     display:flex;
     flex-direction: column;
     justify-content: center;
+    position:sticky !important;
     transform: translateY(-30px);
+    top: 90px;
 
     a {
-        padding: 0 !important;
         color: $blue;
+        padding: 0 !important;
         text-align: center;
     
         &:hover {
@@ -19,9 +21,9 @@
         }
 
         i {
-            transition: 0.2s;
-            padding: 7.5px !important;
             border-radius: 50%;
+            padding: 7.5px !important;
+            transition: 0.2s;
         }
     }
 }

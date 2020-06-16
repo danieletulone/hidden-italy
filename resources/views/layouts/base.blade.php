@@ -1,4 +1,4 @@
-<!doctype html>
+<!Doctype Html>
 
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
     <head>
@@ -25,6 +25,6 @@
     <body @if (isset($bg)) class="{{ $bg }}" @endif>
         @yield('main')
 
-        @include('components.footer')
+        @yield('footer')
     </body>
 </html>

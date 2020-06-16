@@ -4,16 +4,19 @@ namespace App\View\Components;
 
 use Illuminate\View\Component;
 
-class footer extends Component
+class Footer extends Component
 {
+
+    public string $textColor;
+
     /**
      * Create a new component instance.
      *
      * @return void
      */
-    public function __construct()
+    public function __construct(string $textColor = 'text-dark')
     {
-        //
+        $this->textColor = $textColor;
     }
 
     /**
