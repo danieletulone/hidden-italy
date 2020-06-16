@@ -6,7 +6,6 @@ use App\Models\Category;
 use Illuminate\Http\Request;
 use App\http\Requests\CategoryRequest;
 
-
 class CategoryController extends Controller
 {
     /**
@@ -16,7 +15,8 @@ class CategoryController extends Controller
      */
     public function index()
     {
-        $categories = Category::orderBy('id', 'desc')->get();
+        $categories = Category::orderBy('id', 'desc')->paginate();
+
         return view('categories.index')->with('categories', $categories);
     }
 
@@ -41,6 +41,7 @@ class CategoryController extends Controller
         Category::create([
             'description' => $request->input('description'),
         ]);
+
         return redirect()->action('CategoryController@index');
     }
 
@@ -78,6 +79,7 @@ class CategoryController extends Controller
         Category::where('id', $category->id)->update([
             'description' => $request['description'],
         ]);
+
         return redirect()->action('CategoryController@index');
     }
 
@@ -90,6 +92,7 @@ class CategoryController extends Controller
     public function destroy(Category $category)
     {
         $category->delete();
+        
         return redirect()->action('CategoryController@index');
     }
 }

@@ -6,8 +6,27 @@ use Illuminate\Database\Eloquent\Model;
 
 class Monument extends Model
 {
+
+    /**
+     * The number of models to return for pagination.
+     *
+     * @var int
+     */
+    protected $perPage = 5;
+
+    /**
+     * The attributes that are mass assignable.
+     *
+     * @var array
+     */
     protected $fillable = [
-        'name', 'description', 'lat', 'lon', 'user_id', 'category_id'
+        'name', 'description', 'lat', 'lon', 'user_id', 'category_id', 'visible',
+    ];
+
+    protected $casts = [
+        'lat' => 'double',
+        'lon' => 'double',
+        'visible' => 'boolean'
     ];
 
     public function user()

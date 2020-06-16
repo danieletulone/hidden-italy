@@ -12,26 +12,18 @@ use App\Models\MonumentCategory;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\DB;
 
 class MonumentController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function __construct()
-    {
-        // $this->middleware('auth');
-    }
-
+    
     public function saveCategories($request, $monument)
     {
         $monumentCategories = MonumentCategory::get()->where('monument_id', $monument->id);
+        
         foreach ($monumentCategories as $monumentCategory) {
             $monumentCategory->delete();
         }
+
         if ($request->categories != null && count($request->categories) > 0) {
             foreach ($request->categories as $category) {
                 MonumentCategory::create([
@@ -42,16 +34,51 @@ class MonumentController extends Controller
         }
     }
 
-    public function index()
+    /**
+     * Get filtered and paginated monuments.
+     * 
+     * @author Daniele Tulone <danieletulone.work@gmail.com>
+     * @author Andrea Arizzoli
+     *
+     * @param Request $request
+     * @return void
+     */
+    public function index(Request $request)
     {
-        $monuments = Monument::orderBy('id', 'DESC')
-            ->with('categories')
-            ->get();
-        return view('monuments.index')->with('monuments', $monuments);
+        $categories = Category::orderBy('description', 'asc')->get();
 
-        return view('monuments.index')->with('monuments', $monuments);
+        $monuments = Monument::with('categories');
+
+		if (request()->has('category_id')){
+			$monuments = $monuments->where('category_id', $request->category_id);
+        }
+        
+        if (request()->has('search')){
+			$monuments = $monuments->where('name', 'like', '%' .$request->search .'%');
+        }
+        
+        if (request()->has('name')){
+			$monuments = $monuments->orderBy('name', $request->name);
+        } 
+        
+        if (request()->has('id')){
+			$monuments = $monuments->orderBy('id', $request->id);
+        } else {
+            $monuments = $monuments->orderBy('id', 'DESC');
+        }
+        
+        if (request()->has('visible')){
+			$monuments = $monuments->where('visible', $request->visible);
+        }
+
+        $monuments = $monuments->paginate()->appends($request->all());
+
+        return view('monuments.index')
+            ->with('categories', $categories)
+            ->with('monuments', $monuments)
+            ->with('filter', $request);
     }
-    
+
     /**
      * Show the form for creating a new resource.
      *
@@ -61,6 +88,7 @@ class MonumentController extends Controller
     {
         $categories = Category::get()->pluck('description', 'id');
         $users = User::get()->pluck('name', 'id');
+
         return view('monuments.create')
             ->with('users', $users)
             ->with('categories', $categories);
@@ -79,6 +107,7 @@ class MonumentController extends Controller
             'description' => $request->input('description'),
             'lat' => $request->input('lat'),
             'lon' => $request->input('lon'),
+			'visible' => $request->input('visible') ? true : false,
             'user_id' => '1',  // Auth::id()
             'category_id' => $request->input('main_category_id'),
         ]);
@@ -94,6 +123,7 @@ class MonumentController extends Controller
                 'user_id' => '1', // Auth::id()
             ]);
         };
+
         return redirect()->action('MonumentController@index');
 
     }
@@ -107,19 +137,19 @@ class MonumentController extends Controller
     public function show(Monument $monument)
     {
         return view('monuments.show')->with('monument', $monument);
-
     }
+
     /**
      * Show the form for editing the specified resource.
      *
      * @param  \App\Models\Monument  $modelsMonument
      * @return \Illuminate\Http\Response
      */
-
     public function edit(Monument $monument)
     {
         $categories = Category::get()->pluck('description', 'id');
         $monumentCategories = MonumentCategory::get()->where('monument_id', $monument->id);
+
         return view('monuments.edit')
             ->with('categories', $categories)
             ->with('monumentCategories', $monumentCategories)
@@ -141,6 +171,7 @@ class MonumentController extends Controller
             'description' => $request['description'],
             'lat' => $request['lat'],
             'lon' => $request['lon'],
+						'visible' => $request->input('visible') ? true : false,
             'category_id' => $request['main_category_id'],
             'user_id' => '1',  //Auth::id()
         ]);
@@ -148,9 +179,7 @@ class MonumentController extends Controller
         $this->saveCategories($request, $monument);
 
         if ($request->file('url') != null) {
-
             foreach ($request->file('url') as $image_path) {
-
                 Image::create([
                     'title' => $request->input('name'),
                     'description' => 'Descrizione non disponibile',
@@ -162,7 +191,6 @@ class MonumentController extends Controller
         }
 
         return redirect()->action('MonumentController@index');
-
     }
 
     /**
@@ -173,8 +201,8 @@ class MonumentController extends Controller
         $image = Image::findOrFail($id);
         Storage::delete($image->url);
         $image->delete();
-        return redirect()->back();
 
+        return redirect()->back();
     }
 
     /**
@@ -191,7 +219,7 @@ class MonumentController extends Controller
                 Storage::delete($image_path);
             }
         }
-
+        
         $monument->delete();
 
         return redirect()->action('MonumentController@index');

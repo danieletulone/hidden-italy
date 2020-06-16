@@ -1,7 +1,7 @@
-@extends('layouts.app')
+@extends('layouts.dashboard')
 @section('content')
-<div class="container">
-	<a class="btn btn-primary mb-3" href="{{ route('monuments.index') }}" role="button">Back to Monuments</a>
+<x-container>
+	<x-back-button />
 	<form action="{{ route('monuments.update', ['monument' => $monument]) }}" method="POST" enctype="multipart/form-data">
 		@method('PUT')
         @csrf
@@ -21,6 +21,10 @@
 			<label for="Lon">Lon</label>
 			<input name="lon" type="number" step="any" class="form-control" value="{{ $monument->lon }}">
         </div>
+				<div class="form-check">
+			    <label>Visible</label>
+					<input type="checkbox" name="visible" class="switch-input" value="1" {{ ($monument->visible) ? 'checked="checked"' : '' }} />
+				</div>
 		<div class="form-group">
             <label for="Main Category">Main Category</label>
 				<select name="main_category_id" class="form-control" id="main_category_id" required>
@@ -64,7 +68,7 @@
 				@endforeach
 		</label>
 
-</div>
+</x-container>
 @endsection
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>

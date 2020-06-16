@@ -19,21 +19,3 @@ Route::get('/', function () {
 });
 
 Auth::routes();
-
-Route::get('/home', 'HomeController@index')->name('home');
-
-Route::get('/user', 'UserController@index')->name('user');
-
-Route::get('/role', 'RoleController@index')->name('role');
-
-//Route::get('/image', 'ImageController@index')->name('image');
-
-Route::resource('monuments', 'MonumentController');
-
-Route::delete('monuments/image/{id}', 'MonumentController@deleteImage')->name('monument.image.delete');
-
-Route::resource('monumentsCategories', 'MonumentCategoryController');
-
-Route::resource('categories', 'CategoryController');
-
-Route::resource('image', 'ImageController');
