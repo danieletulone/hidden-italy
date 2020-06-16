@@ -25,8 +25,8 @@ class CreateUsersTable extends Migration
             $table->bigInteger('role_id')->unsigned()->nullable();
             $table->foreign('role_id')->references('id')->on('roles')->onDelete('set null');
 
-            $table->bigInteger('image_id')->unsigned()->nullable();
-            $table->foreign('image_id')->references('id')->on('images')->onDelete('cascade');
+            // $table->bigInteger('image_id')->unsigned()->nullable();
+            // $table->foreign('image_id')->references('id')->on('images')->onDelete('cascade');
 
             $table->rememberToken();
             $table->timestamps();

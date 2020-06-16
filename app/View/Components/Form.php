@@ -6,6 +6,7 @@ use Illuminate\View\Component;
 
 class Form extends Component
 {
+    
     /**
      * The form action.
      *
@@ -49,8 +50,12 @@ class Form extends Component
      *
      * @return void
      */
-    public function __construct($action, $method = "POST", $enctype = null, $btnText = 'add.default')
-    {
+    public function __construct(
+        string $action, 
+        string $method = "POST", 
+        $enctype = null, 
+        string $btnText = 'add.default'
+    ) {
         $this->action = $action;
         $this->method = $method;
         $this->enctype = $enctype;
