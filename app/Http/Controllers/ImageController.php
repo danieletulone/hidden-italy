@@ -6,7 +6,6 @@ use Illuminate\Http\Request;
 use App\Models\Image;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Validator;
 
 class ImageController extends Controller
 {
@@ -28,8 +27,7 @@ class ImageController extends Controller
     public function create()
     {
         return view('images.create');
-
-		}
+    }
 
     /**
      * Store a newly created resource in storage.
@@ -39,19 +37,20 @@ class ImageController extends Controller
      */
     public function store(Request $request)
     {
-				$validator = $request->validate([
-					'title' => 'required|max:255',
-					'description' =>  'required|max:255',
-					'url' => 'mimes:jpeg,jpg,png,gif|required|max:10000', //max 10000kb
-				]);
-				$image = new Image();
-				$image->title = $request->input('title');
-				$image->description = $request->input('description');
-				$image->url = $request->file('url')->store('public/images');
-				$image->save();
-				return redirect()->action('ImageController@index');
+        $validator = $request->validate([
+            'title' => 'required|max:255',
+            'description' =>  'required|max:255',
+            'url' => 'mimes:jpeg,jpg,png,gif|required|max:10000', //max 10000kb
+        ]);
 
-		}
+        $image = new Image();
+        $image->title = $request->input('title');
+        $image->description = $request->input('description');
+        $image->url = $request->file('url')->store('public/images');
+        $image->save();
+
+        return redirect()->action('ImageController@index');
+    }
 
     /**
      * Display the specified resource.
@@ -71,9 +70,8 @@ class ImageController extends Controller
      */
     public function edit(Image $image)
     {
-			return view('images.edit')->with('image', $image);
-
-	  }
+        return view('images.edit')->with('image', $image);
+    }
 
     /**
      * Update the specified resource in storage.
@@ -84,22 +82,25 @@ class ImageController extends Controller
      */
     public function update(Request $request, Image $image)
     {
-			$validator = $request->validate([
-				'title' => 'required|max:255',
-				'description' =>  'required|max:255',
-				'url' => 'mimes:jpeg,jpg,png,gif|required|max:10000', //max 10000kb
-			]);
-			$image->title = $request->input('title');
-			$image->description = $request->input('description');
-			if($request->url != $image->url){
-				Storage::delete($image->url);
-				$image->url = $request->file('url')->store('public/images');
-			}
-			$image->save();
+        $validator = $request->validate([
+            'title' => 'required|max:255',
+            'description' =>  'required|max:255',
+            'url' => 'mimes:jpeg,jpg,png,gif|required|max:10000', //max 10000kb
+        ]);
+        
+        $image->title = $request->input('title');
+        $image->description = $request->input('description');
+        
+        if($request->url != $image->url){
+            Storage::delete($image->url);
+            $image->url = $request->file('url')->store('public/images');
+        }
+        
+        $image->save();
 
-			return redirect()->action('ImageController@index');
+        return redirect()->action('ImageController@index');
 
-		}
+    }
 
     /**
      * Remove the specified resource from storage.
@@ -111,6 +112,7 @@ class ImageController extends Controller
     {
         Storage::delete($image->url);
         $image->delete();
+        
         return redirect()->back();
     }
 }

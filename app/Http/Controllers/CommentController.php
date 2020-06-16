@@ -14,7 +14,11 @@ class CommentController extends Controller
      */
     public function index()
     {
-			$comments = Comment::orderBy('id', 'desc')->with('user')->with('monument')->paginate(10);
+            $comments = Comment::orderBy('id', 'desc')
+                ->with('user')
+                ->with('monument')
+                ->paginate();
+            
 			return view('comments.index')->with('comments', $comments);
     }
 
@@ -81,7 +85,8 @@ class CommentController extends Controller
      */
     public function destroy(Comment $comment)
     {
-			$comment->delete();
+            $comment->delete();
+            
 			return redirect()->action('CommentController@index');
     }
 }
