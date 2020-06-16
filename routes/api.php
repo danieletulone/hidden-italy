@@ -18,6 +18,8 @@ Route::prefix('auth')->group(function () {
     Route::post('/register', 'Auth\PassportController@register');
 });
 
+Route::post('monuments/findNearest', 'Api\MonumentController@findNearest');
+
 Route::resource('monuments', 'Api\MonumentController');
 
 Route::resource('categories', 'Api\CategoryController');

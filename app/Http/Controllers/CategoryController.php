@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Category;
 use Illuminate\Http\Request;
 use App\http\Requests\CategoryRequest;
+use Illuminate\Pagination\Paginator;
 
 
 class CategoryController extends Controller
@@ -16,7 +17,7 @@ class CategoryController extends Controller
      */
     public function index()
     {
-        $categories = Category::orderBy('id', 'desc')->get();
+        $categories = Category::orderBy('id', 'desc')->paginate(5);
         return view('categories.index')->with('categories', $categories);
     }
 

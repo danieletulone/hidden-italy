@@ -6,8 +6,6 @@ use Illuminate\Http\Request;
 use App\Models\Image;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\DB;
-use App\Models\Image;
-use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
 
 class ImageController extends Controller
@@ -106,15 +104,13 @@ class ImageController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
+     * @param  int  $image
      * @return \Illuminate\Http\Response
      */
     public function destroy(Image $image)
     {
-        $image = Image::findOrFail($id);
         Storage::delete($image->url);
         $image->delete();
-
         return redirect()->back();
     }
 }

@@ -8,7 +8,7 @@ class Input extends Component
 {
     /**
      * The input type.
-     * 
+     *
      * @author Daniele Tulone <danieletulone.work@gmail.com>
      *
      * @var string
@@ -19,7 +19,7 @@ class Input extends Component
      * The placeholder value.
      *
      * @author Daniele Tulone <danieletulone.work@gmail.com>
-     * 
+     *
      * @var string
      */
     public $placeholder;
@@ -28,31 +28,31 @@ class Input extends Component
      * Undocumented variable
      *
      * @author Daniele Tulone <danieletulone.work@gmail.com>
-     * 
+     *
      * @var string
      */
     public $name;
 
     /**
      * The input name
-     * 
+     *
      * @author Daniele Tulone <danieletulone.work@gmail.com>
-     * 
+     *
      * @var string
      */
     public $value;
 
     /**
      * Create a new component instance.
-     * 
+     *
      * @author Daniele Tulone <danieletulone.work@gmail.com>
      *
      * @return void
      */
     public function __construct(
-        string $placeholder, 
+        string $placeholder,
         string $name,
-        string $type = 'text', 
+        string $type = 'text',
         string $value = null
     ) {
         $this->placeholder = $placeholder;

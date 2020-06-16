@@ -3,10 +3,9 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
+use App\Models\Comment;
 
-
-class RoleController extends Controller
+class CommentController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -15,7 +14,8 @@ class RoleController extends Controller
      */
     public function index()
     {
-        return DB::table('roles')->get();
+			$comments = Comment::orderBy('id', 'desc')->with('user')->with('monument')->paginate(10);
+			return view('comments.index')->with('comments', $comments);
     }
 
     /**
@@ -47,6 +47,7 @@ class RoleController extends Controller
      */
     public function show($id)
     {
+        //
     }
 
     /**
@@ -78,8 +79,9 @@ class RoleController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Comment $comment)
     {
-        //
+			$comment->delete();
+			return redirect()->action('CommentController@index');
     }
 }

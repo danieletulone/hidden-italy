@@ -13,6 +13,7 @@ use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Pagination\Paginator;
 
 class MonumentController extends Controller
 {
@@ -42,16 +43,42 @@ class MonumentController extends Controller
         }
     }
 
-    public function index()
+    public function index(Request $request)
     {
-        $monuments = Monument::orderBy('id', 'DESC')
-            ->with('categories')
-            ->get();
-        return view('monuments.index')->with('monuments', $monuments);
+        $categories = Category::orderBy('description', 'asc')->get();
 
-        return view('monuments.index')->with('monuments', $monuments);
+        $monuments = Monument::with('categories');
+
+		if (request()->has('category_id')){
+			$monuments = $monuments->where('category_id', $request->category_id);
+        }
+        
+        if (request()->has('search')){
+			$monuments = $monuments->where('name', 'like', '%' .$request->search .'%');
+        }
+        
+        if (request()->has('name')){
+			$monuments = $monuments->orderBy('name', $request->name);
+        } 
+        
+        if (request()->has('id')){
+			$monuments = $monuments->orderBy('id', $request->id);
+        } else {
+            $monuments = $monuments->orderBy('id', 'DESC');
+        }
+        
+        if (request()->has('visible')){
+			$monuments = $monuments->where('visible', $request->visible);
+        }
+
+        $monuments = $monuments->paginate()->appends($request->all());
+
+        return view('monuments.index')
+            ->with('categories', $categories)
+            ->with('monuments', $monuments)
+            ->with('filter', $request);
     }
-    
+
     /**
      * Show the form for creating a new resource.
      *
@@ -79,6 +106,7 @@ class MonumentController extends Controller
             'description' => $request->input('description'),
             'lat' => $request->input('lat'),
             'lon' => $request->input('lon'),
+						'visible' => $request->input('visible') ? true : false,
             'user_id' => '1',  // Auth::id()
             'category_id' => $request->input('main_category_id'),
         ]);
@@ -141,6 +169,7 @@ class MonumentController extends Controller
             'description' => $request['description'],
             'lat' => $request['lat'],
             'lon' => $request['lon'],
+						'visible' => $request->input('visible') ? true : false,
             'category_id' => $request['main_category_id'],
             'user_id' => '1',  //Auth::id()
         ]);
@@ -191,9 +220,7 @@ class MonumentController extends Controller
                 Storage::delete($image_path);
             }
         }
-
         $monument->delete();
-
         return redirect()->action('MonumentController@index');
     }
 }

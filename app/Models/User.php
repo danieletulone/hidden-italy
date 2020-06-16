@@ -18,6 +18,7 @@ class User extends Authenticatable
     protected $fillable = [
         'firstname', 'lastname',
         'name', 'email', 'password',
+        'role_id'
     ];
 
     /**
@@ -38,16 +39,25 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
+    /**
+     * Get the role of user.
+     * 
+     * @author Daniele Tulone <danieletulone.work@gmail.com>
+     *
+     * @return void
+     */
     public function role()
     {
-        return $this->hasMany('App\Models\Role');
+        return $this->belongsTo('App\Role');
     }
 
-    public function comments()
-    {
-        return $this->hasMany('App\Models\Comment');
-    }
-
+    /**
+     * Get the profile image of user.
+     * 
+     * @author Daniele Tulone <danieletulone.work@gmail.com>
+     *
+     * @return void
+     */
     public function image()
     {
         return $this->hasOne('App\Models\Image');
@@ -58,8 +68,18 @@ class User extends Authenticatable
         return $this->hasMany('App\Models\Monument');
     }
 
+    /**
+     * Scope user by gmail account.
+     * 
+     * @author Daniele Tulone <danieletulone.work@gmail.com>
+     *
+     * @param [type] $query
+     * @return void
+     */
     public function scopeGmail($query)
     {
-        return $query->where('email', 'LIKE', '@gmail.com')->sortBy('created_at', 'DESC')->take(30);
+        return $query->where('email', 'LIKE', '@gmail.com')
+                     ->sortBy('created_at', 'DESC')
+                     ->take(30);
     }
 }
