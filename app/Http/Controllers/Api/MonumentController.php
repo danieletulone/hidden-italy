@@ -2,30 +2,19 @@
 
 namespace App\Http\Controllers\Api;
 
-use Illuminate\Http\Request;
-use App\Models\Monument;
-use App\Models\MonumentCategory;
+use App\Http\Controllers\Api\ApiController as ApiController;
 use App\Http\Requests;
 use App\http\Requests\MonumentRequest;
-use App\Http\Controllers\Api\ApiController as ApiController;
+use App\Http\Requests\Monuments\FindNearestRequest;
 use App\Models\Image;
+use App\Models\Monument;
+use App\Models\MonumentCategory;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
-use Arr;
-
+use App\Services\Locator\Locator;
 
 class MonumentController extends ApiController
 {
-	public function createResponse($monument)
-	{
-		$response = $monument;
-		$response->images = $monument->images()->get();
-		$response->user = $monument->user()->get();
-		$response->category = $monument->category()->get();
-		$response->categories = $monument->categories()->get();
-		return $response;
-
-	}
-
 	public function saveCategories($request, $monument)
     {
         if ($request->categories != null && count($request->categories) > 0) {
@@ -42,66 +31,37 @@ class MonumentController extends ApiController
     {
         foreach ($request->file('url') as $image) {
             Image::create([
-            'title' => $request->input('name'),
-            'description' => 'Descrizione non disponibile',
-            'url' =>  $image->store('public/images'),
-            'monument_id' => $monument->id,
-            'user_id' => '1', // Auth::id()
+				'title' => $request->input('name'),
+				'description' => 'Descrizione non disponibile',
+				'url' =>  $image->store('public/images'),
+				'monument_id' => $monument->id,
+				'user_id' => '1', // Auth::id()
             ]);
         }
     }
 
     public function index()
 	{
-		$monuments = Monument::orderBy('id', 'DESC')->where('visible', true)
-				->with('categories')
-				->with('images')
-				->get();
-		//$response = $this->createResponse($monuments);
-		//return $this->SendResponse($monuments, 'List of Monuments');
+		$monuments = Monument::orderBy('id', 'DESC')
+			->where('visible', true)
+			->with('categories')
+			->with('images')
+			->get();
 
 		return response()->json($monuments, 200);
 	}
 
 	/**
-	 *
-	 * Seach in the DB the n* nearest monuments to the current location
+	 * Seach in the DB the n* nearest monuments to the current Locator
 	 * where n* is how many monuments u want to return
+	 * 
+	 * NOTE: Paginate give conflict so we perform a manual pagination using take and skip methods.
 	 *
-     * @author Andrea, Alberto
-     *
+     * @author Daniele Tulone <danieletulone.work@gmail.com>
      */
-
-	public function findNearest(Request $request)
+	public function findNearest(FindNearestRequest $request)
     {
-		$lat = $request->lat;
-		$lon = $request->lon;
-		$distance = 3;
-		$limit = 20;
-		$query= DB::select('SELECT id, (
-				6371 * acos (cos ( radians('.$lat.') )
-				* cos( radians( lat ) )
-				* cos( radians( lon ) - radians('.$lon.') )
-				+ sin ( radians('.$lat.') )
-				* sin( radians( lat ) )
-				) )
-				AS distance
-				FROM monuments  WHERE visible = 1
-				HAVING distance < '.$distance.'
-				ORDER BY distance
-				LIMIT 0 , '.$limit.';');
-	
-		$ids = Arr::pluck($query, 'id');
-		$response = Monument::addSelect(DB::raw('*,(
-			6371 * acos (cos ( radians('.$lat.') )
-			* cos( radians( lat ) )
-			* cos( radians( lon ) - radians('.$lon.') )
-			+ sin ( radians('.$lat.') )
-			* sin( radians( lat ) )
-			) )
-			AS distance'))->with('categories')->with('category')->with('images')->find($ids);
-
-		return $response;
+		return app()->make(Locator::class)->find(Monument::class);
 	}
 
 	public function show($id)
