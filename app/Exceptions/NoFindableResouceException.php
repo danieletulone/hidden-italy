@@ -3,7 +3,6 @@
 namespace App\Exceptions;
 
 use Exception;
-
 use Facade\IgnitionContracts\Solution;
 use Facade\IgnitionContracts\BaseSolution;
 use Facade\IgnitionContracts\ProvidesSolution;

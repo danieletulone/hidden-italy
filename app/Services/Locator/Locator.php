@@ -50,15 +50,30 @@ class Locator
      */
     private float $range = 3000;
 
+    /**
+     * Set the lat and lon getting them from request.
+     *
+     * @author Daniele Tulone <danieletulone.work@gmail.com>
+     * 
+     * @param Request $request
+     */
     public function __construct(Request $request)
     {
         $this->lat = $request->input('lat');
         $this->lon = $request->input('lon');
     }
 
+    /**
+     * Build and execute the query for find resources.
+     * 
+     * @author Daniele Tulone <danieletulone.work@gmail.com>
+     *
+     * @param [type] $resource
+     * @return [type]
+     */
     final private function buildQuery($resource)
     {
-        return Monument::select()
+        return $resource::select()
             ->addSelect($this->selectDistanceQuery())
             ->having('distance', '<', $this->getRange())
             ->with('categories')
@@ -72,6 +87,29 @@ class Locator
             ->get();
     }
 
+    /**
+     * Find resouce by current location and range.
+     * 
+     * @author Daniele Tulone <danieletulone.work@gmail.com>
+     *
+     * @param [type] $resource
+     * @return void
+     */
+    final public function find($resource)
+    {
+        throw_unless(
+            in_array($resource, $this->findableResources),
+            NoFindableResouceException::class
+        );
+
+        throw_unless(
+            $this->lat && $this->lon,
+            NoLocationProvidedException::class
+        );
+
+        return $this->buildQuery($resource);
+    }
+    
     /**
      * The SQL query to calculate distance 
      * between 'from' Locator and resource Locator.
@@ -166,15 +204,5 @@ class Locator
         $this->range = $range;
 
         return $this;
-    }
-
-    public function find($resource)
-    {
-        throw_unless(
-            in_array($resource, $this->findableResources),
-            NoFindableResouceException::class
-        );
-
-        return $this->buildQuery($resource);
     }
 }
