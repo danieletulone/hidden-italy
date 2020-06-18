@@ -35,7 +35,7 @@ class MonumentController extends Controller
     }
 
     /**
-     * Get filtered and paginated monuments.
+     * Get filtered and paginated admin.monuments.
      * 
      * @author Daniele Tulone <danieletulone.work@gmail.com>
      * @author Andrea Arizzoli
@@ -73,7 +73,7 @@ class MonumentController extends Controller
 
         $monuments = $monuments->paginate()->appends($request->all());
 
-        return view('monuments.index')
+        return view('admin.monuments.index')
             ->with('categories', $categories)
             ->with('monuments', $monuments)
             ->with('filter', $request);
@@ -89,7 +89,7 @@ class MonumentController extends Controller
         $categories = Category::get()->pluck('description', 'id');
         $users = User::get()->pluck('name', 'id');
 
-        return view('monuments.create')
+        return view('admin.monuments.create')
             ->with('users', $users)
             ->with('categories', $categories);
     }
@@ -136,7 +136,7 @@ class MonumentController extends Controller
 
     public function show(Monument $monument)
     {
-        return view('monuments.show')->with('monument', $monument);
+        return view('admin.monuments.show')->with('monument', $monument);
     }
 
     /**
@@ -150,7 +150,7 @@ class MonumentController extends Controller
         $categories = Category::get()->pluck('description', 'id');
         $monumentCategories = MonumentCategory::get()->where('monument_id', $monument->id);
 
-        return view('monuments.edit')
+        return view('admin.monuments.edit')
             ->with('categories', $categories)
             ->with('monumentCategories', $monumentCategories)
             ->with('monument', $monument)
