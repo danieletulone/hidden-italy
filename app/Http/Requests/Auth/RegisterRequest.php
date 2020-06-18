@@ -9,6 +9,8 @@ class RegisterRequest extends FormRequest
 
     /**
      * Rules for valitation process.
+     * 
+     * @author Daniele Tulone <danieletulone.work@gmail.com>
      *
      * @var array
      */
@@ -21,6 +23,8 @@ class RegisterRequest extends FormRequest
 
     /**
      * Determine if the user is authorized to make this request.
+     * 
+     * @author Daniele Tulone <danieletulone.work@gmail.com>
      *
      * @return bool
      */
@@ -31,6 +35,8 @@ class RegisterRequest extends FormRequest
 
     /**
      * Get the validation rules that apply to the request.
+     * 
+     * @author Daniele Tulone <danieletulone.work@gmail.com>
      *
      * @return array
      */

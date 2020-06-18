@@ -13,6 +13,8 @@ class User extends Authenticatable
 
     /**
      * The attributes that are mass assignable.
+     * 
+     * @author Daniele Tulone <danieletulone.work@gmail.com>
      *
      * @var array
      */
@@ -97,7 +99,7 @@ class User extends Authenticatable
      */
     public function scopeJoinedDay($query, int $day, int $month, int $year)
     {
-        $this->checkDate($month, $day, $year);
+        $this->checkDate($day, $month, $year);
 
         return $query->whereDay('created_at', $day)
                      ->whereMonth('created_at', $month)
