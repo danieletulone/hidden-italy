@@ -23,3 +23,5 @@ Route::get('monuments/find-nearest', 'Api\MonumentController@findNearest');
 Route::resource('monuments', 'Api\MonumentController');
 
 Route::resource('categories', 'Api\CategoryController');
+
+Route::get('/users/joined', 'Api\UserController@joined');
