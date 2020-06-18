@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Exceptions\DateNotValidException;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Passport\HasApiTokens;
@@ -81,5 +82,79 @@ class User extends Authenticatable
         return $query->where('email', 'LIKE', '@gmail.com')
                      ->sortBy('created_at', 'DESC')
                      ->take(30);
+    }
+
+    /**
+     * Get user joined during given day.
+     * 
+     * @author Daniele Tulone <danieletulone.work@gmail.com>
+     *
+     * @param [type] $query
+     * @param integer $day
+     * @param integer $month
+     * @param integer $year
+     * @return void
+     */
+    public function scopeJoinedDay($query, int $day, int $month, int $year)
+    {
+        $this->checkDate($month, $day, $year);
+
+        return $query->whereDay('created_at', $day)
+                     ->whereMonth('created_at', $month)
+                     ->whereYear('created_at', $year);
+    }
+
+    /**
+     * Get user joined during given month
+     * 
+     * @author Daniele Tulone <danieletulone.work@gmail.com>.
+     *
+     * @param [type] $query
+     * @param integer $month
+     * @param integer $year
+     * @return void
+     */
+    public function scopeJoinedMonth($query, int $month, int $year)
+    {
+        $this->checkDate($month, 1, $year);
+
+        return $query->whereMonth('created_at', $month)
+                     ->whereYear('created_at', $year);
+    }
+
+    /**
+     * Get user joined during given year.
+     * 
+     * @author Daniele Tulone <danieletulone.work@gmail.com>
+     *
+     * @param [type] $query
+     * @param int $year
+     * @return void
+     */
+    public function scopeJoinedYear($query, int $year)
+    {
+        $this->checkDate(1, 1, $year);
+
+        return $query->whereYear('created_at', $year);
+    }
+
+    /**
+     * Check if a date is valid
+     * 
+     * @author Daniele Tulone <danieletulone.work@gmail.com>
+     *
+     * @throws DateNotValidException
+     * @param int $day
+     * @param int $month
+     * @param int $year
+     * 
+     * @return boolean
+     */
+    final private function checkDate($day, $month, $year): void
+    {
+        throw_unless(
+            checkdate($month, $day, $year), 
+            DateNotValidException::class
+        );
     }
 }
