@@ -5,9 +5,9 @@
 		<a href="{{ route('monuments.create') }}" style="position:absolute;top:-25px;right:50px;width:50px;height:50px;" class="shadow-sm bg-success rounded-circle d-flex align-items-center justify-content-center">
 			<img src="{{ asset('icons/add.png') }}" class="animated-icon rotate" width="25px" />
 		</a>
-		
+
 		<div class="form-inline mb-3">
-			<form class="form-inline mr-auto" action="{{ route('monuments.index', array_merge(Request::all(), [])) }}">				
+			<form class="form-inline mr-auto" action="{{ route('monuments.index', array_merge(Request::all(), [])) }}">
 				@foreach (Request::all() as $key => $value)
 					<input name="{{ $key }}" type="hidden" value="{{ $value }}" />
 				@endforeach
@@ -19,13 +19,13 @@
 
 		<div class="mb-3">
 			<span>
-				Filtered by: 
+				Filtered by:
 			</span>
-			
+
 			<x-filter-tag type="name">
-				@if ($filter->name == "ASC") 
-					A - Z 
-				@else 
+				@if ($filter->name == "ASC")
+					A - Z
+				@else
 					Z - A
 				@endif
 			</x-filter-tag>
@@ -33,7 +33,7 @@
 			<x-filter-tag type="id">
 				@if ($filter->id == "ASC") ↑ First @else ↓ Last @endif
 			</x-filter-tag>
-			
+
 			<x-filter-tag type="visible">
 				@if ($filter->visible == "0") no @else yes @endif
 			</x-filter-tag>
@@ -41,7 +41,7 @@
 			<x-filter-tag type="search">
 				<span>{{$filter->search}}</span>
 			</x-filter-tag>
-			
+
 			<x-filter-tag type="category_id">
 				@foreach($categories as $category)
 						@if($category->id == $filter->category_id)
@@ -56,8 +56,8 @@
 				<tr>
 					<!-- DROPDOWN -->
 					<x-filter-dropdown name="id">
-						<x-filter-dropdown-item :params="['id' => 'ASC']" value="A - Z"/>
-						<x-filter-dropdown-item :params="['id' => 'DESC']" value="Z - A"/>
+						<x-filter-dropdown-item :params="['id' => 'ASC']" value="↑ First"/>
+						<x-filter-dropdown-item :params="['id' => 'DESC']" value="↓ Last"/>
 					</x-filter-dropdown>
 
 					<!-- DROPDOWN -->
@@ -86,16 +86,16 @@
 					<th class="Actions">Actions</th>
 				</tr>
 			</thead>
-			
+
 			<tbody>
 				@forelse ($monuments as $monument)
 				<tr>
 					<td>{{ $monument->id }}</td>
-					
+
 					<td>{{ Str::limit($monument->name, 20) }}</td>
-					
+
 					<td>{{ Str::limit($monument->description, 50) }}</td>
-					
+
 					<td>
 						@if ($monument->visible == 0)
 							{{ 'no'}}
@@ -103,9 +103,9 @@
 							{{ 'yes' }}
 						@endif
 					</td>
-					
+
 					<td>{{ $monument->category->description }}</td>
-					
+
 					<td>
 						@foreach ($monument->categories as $category)
 							<span class="badge badge-pill badge-primary">{{ $category->description }}</span>
@@ -119,12 +119,12 @@
 							title="View">
 							View
 						</a>
-						
+
 						<a
 							href="{{ action('MonumentController@edit', ['monument' => $monument->id]) }}"
 							alt="Edit"
 							title="Edit">
-							
+
 							Edit
 						</a>
 
