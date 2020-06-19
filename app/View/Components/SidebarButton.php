@@ -26,20 +26,32 @@ class SidebarButton extends Component
     public string $icon;
 
     /**
+     * The section name.
+     * 
+     * @author Daniele Tulone <danieletulone.work@gmail.com>
+     * 
+     * @var string
+     */
+    public string $name;
+
+    /**
      * Create a new component instance.
      * 
      * @author Daniele Tulone <danieletulone.work@gmail.com>
      *
      * @return void
      */
-    public function __construct($route, $icon)
+    public function __construct($route, $icon, $name = '')
     {
         $this->route = $route;
-        $this->icon = $icon;
+        $this->icon  = $icon;
+        $this->name  = $name;
     }
 
     /**
      * Get the view / contents that represent the component.
+     * 
+     * @author Daniele Tulone <danieletulone.work@gmail.com>
      *
      * @return \Illuminate\View\View|string
      */
