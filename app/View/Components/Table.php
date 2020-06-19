@@ -2,6 +2,7 @@
 
 namespace App\View\Components;
 
+use App\Helpers\TableHelper;
 use Illuminate\View\Component;
 
 class Table extends Component
@@ -25,10 +26,10 @@ class Table extends Component
      *
      * @return void
      */
-    public function __construct($items, $headers)
+    public function __construct($items)
     {
-        $this->items = $items;
-        $this->headers = $headers;
+        $this->items   = TableHelper::getData($items);
+        $this->headers = TableHelper::getHeaders($items);
     }
 
     /**
