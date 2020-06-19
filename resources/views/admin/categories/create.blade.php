@@ -1,4 +1,5 @@
 @extends('layouts.dashboard')
+
 @section('content')
 <x-container>
 	<x-back-button />
