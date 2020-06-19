@@ -127,13 +127,13 @@ class MonumentController extends Controller
         return redirect()->action('MonumentController@index');
 
     }
+
     /**
      * Display the specified resource.
      *
      * @param  \App\Models\Monument  $modelsMonument
      * @return \Illuminate\Http\Response
      */
-
     public function show(Monument $monument)
     {
         return view('admin.monuments.show')->with('monument', $monument);
@@ -171,7 +171,7 @@ class MonumentController extends Controller
             'description' => $request['description'],
             'lat' => $request['lat'],
             'lon' => $request['lon'],
-						'visible' => $request->input('visible') ? true : false,
+            'visible' => $request->input('visible') ? true : false,
             'category_id' => $request['main_category_id'],
             'user_id' => '1',  //Auth::id()
         ]);
