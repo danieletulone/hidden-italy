@@ -67,9 +67,11 @@ class MonumentController extends ApiController
 	public function show($id)
 	{
 		$monument = Monument::findOrFail($id);
+		
 		if (is_null($monument)) {
 			return $this->sendError('Monument non found');
 		}
+
 		$response = $this->createResponse($monument);
 		//return $this->SendResponse($response, 'Specific monument');
 
@@ -86,7 +88,8 @@ class MonumentController extends ApiController
 				'visible' => 0,
 				'user_id' => '1',  // Auth::id()
 				'category_id' => $request->input('main_category_id'),
-        ]);
+		]);
+		
         $this->saveImages($request, $monument);
 		$this->saveCategories($request, $monument);
 		$response = $this->createResponse($monument);
