@@ -1,5 +1,5 @@
-<div class="col-12 col-md-6 p-3">
-    <div class="p-4 shadow rounded d-flex aling-items-center justify-content-center flex-column">
+<div class="col-12 col-md-4 p-3">
+    <a href="{{ route($name . '.index') }}" class="p-4 shadow rounded d-flex aling-items-center justify-content-center flex-column">
         <div class="text-center">
             <i class="material-icons" style="font-size:48px">{{ $icon }}</i>
         </div>
@@ -11,5 +11,5 @@
         <div class="text-center">
             <span class="p-2 rounded-pill px-4 bg-light">{{ $count }}</span>
         </div>
-    </div>
+    </a>
 </div>
