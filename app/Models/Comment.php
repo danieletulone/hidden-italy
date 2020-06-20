@@ -19,9 +19,4 @@ class Comment extends Model
     {
         return $this->belongsTo('App\Models\Monument');
     }
-
-    public function image()
-    {
-        return $this->belongsTo('App\Models\Image');
-    }
 }
