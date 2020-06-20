@@ -16,7 +16,7 @@ class CategoryController extends ApiController
 
     public function show($id)
     {
-        $category = Category::find($id);
+        $category = Category::findOrFail($id);
 
         if (is_null($category)) {
             return $this->sendError('Monument non found');

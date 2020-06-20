@@ -4,7 +4,7 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use App\Models\Comment;
-use App\http\Requests\Comment;
+use App\http\Requests\CommentRequest;
 use Illuminate\Http\Request;
 
 class CommentController extends Controller
@@ -71,9 +71,12 @@ class CommentController extends Controller
      * @param  \App\Models\Comment  $comment
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Comment $comment)
+    public function update(CommentRequest $request, Comment $comment)
     {
-        dd("update");
+
+        $comment->update($request->all());
+
+		return response()->json($comment, 200);
     }
 
     /**
@@ -84,6 +87,8 @@ class CommentController extends Controller
      */
     public function destroy(Comment $comment)
     {
-        dd("destroy");
+        $comment->delete();
+
+        return response()->json(null, 204);
     }
 }
