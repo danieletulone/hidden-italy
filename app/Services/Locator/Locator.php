@@ -13,59 +13,60 @@ class Locator
 
     /**
      * The resource that app can find by Locator.
-     * 
+     *
      * @author Daniele Tulone <danieletulone.work@gmail.com>
-     * 
+     *
      * @var array
      */
     private array $findableResources = [
-        Monument::class, 
+        Monument::class,
         User::class
     ];
 
     /**
      * The 'from' lat value.
-     * 
+     *
      * @author Daniele Tulone <danieletulone.work@gmail.com>
-     * 
+     *
      * @var float
      */
     private float $lat;
 
     /**
      * The 'from' lon value.
-     * 
+     *
      * @author Daniele Tulone <danieletulone.work@gmail.com>
-     * 
+     *
      * @var float
      */
     private float $lon;
 
     /**
      * The range around the from Locator in which find resources.
-     * 
+     *
      * @author Daniele Tulone <danieletulone.work@gmail.com>
-     * 
+     *
      * @var float
      */
-    private float $range = 3000;
+    private float $range;
 
     /**
      * Set the lat and lon getting them from request.
      *
      * @author Daniele Tulone <danieletulone.work@gmail.com>
-     * 
+     *
      * @param Request $request
      */
     public function __construct(Request $request)
     {
         $this->lat = $request->input('lat');
         $this->lon = $request->input('lon');
+				$this->range = $request->input('range') ?? 3000;
     }
 
     /**
      * Build and execute the query for find resources.
-     * 
+     *
      * @author Daniele Tulone <danieletulone.work@gmail.com>
      *
      * @param [type] $resource
@@ -79,7 +80,7 @@ class Locator
             ->with('categories')
             ->with('category')
             ->with('images')
-            ->take(10)
+            ->take(request()->input('per_page') ?? 10)
             ->skip(request()->input('page') - 1 ?? 1)
             ->withCasts([
                 'distance' => MetersToKmCast::class
@@ -89,7 +90,7 @@ class Locator
 
     /**
      * Find resouce by current location and range.
-     * 
+     *
      * @author Daniele Tulone <danieletulone.work@gmail.com>
      *
      * @param [type] $resource
@@ -109,13 +110,13 @@ class Locator
 
         return $this->buildQuery($resource);
     }
-    
+
     /**
-     * The SQL query to calculate distance 
+     * The SQL query to calculate distance
      * between 'from' Locator and resource Locator.
      *
      * @author Daniele Tulone <danieletulone.work@gmail.com>
-     * 
+     *
      * @return void
      */
     final private function selectDistanceQuery()
@@ -125,7 +126,7 @@ class Locator
                 point(%f, %f),
                 point(lat, lon)
             ) as distance',
-            $this->lat, 
+            $this->lat,
             $this->lon
         ));
     }
@@ -136,9 +137,9 @@ class Locator
 
     /**
      * Get the value of lon
-     * 
+     *
      * @author Daniele Tulone <danieletulone.work@gmail.com>
-     */ 
+     */
     public function getLon(): float
     {
         return $this->lon;
@@ -149,7 +150,7 @@ class Locator
      *
      * @author Daniele Tulone <danieletulone.work@gmail.com>
      * @return  self
-     */ 
+     */
     public function setLon($lon): self
     {
         $this->lon = $lon;
@@ -159,10 +160,10 @@ class Locator
 
     /**
      * Get the value of lat
-     * 
+     *
      * @author Daniele Tulone <danieletulone.work@gmail.com>
      * @return float lat Current value of lat
-     */ 
+     */
     public function getLat(): float
     {
         return $this->lat;
@@ -170,11 +171,11 @@ class Locator
 
     /**
      * Set the value of lat
-     * 
+     *
      * @author Daniele Tulone <danieletulone.work@gmail.com>
      *
      * @return  self
-     */ 
+     */
     public function setLat($lat): self
     {
         $this->lat = $lat;
@@ -184,9 +185,9 @@ class Locator
 
     /**
      * Get the value of range
-     * 
+     *
      * @author Daniele Tulone <danieletulone.work@gmail.com>
-     */ 
+     */
     public function getRange(): float
     {
         return $this->range;
@@ -194,11 +195,11 @@ class Locator
 
     /**
      * Set the value of range
-     * 
+     *
      * @author Daniele Tulone <danieletulone.work@gmail.com>
      *
      * @return  self
-     */ 
+     */
     public function setRange($range): self
     {
         $this->range = $range;
