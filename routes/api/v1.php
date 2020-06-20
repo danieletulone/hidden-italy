@@ -25,3 +25,5 @@ Route::resource('monuments', 'Api\MonumentController');
 Route::resource('categories', 'Api\CategoryController');
 
 Route::get('/users/joined', 'Api\UserController@joined');
+
+Route::resource('comments', 'Api\CommentController');
