@@ -2,9 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Helpers\ScopeHelper;
 use App\Http\Requests\ScopeRequest;
 use App\Models\Scope;
-use Cache;
 
 class ScopeController extends Controller
 {
@@ -24,7 +24,7 @@ class ScopeController extends Controller
     {
         Scope::create($request->all());
 
-        Cache::forget('scopes');
+        ScopeHelper::reset();
 
         return redirect()->action('ScopeController@index');
     }
