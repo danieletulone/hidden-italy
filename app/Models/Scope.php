@@ -8,7 +8,8 @@ class Scope extends Model
 {
     
     protected $fillable = [
-        'name'
+        'name',
+        'description'
     ];
 
     public $timestamps = false;
