@@ -8,7 +8,7 @@
     </thead>
 
     <tbody>
-        @foreach ($items as $item)
+        @foreach ($itemsData as $item)
             <tr>
                 @foreach ($item as $key => $value)
                     @if (!is_array($value))
@@ -38,3 +38,5 @@
         @endforeach
     </tbody>
 </table>
+
+{{ $items->links() }}
