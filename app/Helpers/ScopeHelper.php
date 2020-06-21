@@ -49,12 +49,13 @@ class ScopeHelper
     public static function forPassport(): array
     {
         $scopes = self::all();
+        $forPassport = [];
 
         foreach ($scopes as $scope) {
-            $scopes[$scope['name']] = $scope['description']; 
+            $forPassport[$scope['name']] = $scope['description']; 
         }
 
-        return $scopes;
+        return $forPassport;
     }
 
     /**
@@ -66,7 +67,7 @@ class ScopeHelper
      */
     public static function getFromCache()
     {
-        return Cache::pull('scopes');
+        return Cache::get('scopes');
     }
 
     /**
