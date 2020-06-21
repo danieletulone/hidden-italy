@@ -15,11 +15,11 @@ use Illuminate\Support\Facades\Auth;
 
 class MonumentController extends Controller
 {
-    
+
     public function saveCategories($request, $monument)
     {
         $monumentCategories = MonumentCategory::get()->where('monument_id', $monument->id);
-        
+
         foreach ($monumentCategories as $monumentCategory) {
             $monumentCategory->delete();
         }
@@ -36,7 +36,7 @@ class MonumentController extends Controller
 
     /**
      * Get filtered and paginated admin.monuments.
-     * 
+     *
      * @author Daniele Tulone <danieletulone.work@gmail.com>
      * @author Andrea Arizzoli
      *
@@ -52,21 +52,21 @@ class MonumentController extends Controller
 		if (request()->has('category_id')){
 			$monuments = $monuments->where('category_id', $request->category_id);
         }
-        
+
         if (request()->has('search')){
 			$monuments = $monuments->where('name', 'like', '%' .$request->search .'%');
         }
-        
+
         if (request()->has('name')){
 			$monuments = $monuments->orderBy('name', $request->name);
-        } 
-        
+        }
+
         if (request()->has('id')){
 			$monuments = $monuments->orderBy('id', $request->id);
         } else {
             $monuments = $monuments->orderBy('id', 'DESC');
         }
-        
+
         if (request()->has('visible')){
 			$monuments = $monuments->where('visible', $request->visible);
         }
@@ -219,7 +219,7 @@ class MonumentController extends Controller
                 Storage::delete($image_path);
             }
         }
-        
+
         $monument->delete();
 
         return redirect()->action('MonumentController@index');

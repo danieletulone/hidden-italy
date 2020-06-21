@@ -19,9 +19,4 @@ class Image extends Model
     {
         return $this->belongsTo('App\Models\Monument');
     }
-    
-    public function comments()
-    {
-        return $this->hasMany('App\Models\Comment');
-    }
 }

@@ -14,6 +14,5 @@ $factory->define(Comment::class, function (Faker $faker) {
         'content' => $faker->text($maxNbChars = 200),
         'monument_id' => $faker->numberBetween(1, Monument::orderBy('id', 'DESC')->first()->id),
         'user_id' => $faker->numberBetween(1, User::orderBy('id', 'DESC')->first()->id),
-        'image_id' => $faker->numberBetween(1, Image::orderBy('id', 'DESC')->first()->id),
     ];
 });
