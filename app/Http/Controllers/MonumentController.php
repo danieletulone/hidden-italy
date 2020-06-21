@@ -2,37 +2,20 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Monument;
-use App\Models\User;
-use App\Models\Image;
-use App\Models\Category;
-use Illuminate\Http\Request;
+use App\Helpers\MonumentHelper;
 use App\http\Requests\MonumentRequest;
+use App\Models\Category;
+use App\Models\Image;
+use App\Models\Monument;
 use App\Models\MonumentCategory;
-use Illuminate\Support\Facades\Storage;
+use App\Models\User;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
 
 class MonumentController extends Controller
 {
-
-    public function saveCategories($request, $monument)
-    {
-        $monumentCategories = MonumentCategory::get()->where('monument_id', $monument->id);
-
-        foreach ($monumentCategories as $monumentCategory) {
-            $monumentCategory->delete();
-        }
-
-        if ($request->categories != null && count($request->categories) > 0) {
-            foreach ($request->categories as $category) {
-                MonumentCategory::create([
-                    'monument_id' => $monument->id,
-                    'category_id' => $category
-                ]);
-            }
-        }
-    }
 
     /**
      * Get filtered and paginated admin.monuments.
@@ -112,8 +95,8 @@ class MonumentController extends Controller
             'category_id' => $request->input('main_category_id'),
         ]);
 
-        $this->saveCategories($request, $monument);
-
+        MonumentHelper::saveAll($request, $monument);
+        
         foreach ($request->file('url') as $image) {
             Image::create([
                 'title' => $request->input('name'),
@@ -173,36 +156,12 @@ class MonumentController extends Controller
             'lon' => $request['lon'],
             'visible' => $request->input('visible') ? true : false,
             'category_id' => $request['main_category_id'],
-            'user_id' => '1',  //Auth::id()
+            'user_id' => AuthHelper::id()
         ]);
 
-        $this->saveCategories($request, $monument);
-
-        if ($request->file('url') != null) {
-            foreach ($request->file('url') as $image_path) {
-                Image::create([
-                    'title' => $request->input('name'),
-                    'description' => 'Descrizione non disponibile',
-                    'url' => $image_path->store('public/images'),
-                    'monument_id' => $monument->id,
-                    'user_id' => '1', // Auth::id()
-                ]);
-            }
-        }
+        MonumentHelper::saveAll($request, $monument, true);
 
         return redirect()->action('MonumentController@index');
-    }
-
-    /**
-     * Remove an image.
-     */
-    public function deleteImage($id)
-    {
-        $image = Image::findOrFail($id);
-        Storage::delete($image->url);
-        $image->delete();
-
-        return redirect()->back();
     }
 
     /**
@@ -213,12 +172,7 @@ class MonumentController extends Controller
      */
     public function destroy(Monument $monument)
     {
-        foreach ($monument->images as $image) {
-            $image_path = $image->url;
-            if (Storage::exists($image_path)) {
-                Storage::delete($image_path);
-            }
-        }
+        MonumentHelper::deleteImages($monument);
 
         $monument->delete();
 
