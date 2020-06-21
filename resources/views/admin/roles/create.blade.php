@@ -13,7 +13,7 @@
             </div>
         </div>
 
-        <x-form :action="route('scopes.store')">
+        <x-form :action="route('roles.store')">
             <x-input name="name" placeholder="name" />
             
             <div class="form-group">
@@ -22,8 +22,16 @@
                 <div>
                     @foreach ($scopes as $scope)
                         <div>
-                            <input type="checkbox" name="scopes" value="{{ $scope->name }}">
-                            <label>{{ $scope->name }}</label>
+                            <input 
+                                id="checkbox-{{ $scope->name }}" 
+                                type="checkbox" 
+                                name="scopes" 
+                                value="{{ $scope->name }}"
+                            />
+
+                            <label for="checkbox-{{ $scope->name }}">
+                                {{ $scope->name }}
+                            </label>
                         </div>
                     @endforeach
                 </div>
