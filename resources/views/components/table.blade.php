@@ -1,14 +1,39 @@
 <table class="table table-striped table-hover shadow-sm">
     <thead>
         @foreach ($headers as $header)
-            <th>{{ $header }}</th>
+            <th>{{ __('tables.users.' . $header) }}</th>
         @endforeach
+
+        <th>{{ __('actions') }}</th>
     </thead>
 
     <tbody>
         @foreach ($items as $item)
             <tr>
-                <td>{{ $item->name }}</td>
+                @foreach ($item as $key => $value)
+                    @if (!is_array($value))
+                        <td>{{ $value }}</td>
+                    @else
+                        <td></td>
+                    @endif
+                @endforeach
+
+                <td>
+                    <x-view-button
+                        resource="user" 
+                        :istance="$item" 
+                    />
+
+                    <x-edit-button
+                        resource="user" 
+                        :istance="$item" 
+                    />
+
+                    <x-delete-button 
+                        resource="user" 
+                        :istance="$item" 
+                    />
+                </td>
             </tr>
         @endforeach
     </tbody>

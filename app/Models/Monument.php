@@ -12,7 +12,7 @@ class Monument extends Model
      *
      * @var int
      */
-    protected $perPage = 5;
+    protected $perPage = 15;
 
     /**
      * The attributes that are mass assignable.

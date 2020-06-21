@@ -18,6 +18,8 @@ class PassportRegisterRequest extends FormRequest
 
     /**
      * Get the validation rules that apply to the request.
+     * 
+     * @author Daniele Tulone <danieletulone.work@gmail.com>
      *
      * @return array
      */

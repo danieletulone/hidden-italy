@@ -1,4 +1,4 @@
-<footer class="font-small container pb-4 {{ $textColor }}">
+<footer class="font-small container py-5 {{ $textColor }}">
     <div class="footer-copyright text-center">
         © 2020 Copyright - Hidden Italy
     </div>

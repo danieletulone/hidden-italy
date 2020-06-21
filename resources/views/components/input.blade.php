@@ -7,7 +7,11 @@
     @endif
 
     <input
-        class="form-control @error($name) is-invalid @enderror mb-3"
+        class="form-control 
+            @if (isset($errors))
+                @error($name) is-invalid @enderror 
+            @endif
+        mb-3"
         name="{{ $name }}"
         type="{{ $type }}"
         
@@ -24,9 +28,11 @@
         @endif
     />
 
-    @error($name)
-        <span class="invalid-feedback" role="alert">
-            <strong>{{ $message }}</strong>
-        </span>
-    @enderror
+    @if(isset($errors))
+        @error($name)
+            <span class="invalid-feedback" role="alert">
+                <strong>{{ $message }}</strong>
+            </span>
+        @enderror
+    @endif
 </div>

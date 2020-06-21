@@ -67,7 +67,8 @@ class RouteServiceProvider extends ServiceProvider
      * Define the "api" routes for the application.
      *
      * These routes are typically stateless.
-     *
+     * 
+     * @author Daniele Tulone <danieletulone.work@gmail.com>
      * @return void
      */
     protected function mapApiV1Routes()
@@ -90,6 +91,7 @@ class RouteServiceProvider extends ServiceProvider
     protected function mapAdminRoutes()
     {
         Route::prefix('admin')
+            ->middleware('web')
             ->namespace($this->namespace)
             ->group(base_path('routes/admin.php'));
     }

@@ -1,15 +1,10 @@
 <?php
 
-Route::get('/user', 'UserController@index')->name('user');
-
-Route::get('/role', 'RoleController@index')->name('role');
-
 Route::resource('monuments', 'MonumentController');
-
-Route::resource('monumentsCategories', 'MonumentCategoryController');
-
 Route::resource('categories', 'CategoryController');
-
 Route::resource('image', 'ImageController');
+Route::resource('scopes', 'ScopeController');
+Route::resource('roles', 'RoleController');
+Route::resource('users', 'UserController');
 
-Route::resource('comments', 'CommentController');
+Route::get('/dashboard', 'DashboardController@index')->name('dashboard.index');

@@ -113,22 +113,9 @@
 					</td>
 
 					<td class="actions">
-						<a
-							href="{{ action('MonumentController@show', ['monument' => $monument->id]) }}"
-							alt="View"
-							title="View">
-							View
-						</a>
-						
-						<a
-							href="{{ action('MonumentController@edit', ['monument' => $monument->id]) }}"
-							alt="Edit"
-							title="Edit">
-							
-							Edit
-						</a>
-
-						<x-form method="delete" :action="action('MonumentController@destroy', ['monument' => $monument->id])" btn-text="delete" />
+						<a href="{{ route('monuments.show', ['monument' => $monument]) }}" alt="View" title="View">View</a>
+						<a href="{{ route('monuments.edit', ['monument' => $monument]) }}" alt="Edit" title="Edit">Edit</a>
+						<x-form method="delete" :action="route('monuments.destroy', ['monument' => $monument->id])" btn-text="delete" />
 					</td>
 				</tr>
 				@empty

@@ -15,7 +15,7 @@
 
         <!-- Fonts -->
         <link href="//fonts.gstatic.com" rel="dns-prefetch" />
-        <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet" />
+        <link href="https://fonts.googleapis.com/css?family=Nunito|Playfair+Display:wght@500;700&display=swap" rel="stylesheet" />
         <link href="https://fonts.googleapis.com/css?family=Material+Icons|Material+Icons+Round" rel="stylesheet" />
 
         <!-- Styles -->

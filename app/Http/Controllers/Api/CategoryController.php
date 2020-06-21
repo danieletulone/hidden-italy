@@ -8,22 +8,20 @@ use App\Http\Controllers\Api\ApiController as ApiController;
 class CategoryController extends ApiController
 {
     public function index()
-		{
-			$categories = Category::all();
-			//return $this->SendResponse($categories, 'List of Category');
-			return response()->json($categories, 200);
+    {
+        $categories = Category::all();
 
-		}
+        return response()->json($categories, 200);
+    }
 
-		public function show($id)
-		{
-			$category = Category::find($id);
-			if (is_null($category)) {
-				return $this->sendError('Monument non found');
-			}
-			//return $this->SendResponse($category, 'Specific category');
-			return response()->json($category, 200);
+    public function show($id)
+    {
+        $category = Category::find($id);
 
+        if (is_null($category)) {
+            return $this->sendError('Monument non found');
+        }
 
-		}
+        return response()->json($category, 200);
+    }
 }

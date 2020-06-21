@@ -19,6 +19,8 @@ class PassportLoginRequest extends FormRequest
     /**
      * Get the validation rules that apply to the request.
      *
+     * @author Daniele Tulone <danieletulone.work@gmail.com>
+     * 
      * @return array
      */
     public function rules()

@@ -8,6 +8,7 @@ use App\http\Requests\CategoryRequest;
 
 class CategoryController extends Controller
 {
+    
     /**
      * Display a listing of the resource.
      *
@@ -17,7 +18,7 @@ class CategoryController extends Controller
     {
         $categories = Category::orderBy('id', 'desc')->paginate();
 
-        return view('categories.index')->with('categories', $categories);
+        return view('admin.categories.index')->with('categories', $categories);
     }
 
     /**
@@ -27,7 +28,7 @@ class CategoryController extends Controller
      */
     public function create()
     {
-        return view('categories.create');
+        return view('admin.categories.create');
     }
 
     /**
@@ -42,7 +43,7 @@ class CategoryController extends Controller
             'description' => $request->input('description'),
         ]);
 
-        return redirect()->action('CategoryController@index');
+        return redirect()->route('categories.index');
     }
 
     /**
@@ -53,7 +54,7 @@ class CategoryController extends Controller
      */
     public function show(Category $category)
     {
-        return view('categories.show')->with('category', $category);
+        return view('admin.categories.show')->with('category', $category);
     }
 
     /**
@@ -64,7 +65,7 @@ class CategoryController extends Controller
      */
     public function edit(Category $category)
     {
-        return view('categories.edit')->with('category', $category);
+        return view('admin.categories.edit')->with('category', $category);
     }
 
     /**
@@ -93,6 +94,6 @@ class CategoryController extends Controller
     {
         $category->delete();
         
-        return redirect()->action('CategoryController@index');
+        return redirect()->route('categories.index');
     }
 }
