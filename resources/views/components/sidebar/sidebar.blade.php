@@ -34,4 +34,6 @@
         icon="assignment" 
         name="scopes" 
     />
+
+    <x-logout />
 </nav>

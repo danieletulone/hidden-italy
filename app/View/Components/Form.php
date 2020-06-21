@@ -14,7 +14,7 @@ class Form extends Component
      * 
      * @var string
      */
-    public $action;
+    public string $action;
 
     /**
      * The form method.
@@ -23,7 +23,7 @@ class Form extends Component
      *
      * @var string
      */
-    public $method;
+    public string $method;
 
     /**
      * The enctype used for current form.
@@ -41,7 +41,11 @@ class Form extends Component
      *
      * @var [type]
      */
-    public $btnText;
+    public string $btnText;
+
+    public bool $showButton;
+
+    public string $id;
 
     /**
      * Create a new component instance.
@@ -54,12 +58,16 @@ class Form extends Component
         string $action, 
         string $method = "POST", 
         $enctype = null, 
-        string $btnText = 'add.default'
+        string $btnText = 'add.default',
+        bool $showButton = true,
+        string $id = ''
     ) {
         $this->action = $action;
         $this->method = $method;
         $this->enctype = $enctype;
         $this->btnText = $btnText;
+        $this->showButton = $showButton;
+        $this->id = $id;
     }
 
     /**
