@@ -15,7 +15,7 @@ class CanUseAdminDashboard
      */
     public function handle($request, Closure $next)
     {
-        if (auth()->user() && in_array('use-admin-dashboard', auth()->user()->role->scopes)) {
+        if (auth()->user() && auth()->user()->hasScope('use-admin-dashboard')) {
             return $next($request);
         }
         
