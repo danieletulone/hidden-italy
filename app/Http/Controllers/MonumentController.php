@@ -47,7 +47,7 @@ class MonumentController extends Controller
     {
         $categories = Category::orderBy('description', 'asc')->get();
 
-        $monuments = Monument::with('categories');
+        $monuments = Monument::with(['categories', 'category']);
 
 		if (request()->has('category_id')){
 			$monuments = $monuments->where('category_id', $request->category_id);
