@@ -10615,7 +10615,7 @@ a.text-dark:focus {
   position: -webkit-sticky !important;
   position: sticky !important;
   transform: translateY(-30px);
-  top: 90px;
+  top: 50px;
 }
 
 .sidebar a {
