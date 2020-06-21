@@ -4,6 +4,8 @@ use App\Models\Category;
 use Illuminate\Database\Seeder;
 use App\Models\Monument;
 use Illuminate\Support\Str;
+use DMX\SimpleXML\Parser;
+use Illuminate\Support\Facades\Http;
 
 class MonumentsTableSeeder extends Seeder
 {
@@ -52,7 +54,9 @@ class MonumentsTableSeeder extends Seeder
     {
         $this->seedHardCoded();
 
-        $this->seedFromJson();
+        // $this->seedFromJson();
+
+        $this->seedFromWmflabs();
     }
 
     public function seedHardCoded()
@@ -149,8 +153,6 @@ class MonumentsTableSeeder extends Seeder
 
         $monuments = json_decode(str_replace(array("\n","\r"), "", $monumentsJSON), true);
 
-        $count = 0;
-
         foreach ($monuments as $monument) {
             
             $categoryId = $this->defineCategory($monument);
@@ -163,14 +165,34 @@ class MonumentsTableSeeder extends Seeder
                     'lon' => doubleval($monument["clongitudine"]),
                     'visible' => '1',
                     'user_id' => 251,
+                    'category_id' => $categoryId,
+                    'created_at' => date('Y-m-d H:i:s')
+                ]);
+            }
+        }     
+    }
+
+    public function seedFromWmflabs()
+    {
+        $xml = Http::get("https://tools.wmflabs.org/heritage/api/api.php?action=search&srcountry=it&stitem=coordinates&limit=2000");
+
+        $monuments = (new Parser($xml->body()))->toArray()["monument"];
+        
+        foreach ($monuments as $monument) {
+            $monument = $monument["@attributes"];
+
+            if ($monument["lat"] != "" && $monument["lon"] != "") {
+                Monument::insert([
+                    'name' => $monument["name"],
+                    'description' => $monument["name"],
+                    'lat' => doubleval($monument["lat"]),
+                    'lon' => doubleval($monument["lon"]),
+                    'visible' => '1',
+                    'user_id' => 251,
                     'category_id' => Category::all()->random()->id,
                     'created_at' => date('Y-m-d H:i:s')
                 ]);
-
-                $count++;
             }
-        }     
-
-        echo "Ho messo $count monumenti. \n";
+        }   
     }
 }
