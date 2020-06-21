@@ -1,31 +1,62 @@
 <?php
 
+use App\Models\Category;
 use Illuminate\Database\Seeder;
 use App\Models\Monument;
-use Phaza\LaravelPostgis\Geometries\Point;
+use Illuminate\Support\Str;
 
 class MonumentsTableSeeder extends Seeder
 {
+
+    /**
+     * Define category.
+     * 
+     * CATEGORIES
+     * -------------
+     *  1: Chiesa
+     *  2: Piazza
+     *  3: Monumento
+     *  4: Edificio
+     *  5: Parco
+     *  6: Evento
+     *  7: Museo
+     *
+     * @author Daniele Tulone <danieletulone.work@gmail.com>
+     * 
+     * @param array $monument
+     * @return integer
+     */
+    public function defineCategory($monument): int
+    {
+        $type = Str::lower($monument["ctipo"]);
+        
+        if (Str::contains($type, "sacrario")) {
+            return 1;
+        }
+
+        if (Str::contains($type, "monumento")) {
+            return 3;
+        }
+
+        return Category::all()->random()->id;
+    }
+
     /**
      * Run the database seeds.
+     * 
+     * @author Daniele Tulone <danieletulone.work@gmail.com>
      *
      * @return void
      */
     public function run()
     {
-        //factory(Monument::class, 50)->create();
+        $this->seedHardCoded();
 
-         /*
-         CATEGORIES
-            1 : Chiesa
-            2 : Piazza
-            3 : Monumento
-            4 : Edificio
-            5 : Parco
-            6 : Evento
-            7 : Museo
-        */
+        $this->seedFromJson();
+    }
 
+    public function seedHardCoded()
+    {
         Monument::insert([
             'name' => 'Arco della Pace',
             'description' => 'Arco trionfale con bassorilievi e statue, commissionato da Napoleone a Luigi Cagnola.',
@@ -91,7 +122,9 @@ class MonumentsTableSeeder extends Seeder
             'category_id' => '2',
             'created_at' => date('Y-m-d H:i:s')
 
-        ]);Monument::insert([
+        ]);
+        
+        Monument::insert([
             'name' => 'Chiesa di Santa Maria presso San Satiro',
             'description' => 'Elegante chiesa risalente al XV secolo con celebrazioni regolari e ricercati interni dorati.',
             'lat' => doubleval(45.462703),
@@ -101,5 +134,43 @@ class MonumentsTableSeeder extends Seeder
             'category_id' => '1',
             'created_at' => date('Y-m-d H:i:s')
         ]);
+    }
+
+    /**
+     * Seed monuments from json files.
+     * 
+     * @author Daniele Tulone <danieletulone.work@gmail.com>
+     *
+     * @return void
+     */
+    public function seedFromJson()
+    {
+        $monumentsJSON = file_get_contents(base_path('database/seeds/json/monuments.json'));
+
+        $monuments = json_decode(str_replace(array("\n","\r"), "", $monumentsJSON), true);
+
+        $count = 0;
+
+        foreach ($monuments as $monument) {
+            
+            $categoryId = $this->defineCategory($monument);
+
+            if ($monument["cnome"] != "") {
+                Monument::insert([
+                    'name' => $monument["cnome"],
+                    'description' => $monument["cnome"],
+                    'lat' => doubleval($monument["clatitudine"]),
+                    'lon' => doubleval($monument["clongitudine"]),
+                    'visible' => '1',
+                    'user_id' => 251,
+                    'category_id' => Category::all()->random()->id,
+                    'created_at' => date('Y-m-d H:i:s')
+                ]);
+
+                $count++;
+            }
+        }     
+
+        echo "Ho messo $count monumenti. \n";
     }
 }
