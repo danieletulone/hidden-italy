@@ -14,6 +14,7 @@ class DatabaseSeeder extends Seeder
 	{
 		Artisan::call('migrate:reset', ['--force' => true]);
 		Artisan::call('migrate');
+		Artisan::call('passport:install');
 
 		$this->call(CategorySeeder::class);
 		$this->call(ScopesTableSeeder::class);
