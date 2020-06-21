@@ -17,8 +17,20 @@ use Faker\Generator as Faker;
 |
 */
 
-$factory->define(User::class, function (Faker $faker) use ($now, $fromDate) {
+$factory->define(User::class, function (Faker $faker) {
+    return generateUser($faker);
+});
 
+/**
+ * Generate a user with random data.
+ * 
+ * @author Daniele Tulone <danieletulone.work@gmail.com>
+ *
+ * @param Faker $faker
+ * @return void
+ */
+function generateUser(Faker $faker)
+{
     $date = $faker->dateTimeBetween('-100 days', 'now');
 
     return [
@@ -30,4 +42,4 @@ $factory->define(User::class, function (Faker $faker) use ($now, $fromDate) {
         'password' => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', // password
         'role_id' => Role::all()->random()->id,
     ];
-});
+} 
