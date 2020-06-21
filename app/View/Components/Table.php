@@ -8,7 +8,7 @@ use Illuminate\View\Component;
 class Table extends Component
 {
     /**
-     * Items to show with table.
+     * Items with paginator.
      *
      * @var array
      */
@@ -22,14 +22,22 @@ class Table extends Component
     public $headers;
 
     /**
+     * Items to show into table.
+     *
+     * @var [type]
+     */
+    public $itemsData;
+
+    /**
      * Create a new component instance.
      *
      * @return void
      */
     public function __construct($items)
     {
-        $this->items   = TableHelper::getData($items);
-        $this->headers = TableHelper::getHeaders($items);
+        $this->items     = $items;
+        $this->itemsData = TableHelper::getData($items);
+        $this->headers   = TableHelper::getHeaders($items);
     }
 
     /**

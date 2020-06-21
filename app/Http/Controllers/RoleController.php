@@ -2,9 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\RoleRequest;
 use App\Models\Role;
 use App\Models\Scope;
-use Illuminate\Http\Request;
 
 class RoleController extends Controller
 {
@@ -20,5 +20,12 @@ class RoleController extends Controller
         return view('admin.roles.create', [
             'scopes' => Scope::all()
         ]);
+    }
+
+    public function store(RoleRequest $request)
+    {
+        Role::create($request->all());
+
+        return redirect()->action('RoleController@index');
     }
 }

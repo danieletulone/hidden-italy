@@ -7,7 +7,7 @@
         </div>
 
         @if (count($scopes->items()) > 0)
-            <x-table :headers="array_keys($scopes->items()[0]->toArray())" :items="$scopes->toArray()['data']" />
+            <x-table :items="$scopes" />
         @else
             <div>
                 Nessun <b>scope</b> disponibile.

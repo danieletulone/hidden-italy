@@ -2,8 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
+use App\Http\Requests\ScopeRequest;
 use App\Models\Scope;
+use Cache;
 
 class ScopeController extends Controller
 {
@@ -19,8 +20,12 @@ class ScopeController extends Controller
         return view('admin.scopes.create');
     }
 
-    public function edit()
+    public function store(ScopeRequest $request)
     {
+        Scope::create($request->all());
 
+        Cache::forget('scopes');
+
+        return redirect()->action('ScopeController@index');
     }
 }

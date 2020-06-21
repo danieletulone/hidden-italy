@@ -7,7 +7,7 @@
         </div>
 
         @if (count($roles->items()) > 0)
-            <x-table :headers="array_keys($roles->items()[0]->toArray())" :items="$roles->toArray()['data']" />
+            <x-table :items="$roles" />
         @else
             <div>
                 Nessun ruolo disponibile.
