@@ -50,7 +50,7 @@ class PassportController extends Controller
      */
     public function generateToken($user)
     {
-        return $user->createToken('HiddenItaly')->accessToken;
+        return $user->createToken('HiddenItaly', $user->role->scopes)->accessToken;
     }
 
     /**
