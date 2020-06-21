@@ -3,7 +3,6 @@
 namespace App\Providers;
 
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
-use Illuminate\Support\Facades\Gate;
 use Laravel\Passport\Passport;
 use App\Helpers\ScopeHelper;
 
@@ -15,7 +14,9 @@ class AuthServiceProvider extends ServiceProvider
      * @var array
      */
     protected $policies = [
-        // 'App\Model' => 'App\Policies\ModelPolicy',
+        'App\Models\Role' => 'App\Policies\RolePolicy',
+        'App\Models\Scope' => 'App\Policies\ScopePolicy',
+        'App\Models\Monument' => 'App\Policies\MonumentPolicy',
     ];
 
     /**
