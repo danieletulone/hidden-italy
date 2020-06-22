@@ -13,19 +13,39 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+// Auth: Login and Register
 Route::prefix('auth')->group(function () {
     Route::post('/login', 'Auth\PassportController@login');
     Route::post('/register', 'Auth\PassportController@register');
 });
 
-Route::get('monuments/find-nearest', 'Api\MonumentController@findNearest');
+// Categories
+Route::get('/categories', 'Api\CategoryController@index')
+    ->middleware('scope:read-categories');
 
-Route::resource('monuments', 'Api\MonumentController');
+// Comments
+Route::post('/comments', 'Api\CommentController@store')
+    ->middleware('scope:create-comments');
 
-Route::resource('categories', 'Api\CategoryController');
+Route::delete('/comments/{comment}', 'Api\CommentController@store')
+    ->middleware('scope:delete-comments');
 
-Route::get('/users/joined', 'Api\UserController@joined');
+Route::patch('/comments/{comment}', 'Api\CommentController@update')
+    ->middleware('scope:update-comments');
 
-Route::resource('comments', 'Api\CommentController');
+// Monuments
+Route::get('/monuments', 'Api\MonumentController@index')
+    ->middleware('scope:read-monuments');
 
-Route::resource('comments', 'Api\CommentController');
+Route::get('/monuments/{monument}', 'Api\MonumentController@show')
+    ->middleware('scope:read-monuments');
+
+Route::get('/monuments/find-nearest', 'Api\MonumentController@findNearest')
+    ->middleware('scope:read-monuments');
+
+Route::post('/monuments', 'Api\MonumentController@store')
+    ->middleware('scope:suggest-monuments');
+
+// Users
+Route::get('/users/joined', 'Api\UserController@joined')
+    ->middleware('scope:read-users');
