@@ -7,11 +7,25 @@ use Illuminate\Database\Eloquent\Model;
 class Scope extends Model
 {
     
+    /**
+     * The attributes that are mass assignable.
+     * 
+     * @author Daniele Tulone <danieletulone.work@gmail.com>
+     *
+     * @var array
+     */
     protected $fillable = [
         'name',
         'description'
     ];
 
+    /**
+     * Indicates if the model should be timestamped.
+     * 
+     * @author Daniele Tulone <danieletulone.work@gmail.com>
+     *
+     * @var boolean
+     */
     public $timestamps = false;
 
     /**
