@@ -6,8 +6,12 @@ use Illuminate\Foundation\Http\FormRequest;
 
 class PassportLoginRequest extends FormRequest
 {
+
     /**
      * Determine if the user is authorized to make this request.
+     * No additional checks required.
+     * 
+     * @author Daniele Tulone <danieletulone.work@gmail.com>
      *
      * @return bool
      */

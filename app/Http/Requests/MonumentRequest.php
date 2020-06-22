@@ -2,10 +2,20 @@
 
 namespace App\Http\Requests;
 
+use App\Traits\Requests\HasCrudScope;
 use Illuminate\Foundation\Http\FormRequest;
 
 class MonumentRequest extends FormRequest
 {
+    use HasCrudScope;
+
+    /**
+     * The regex for validate coords: lat and lon.
+     * 
+     * @var string
+     */
+    public static $coordRegex = 'regex:/^[-]?(([0-8]?[0-9])\.(\d+))|(90(\.0+)?)$/';
+
     /**
      * Default rules.
      *
@@ -14,8 +24,8 @@ class MonumentRequest extends FormRequest
     public $rules = [
         'name' => ['required', 'max:50'],
         'description' => ['required', 'max:500'],
-        'lat' => ['required','regex:/^[-]?(([0-8]?[0-9])\.(\d+))|(90(\.0+)?)$/', 'max:10'],
-        'lon' => ['required','regex:/^[-]?((((1[0-7][0-9])|([0-9]?[0-9]))\.(\d+))|180(\.0+)?)$/', 'max:10'],
+        'lat' => ['required', self::$coordRegex, 'max:10'],
+        'lon' => ['required', self::$coordRegex, 'max:10'],
         'main_category_id' => ['required'],
         'url' => ['array', 'required'],
         'url.*' => ['image', 'mimes:jpeg,jpg,png,gif', 'max:10000'], //max 10000kb
@@ -24,12 +34,14 @@ class MonumentRequest extends FormRequest
 
     /**
      * Determine if the user is authorized to make this request.
+     * 
+     * @author Daniele Tulone <danieletulone.work@gmail.com>
      *
      * @return bool
      */
     public function authorize()
     {
-        return true;
+        return $this->hasCrudScope() || $this->canManage();
     }
 
     /**

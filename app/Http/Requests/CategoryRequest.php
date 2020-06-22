@@ -13,7 +13,15 @@ class CategoryRequest extends FormRequest
      */
     public function authorize()
     {
-        return true;
+        if (auth()->check()) {
+            if ($this->id) {
+                return auth()->user()->hasScope('update-categories');
+            } else {
+                return auth()->user()->hasScope('create-categories');
+            }
+        }
+
+        return false;
     }
 
     /**

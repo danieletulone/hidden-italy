@@ -6,6 +6,7 @@ use Illuminate\Foundation\Http\FormRequest;
 
 class FindNearestRequest extends FormRequest
 {
+
     /**
      * Determine if the user is authorized to make this request.
      * 
@@ -15,7 +16,11 @@ class FindNearestRequest extends FormRequest
      */
     public function authorize()
     {
-        return true;
+        if ($user = auth()->user()) {
+            return $user->hasScope('read-monuments');
+        }
+
+        return false;
     }
 
     /**

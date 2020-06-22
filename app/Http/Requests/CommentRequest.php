@@ -2,10 +2,13 @@
 
 namespace App\Http\Requests;
 
+use App\Traits\Requests\HasCrudScope;
 use Illuminate\Foundation\Http\FormRequest;
 
 class CommentRequest extends FormRequest
 {
+    use HasCrudScope;
+    
     /**
      * Determine if the user is authorized to make this request.
      *
@@ -13,7 +16,7 @@ class CommentRequest extends FormRequest
      */
     public function authorize()
     {
-        return true;
+        return $this->hasCrudScope() || $this->canManage(); 
     }
 
     /**
