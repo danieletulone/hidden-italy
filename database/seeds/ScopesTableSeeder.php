@@ -6,47 +6,7 @@ use Illuminate\Support\Arr;
 use Illuminate\Support\Str;
 
 class ScopesTableSeeder extends Seeder
-{ 
-
-    /**
-     * List crud actions.
-     * 
-     * @author Daniele Tulone <danieletulone.work@gmail.com>
-     *
-     * @var array
-     */
-    private array $crudActions = [
-        'create', 
-        'read', 
-        'update', 
-        'delete'
-    ];
-
-    /**
-     * List of all resource of app.
-     * 
-     * @author Daniele Tulone <danieletulone.work@gmail.com>
-     *
-     * @var array
-     */
-    private array $resources = [
-        'categories', 
-        'comments',
-        'monuments', 
-        'roles', 
-        'scopes', 
-    ];
-
-    /**
-     * Scopes to add.
-     * 
-     * @author Daniele Tulone <danieletulone.work@gmail.com>
-     *
-     * @var array
-     */
-    private array $scopes = [
-        'use-admin-dashboard' => 'Allow to enter into admin dashboard',
-    ];
+{
 
     /**
      * Run the database seeds.
@@ -71,7 +31,7 @@ class ScopesTableSeeder extends Seeder
      */
     private function seedCrudScopes(): void
     {
-        $crossedScopes = Arr::crossJoin($this->crudActions, $this->resources);
+        $crossedScopes = Arr::crossJoin(Scope::$crudActions, Scope::$resources);
 
         foreach ($crossedScopes as $crossedScope) {
             $scopeName = implode('-', $crossedScope);
@@ -92,7 +52,7 @@ class ScopesTableSeeder extends Seeder
      */
     private function seedScopes(): void
     {
-        foreach ($this->scopes as $key => $value) {
+        foreach (Scope::$scopes as $key => $value) {
             Scope::create([
                 'name' => $key,
                 'description' => $value
