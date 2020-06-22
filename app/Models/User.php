@@ -56,6 +56,28 @@ class User extends Authenticatable
     }
 
     /**
+     * Check if current user has a set of scopes.
+     *
+     * @author Daniele Tulone <danieletulone.work@gmail.com>
+     * 
+     * @param array $scopes
+     * @return boolean
+     */
+    public function hasScopes(array $scopes): bool
+    {
+        $has = true;
+
+        foreach ($scopes as $scope) {
+            if (!$this->hasScope($scope)) {
+                $has = false;
+                break;
+            }
+        }
+
+        return $has;
+    }
+
+    /**
      * Get the role of user.
      * 
      * @author Daniele Tulone <danieletulone.work@gmail.com>

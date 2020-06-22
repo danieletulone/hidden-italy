@@ -61,7 +61,7 @@ class Locator
     {
         $this->lat = $request->input('lat');
         $this->lon = $request->input('lon');
-				$this->range = $request->input('range') ?? 3000;
+		$this->range = $request->input('range') ?? 3000;
     }
 
     /**
@@ -80,7 +80,7 @@ class Locator
             ->with('categories')
             ->with('category')
             ->with('images')
-						->with('comments')
+			->with('comments')
             ->take(request()->input('per_page') ?? 10)
             ->skip(request()->input('page') - 1 ?? 1)
             ->withCasts([

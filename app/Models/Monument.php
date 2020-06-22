@@ -47,6 +47,13 @@ class Monument extends Model
         return $this->belongsTo('App\Models\Category');
     }
 
+    /**
+     * The categories through pivot table.
+     * 
+     * @author Daniele Tulone <danieletulone.work@gmail.com>
+     *
+     * @return void
+     */
     public function categories()
     {
         return $this->hasManyThrough(

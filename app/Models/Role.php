@@ -19,6 +19,13 @@ class Role extends Model
 		'scopes'
 	];
 
+	/**
+	 * The explicit cast to execute.
+	 * 
+	 * @author Daniele Tulone <danieletulone.work@gmail.com>
+	 *
+	 * @var array
+	 */
 	protected $casts = [
 		'scopes' => 'json'
 	];

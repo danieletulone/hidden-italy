@@ -56,7 +56,7 @@ class MonumentsTableSeeder extends Seeder
 
         // $this->seedFromJson();
 
-        $this->seedFromWmflabs();
+        // $this->seedFromWmflabs();
     }
 
     public function seedHardCoded()
