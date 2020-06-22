@@ -19,7 +19,7 @@ trait HasCrudScope
     public function canManage()
     {
         if ($user = auth()->user()) {
-            if ($user->hasScope('manage-' . $this->getResource()));
+            return $user->hasScope('manage-' . $this->getResource());
         }
 
         return false;
@@ -34,10 +34,12 @@ trait HasCrudScope
      */
     public function getResource()
     {
-        return Str::replaceFirst(
-            'request', 
-            '', 
-            Str::lower(base_classname($this))
+        return Str::plural(
+            Str::replaceFirst(
+                'request', 
+                '', 
+                Str::lower(class_basename($this))
+            )
         );
     }
 
@@ -49,14 +51,14 @@ trait HasCrudScope
      * @param [type] $name
      * @return boolean
      */
-    public function hasCrudScope($key, $resource = null)
+    public function hasCrudScope($key = 'id', $resource = null)
     {
         if ($resource == null) {
             $resource = $this->getResource();
         }
 
         if (auth()->check()) {
-            if ($this->id) {
+            if ($this->$key) {
                 return auth()->user()->hasScope('update-' . $resource) && $this->isSame();
             } else {
                 return auth()->user()->hasScope('create-' . $resource);
