@@ -6,6 +6,20 @@ use Illuminate\Foundation\Http\FormRequest;
 
 class DateClusterRequest extends FormRequest
 {
+
+    /**
+     * The required scopes for this request.
+     * 
+     * @author Daniele Tulone <danieletulone.work@gmail.com>
+     *
+     * @var array
+     */
+    private $requiredScopes = [
+        'use-admin-dashboard',
+        'read-monuments',
+        'read-users'
+    ];
+
     /**
      * Determine if the user is authorized to make this request.
      * 
@@ -15,7 +29,11 @@ class DateClusterRequest extends FormRequest
      */
     public function authorize()
     {
-        return true;
+        if ($user = auth()->user()) {
+            return $user->hasScopes($this->requiredScopes));
+        }
+
+        return false;
     }
 
     /**
