@@ -80,7 +80,7 @@ class Locator
             ->with('categories')
             ->with('category')
             ->with('images')
-			->with('comments')
+			->with('comments.user')
             ->take(request()->input('per_page') ?? 10)
             ->skip(request()->input('page') - 1 ?? 1)
             ->withCasts([
