@@ -20,32 +20,36 @@ Route::prefix('auth')->group(function () {
 });
 
 // Categories
-Route::get('/categories', 'Api\CategoryController@index')
-    ->middleware('scope:read-categories');
+Route::middleware('auth:api')->group(function() {
 
-// Comments
-Route::post('/comments', 'Api\CommentController@store')
-    ->middleware('scope:create-comments');
+    Route::get('/categories', 'Api\CategoryController@index')
+        ->middleware('scope:read-categories');
+    
+    // Comments
+    Route::post('/comments', 'Api\CommentController@store')
+        ->middleware('scope:create-comments');
+    
+    Route::delete('/comments/{comment}', 'Api\CommentController@store')
+        ->middleware('scope:delete-comments');
+    
+    Route::patch('/comments/{comment}', 'Api\CommentController@update')
+        ->middleware('scope:update-comments');
+    
+    // Monuments
+    Route::get('/monuments', 'Api\MonumentController@index')
+        ->middleware('scope:read-monuments');
+    
+    Route::get('/monuments/find-nearest', 'Api\MonumentController@findNearest')
+        ->middleware('scope:read-monuments');
 
-Route::delete('/comments/{comment}', 'Api\CommentController@store')
-    ->middleware('scope:delete-comments');
+    Route::get('/monuments/{monument}', 'Api\MonumentController@show')
+        ->middleware('scope:read-monuments'); 
+    
+    Route::post('/monuments', 'Api\MonumentController@store')
+        ->middleware('scope:suggest-monuments');
+    
+    // Users
+    Route::get('/users/joined', 'Api\UserController@joined')
+        ->middleware('scope:read-users');
 
-Route::patch('/comments/{comment}', 'Api\CommentController@update')
-    ->middleware('scope:update-comments');
-
-// Monuments
-Route::get('/monuments', 'Api\MonumentController@index')
-    ->middleware('scope:read-monuments');
-
-Route::get('/monuments/{monument}', 'Api\MonumentController@show')
-    ->middleware('scope:read-monuments');
-
-Route::get('/monuments/find-nearest', 'Api\MonumentController@findNearest')
-    ->middleware('scope:read-monuments');
-
-Route::post('/monuments', 'Api\MonumentController@store')
-    ->middleware('scope:suggest-monuments');
-
-// Users
-Route::get('/users/joined', 'Api\UserController@joined')
-    ->middleware('scope:read-users');
+});
