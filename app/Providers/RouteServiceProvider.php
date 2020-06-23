@@ -21,7 +21,7 @@ class RouteServiceProvider extends ServiceProvider
      *
      * @var string
      */
-    public const HOME = '/home';
+    public const HOME = '/';
 
     /**
      * Define your route model bindings, pattern filters, etc.
@@ -42,11 +42,11 @@ class RouteServiceProvider extends ServiceProvider
      */
     public function map()
     {
-        $this->mapApiRoutes();
+        $this->mapApiV1Routes();
 
         $this->mapWebRoutes();
 
-        //
+        $this->mapAdminRoutes();
     }
 
     /**
@@ -67,14 +67,32 @@ class RouteServiceProvider extends ServiceProvider
      * Define the "api" routes for the application.
      *
      * These routes are typically stateless.
-     *
+     * 
+     * @author Daniele Tulone <danieletulone.work@gmail.com>
      * @return void
      */
-    protected function mapApiRoutes()
+    protected function mapApiV1Routes()
     {
-        Route::prefix('api')
+        Route::prefix('api/v1')
             ->middleware('api')
             ->namespace($this->namespace)
-            ->group(base_path('routes/api.php'));
+            ->group(base_path('routes/api/v1.php'));
+    }
+
+    /**
+     * Define the "admin" routes for application.
+     *
+     * These routes all receive session state, CSRF protection, etc.
+     * 
+     * @author Daniele Tulone <danieletulone.work@gmail.com>
+     * 
+     * @return void
+     */
+    protected function mapAdminRoutes()
+    {
+        Route::prefix('admin')
+            ->middleware(['web', 'dashboard'])
+            ->namespace($this->namespace)
+            ->group(base_path('routes/admin.php'));
     }
 }

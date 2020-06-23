@@ -1,100 +1,62 @@
-<!DOCTYPE html>
-<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
-    <head>
-        <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
+@extends('layouts.site')
 
-        <title>Laravel</title>
+@section('main')
+    <div style="height:100vh" class="d-flex flex-column">
+        <div class="row">
+            <div class="col-4 p-4">
+                
+            </div>
+            
+            <div class="col-4 p-4 d-flex align-items-center justify-content-center flex-column">
+                <img width="80px" class="p-2" src="storage\assets\Hi.svg" alt="Logo Hidden Italy">
+                <span class="text-uppercase" style="letter-spacing:1px;font-size:12px">Discover your Italy</span>
+            </div>
 
-        <!-- Fonts -->
-        <link href="https://fonts.googleapis.com/css?family=Nunito:200,600" rel="stylesheet">
+            <div class="col-4 p-4 px-5 d-flex align-items-center justify-content-end">
+                @if (Route::has('login'))   
+                    <div class="d-flex">
+                        @guest
+                            <a class="btn rounded-pill btn-primary mx-2" href="{{ route('login') }}">Login</a>
 
-        <!-- Styles -->
-        <style>
-            html, body {
-                background-color: #fff;
-                color: #636b6f;
-                font-family: 'Nunito', sans-serif;
-                font-weight: 200;
-                height: 100vh;
-                margin: 0;
-            }
+                            @if (Route::has('register'))
+                                <a class="btn rounded-pill border mx-2" href="{{ route('register') }}">Register</a>
+                            @endif
+                        @endguest
+                    </div>
+                @endif
+            </div>
+        </div>
+        
 
-            .full-height {
-                height: 100vh;
-            }
+        <div class="d-flex align-items-center justify-content-center flex-column h-100" style="background-image: url({{ asset('storage/assets/rome.jpg') }});background-position:bottom center;background-size: 100% auto;background-repeat: no-repeat;">
 
-            .flex-center {
-                align-items: center;
-                display: flex;
-                justify-content: center;
-            }
+        </div>
+    </div>
 
-            .position-ref {
-                position: relative;
-            }
-
-            .top-right {
-                position: absolute;
-                right: 10px;
-                top: 18px;
-            }
-
-            .content {
-                text-align: center;
-            }
-
-            .title {
-                font-size: 84px;
-            }
-
-            .links > a {
-                color: #636b6f;
-                padding: 0 25px;
-                font-size: 13px;
-                font-weight: 600;
-                letter-spacing: .1rem;
-                text-decoration: none;
-                text-transform: uppercase;
-            }
-
-            .m-b-md {
-                margin-bottom: 30px;
-            }
-        </style>
-    </head>
-    <body>
-        <div class="flex-center position-ref full-height">
-            @if (Route::has('login'))
-                <div class="top-right links">
-                    @auth
-                        <a href="{{ url('/home') }}">Home</a>
-                    @else
-                        <a href="{{ route('login') }}">Login</a>
-
-                        @if (Route::has('register'))
-                            <a href="{{ route('register') }}">Register</a>
-                        @endif
-                    @endauth
-                </div>
-            @endif
-
-            <div class="content">
-                <div class="title m-b-md">
-                    Laravel
-                </div>
-
-                <div class="links">
-                    <a href="https://laravel.com/docs">Docs</a>
-                    <a href="https://laracasts.com">Laracasts</a>
-                    <a href="https://laravel-news.com">News</a>
-                    <a href="https://blog.laravel.com">Blog</a>
-                    <a href="https://nova.laravel.com">Nova</a>
-                    <a href="https://forge.laravel.com">Forge</a>
-                    <a href="https://vapor.laravel.com">Vapor</a>
-                    <a href="https://github.com/laravel/laravel">GitHub</a>
+    <div class="container-fluid bg-secondary py-5">
+        <div class="container py-5">
+            <div class="row py-5">
+                <div class="col-12 text-center text-white">
+                    <h1 class="font-weight-700" style="font-family: 'Playfair Display', serif;letter-spacing:1px;">A new way of loving Italy</h1>
+                    <p class="text-uppercase mt-3 mb-5" style="letter-spacing:1px;font-size:12px">discover monuments, legends, <i>hidden</i> monuments</p>
+                    <a href="#" class="btn btn-light rounded-pill">DOWNLOAD for iOS</a>
+                    <br><span><small>for <b>FREE</b></small></span>
                 </div>
             </div>
         </div>
-    </body>
-</html>
+    </div>
+
+     <div class="container-fluid bg-primary py-5">
+        <div class="container py-5">
+            <div class="row py-5">
+                <div class="col-12 text-center text-white">
+                    <h1 class="font-weight-700" style="font-family: 'Playfair Display', serif;letter-spacing:1px;">Create your account</h1>
+                    <p class="text-uppercase mt-3 mb-5" style="letter-spacing:1px;font-size:12px">Quickly accounting from this site and login quickly from your iphone</p>
+                    <a href="#" class="btn btn-light rounded-pill">CREATE ACCOUNT</a>
+                    <br><span><small>for <b>FREE</b></small></span>
+                </div>
+            </div>
+        </div>
+    </div>
+@endsection
+

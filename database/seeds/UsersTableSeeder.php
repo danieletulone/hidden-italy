@@ -1,30 +1,29 @@
 <?php
 
+use App\Models\User;
 use Illuminate\Database\Seeder;
-use App\User;
 
 class UsersTableSeeder extends Seeder
 {
+
     /**
      * Run the database seeds.
+     * 
+     * @author Daniele Tulone <danieletulone.work@gmail.com>
      *
      * @return void
      */
     public function run()
     {
-			DB::table('users')->insert([
-					'name' => 'admin',
-					'surname' => 'admin',
-					'nickname' => 'admin',
-					'points' => 0,
-					'email' => 'admin@ied.edu',
-					'email_verified_at' => now(),
-					'password' => '1234',
-					'remember_token' => Str::random(10),
-					'role_id' => 2, //DA COLLEGARE A DB
-					'image_id' => 1, //DA COLLEGARE A DB
-			]);
+        factory(User::class, 250)->create();
 
-			// factory(User::class, 1)->create(); //NON FUNZIONA IL FACORIES DEL USER
+        User::create([
+            'firstname' => 'Admin',
+            'lastname' => 'Admin',
+            'email' => 'admin@hiddenitaly.it',
+            'password' => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi',
+            'email_verified_at' => now(),
+            'role_id' => 1
+        ]);
     }
 }

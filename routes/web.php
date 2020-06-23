@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Auth;
 
 /*
 |--------------------------------------------------------------------------
@@ -18,11 +19,3 @@ Route::get('/', function () {
 });
 
 Auth::routes();
-
-Route::get('/home', 'HomeController@index')->name('home');
-
-Route::get('/user', 'UserController@index')->name('user');
-
-Route::get('/role', 'RoleController@index')->name('role');
-
-Route::get('/image', 'ImageController@index')->name('image');

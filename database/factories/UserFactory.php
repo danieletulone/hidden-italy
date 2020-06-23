@@ -2,11 +2,9 @@
 
 /** @var \Illuminate\Database\Eloquent\Factory $factory */
 
-use App\User;
-use App\Image;
-use App\Role;
+use App\Models\User;
+use App\Models\Role;
 use Faker\Generator as Faker;
-use Illuminate\Support\Str;
 
 /*
 |--------------------------------------------------------------------------
@@ -20,18 +18,28 @@ use Illuminate\Support\Str;
 */
 
 $factory->define(User::class, function (Faker $faker) {
-    return [
-        'name' => $faker->firstName,
-				'surname' => $faker->lastName,
-				'nickname' => $faker->words,
-				'points' => 0,
-        'email' => $faker->freeEmail,
-        'email_verified_at' => now(),
-        'password' => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', // password
-        // 'remember_token' => Str::random(10),
-				'role_id' => 2,
-				// 'image_id' =>$faker->numberBetween(1, Image::orderBy('id','DESC')->first()->id),
-				'image_id' => 1,
-
-    ];
+    return generateUser($faker);
 });
+
+/**
+ * Generate a user with random data.
+ * 
+ * @author Daniele Tulone <danieletulone.work@gmail.com>
+ *
+ * @param Faker $faker
+ * @return void
+ */
+function generateUser(Faker $faker)
+{
+    $date = $faker->dateTimeBetween('-100 days', 'now');
+
+    return [
+        'firstname'  => $faker->firstName,
+        'lastname'   => $faker->lastName,
+        'email'      => $faker->freeEmail,
+        'created_at' => $date,
+        'email_verified_at' => $date,
+        'password' => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', // password
+        'role_id' => Role::all()->random()->id,
+    ];
+} 
