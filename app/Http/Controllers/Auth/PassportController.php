@@ -7,8 +7,10 @@ use App\Http\Requests\Auth\PassportLoginRequest;
 use App\Http\Requests\Auth\PassportRegisterRequest;
 use App\Http\Responses\Auth\PassportLoginResponse;
 use App\Http\Responses\Auth\PassportRegisterResponse;
+use App\Http\Responses\Auth\PassportRevokeResponse;
 use App\Http\Responses\Auth\UnauthorisedResponse;
 use App\Models\User;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 
@@ -93,5 +95,20 @@ class PassportController extends Controller
         ]);
 
         return new PassportRegisterResponse($user);
+    }
+
+    /**
+     * Revoke the token of authenticated user.
+     * 
+     * @author Daniele Tulone <danieletulone.work@gmail.com>
+     *
+     * @param Request $request
+     * @return void
+     */
+    public function revoke(Request $request)
+    {
+        $request->user()->token()->revoke();
+
+        return new PassportRevokeResponse();
     }
 }

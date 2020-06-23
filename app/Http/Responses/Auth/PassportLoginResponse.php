@@ -7,7 +7,7 @@ use Illuminate\Contracts\Support\Responsable;
 
 class PassportLoginResponse implements Responsable
 {
-    private const SUCCESS_CODE = 201;
+    private const HTTP_CODE = 201;
 
     /**
      * The user instance.
@@ -53,6 +53,6 @@ class PassportLoginResponse implements Responsable
         return response([
             "user" => $this->user,
             "token" => $this->token
-        ], self::SUCCESS_CODE);
+        ], self::HTTP_CODE);
     }
 }

@@ -19,9 +19,12 @@ Route::prefix('auth')->group(function () {
     Route::post('/register', 'Auth\PassportController@register');
 });
 
-// Categories
 Route::middleware('auth:api')->group(function() {
+    
+    // Auth
+    Route::post('/auth/revoke', 'Auth\PassportController@revoke');
 
+    // Categories
     Route::get('/categories', 'Api\CategoryController@index')
         ->middleware('scope:read-categories');
     
