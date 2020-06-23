@@ -29,6 +29,11 @@ class Monument extends Model
         'visible' => 'boolean'
     ];
 
+    protected $hidden = [
+        'visible',
+        'category_id'
+    ];
+
     public function user()
     {
         return $this->belongsTo('App\Models\User');

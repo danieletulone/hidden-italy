@@ -10,6 +10,10 @@ class Image extends Model
         'title', 'description', 'url', 'monument_id', 'user_id'
     ];
 
+    protected $hidden = [
+        'monument_id', 'user_id', 'id'
+    ];
+
     public function user()
     {
         return $this->belongsTo('App\Models\User');
