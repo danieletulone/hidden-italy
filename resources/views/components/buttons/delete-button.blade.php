@@ -1,3 +1,6 @@
-<div>
-    <!-- I begin to speak only when I am certain what I will say is not better left unsaid - Cato the Younger -->
-</div>
+@php $route = Str::plural($resource) . ".destroy"; @endphp
+<x-form 
+    method="DELETE"
+    :action="route($route, [$resource => $istance['id']])" 
+    btn-text="delete"
+/>

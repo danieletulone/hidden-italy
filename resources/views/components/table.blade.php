@@ -1,7 +1,7 @@
 <table class="table table-striped table-hover shadow-sm">
     <thead>
         @foreach ($headers as $header)
-            <th>{{ __('tables.users.' . $header) }}</th>
+            <th>{{ __('tables.' . Str::plural($resource) . '.' . $header) }}</th>
         @endforeach
 
         <th>{{ __('actions') }}</th>
@@ -20,18 +20,18 @@
 
                 <td>
                     <x-view-button
-                        resource="user" 
+                        :resource="$resource" 
                         :istance="$item" 
                     />
 
                     <x-edit-button
-                        resource="user" 
+                        :resource="$resource" 
                         :istance="$item" 
                     />
 
                     <x-delete-button 
-                        resource="user" 
-                        :istance="$item" 
+                        :resource="$resource" 
+                        :istance="$item"
                     />
                 </td>
             </tr>

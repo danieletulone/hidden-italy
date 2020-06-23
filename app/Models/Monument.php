@@ -29,10 +29,10 @@ class Monument extends Model
         'visible' => 'boolean'
     ];
 
-    protected $hidden = [
-        'visible',
-        'category_id'
-    ];
+    // protected $hidden = [
+    //     'visible',
+    //     'category_id'
+    // ];
 
     public function user()
     {

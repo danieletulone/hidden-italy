@@ -29,15 +29,21 @@ class Table extends Component
     public $itemsData;
 
     /**
+     * 
+     */
+    public $resource;
+
+    /**
      * Create a new component instance.
      *
      * @return void
      */
-    public function __construct($items)
+    public function __construct($items, $resource)
     {
         $this->items     = $items;
         $this->itemsData = TableHelper::getData($items);
         $this->headers   = TableHelper::getHeaders($items);
+        $this->resource  = $resource;
     }
 
     /**

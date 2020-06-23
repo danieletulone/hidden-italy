@@ -1,4 +1,4 @@
-<form id="{{ $id }}" method="{{ $method }}" action="{{ $action }}" @if ($enctype) enctype="{{ $enctype }}" @endif>
+<form id="{{ $id }}" method="{{ $method == 'DELETE' ? 'POST' : $method }}" action="{{ $action }}" @if ($enctype) enctype="{{ $enctype }}" @endif>
     @csrf
 
     @if ($method == 'DELETE')

@@ -19,7 +19,7 @@ class MonumentController extends ApiController
 	 * 
 	 * @var array
 	 */
-	public array $withs = ['images', 'user', 'category', 'categories', 'comments.user'];
+	public array $withs = ['images', 'category', 'categories', 'comments.user'];
 
 	public function index()
 	{

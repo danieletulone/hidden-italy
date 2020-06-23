@@ -7,7 +7,7 @@
         </div>
 
         @if (count($scopes->items()) > 0)
-            <x-table :items="$scopes" />
+            <x-table :items="$scopes" resource="scope" />
         @else
             <div>
                 Nessun <b>scope</b> disponibile.
