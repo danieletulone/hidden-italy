@@ -28,4 +28,11 @@ class ScopeController extends Controller
 
         return redirect()->action('ScopeController@index');
     }
+
+	public function destroy(Scope $scope)
+	{
+		$scope->delete();
+
+		return redirect()->action('ScopeController@index');
+	}
 }
