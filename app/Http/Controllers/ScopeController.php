@@ -15,6 +15,11 @@ class ScopeController extends Controller
         ]);
     }
 
+    public function show(Scope $scope)
+    {
+        return view('admin.scopes.show')->with('scope', $scope);
+    }
+
     public function create()
     {
         return view('admin.scopes.create');
