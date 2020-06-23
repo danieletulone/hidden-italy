@@ -29,6 +29,21 @@ class ScopeController extends Controller
         return redirect()->action('ScopeController@index');
     }
 
+    public function edit(Scope $scope)
+    {
+        return view('admin.scopes.edit')->with('scope', $scope);
+    }
+
+    public function update(ScopeRequest $request, Scope $scope)
+    {
+        Scope::where('id', $scope->id)->update([
+            'name' => $request['name'],
+            'description' => $request['description'],
+        ]);
+
+        return redirect()->action('ScopeController@index');
+    }
+
 	public function destroy(Scope $scope)
 	{
 		$scope->delete();

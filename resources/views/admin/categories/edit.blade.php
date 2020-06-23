@@ -11,7 +11,7 @@
 			</div>
 			<div class="form-group">
 				<button type="submit" class="btn btn-primary" role="button">Update Category</button>
-				<a href="{{ route('monuments.index') }}" class="btn btn-secondary">Cancel</a>
+				<a href="{{ route('categories.index') }}" class="btn btn-secondary">Cancel</a>
 			</div>
 		</form>
 	</x-container>
