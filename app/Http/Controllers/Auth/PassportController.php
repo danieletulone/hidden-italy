@@ -9,6 +9,7 @@ use App\Http\Responses\Auth\PassportLoginResponse;
 use App\Http\Responses\Auth\PassportRegisterResponse;
 use App\Http\Responses\Auth\PassportRevokeResponse;
 use App\Http\Responses\Auth\UnauthorisedResponse;
+use App\Models\Role;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -92,6 +93,8 @@ class PassportController extends Controller
             'lastname'  => $request->lastname,
             'email'     => $request->email,
             'password'  => Hash::make($request->password),
+            'role_id'   => Role::where('name', 'user')->first()->id,
+            'email_verified_at' => now()
         ]);
 
         return new PassportRegisterResponse($user);
