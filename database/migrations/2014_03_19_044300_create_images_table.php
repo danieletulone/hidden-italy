@@ -18,8 +18,8 @@ class CreateImagesTable extends Migration
             $table->string('title');
             $table->string('description');
             $table->string('url');
-            $table->foreignId('monument_id')->constrained()->onDelete('cascade');
-            $table->foreignId('user_id')->constrained()->onDelete('cascade');
+            $table->bigInteger('user_id');
+            $table->bigInteger('monument_id');
             $table->timestamps();
         });
     }
