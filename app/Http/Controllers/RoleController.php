@@ -36,6 +36,8 @@ class RoleController extends Controller
 
      /**
      * Store a newly created resource in storage.
+     * 
+     * @author Andrea Arizzoli <andrea.arizzoli@ied.edu>
      *
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
@@ -50,6 +52,8 @@ class RoleController extends Controller
     /**
      * Display the specified resource.
      *
+     * @author Andrea Arizzoli <andrea.arizzoli@ied.edu>
+     * 
      * @param  \App\Models\Role  $role
      * @return \Illuminate\Http\Response
      */
@@ -60,6 +64,8 @@ class RoleController extends Controller
 
     /**
      * Show the form for editing the specified resource.
+     * 
+     * @author Andrea Arizzoli <andrea.arizzoli@ied.edu>
      *
      * @param  \App\Models\Role  $role
      * @return \Illuminate\Http\Response
@@ -73,6 +79,8 @@ class RoleController extends Controller
 
     /**
      * Update the specified resource in storage.
+     *
+     * @author Andrea Arizzoli <andrea.arizzoli@ied.edu>
      *
      * @param  \Illuminate\Http\Request  $request
      * @param  \App\Models\Role  $role

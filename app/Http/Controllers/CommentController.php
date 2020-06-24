@@ -10,6 +10,8 @@ class CommentController extends Controller
 	/**
 	* Display a listing of the resource.
 	*
+	* @author Andrea Arizzoli <andrea.arizzoli@ied.edu>
+	* 
 	* @return \Illuminate\Http\Response
 	*/
 	public function index()
@@ -79,6 +81,8 @@ class CommentController extends Controller
 
 	/**
 	* Remove the specified resource from storage.
+	*
+	* @author Andrea Arizzoli <andrea.arizzoli@ied.edu>
 	*
 	* @param  int  $id
 	* @return \Illuminate\Http\Response

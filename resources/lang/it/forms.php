@@ -15,7 +15,7 @@ return [
     'view'        => 'Mostra',
     'edit'        => 'Modifica',
     'delete'      => 'Cancella',
-
+    'roles'       => 'Ruolo',
 
     // Add buttons.
     'add' => [
