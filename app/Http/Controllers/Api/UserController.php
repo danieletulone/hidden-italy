@@ -5,12 +5,16 @@ namespace App\Http\Controllers\Api;
 use App\Exceptions\Date\NoDayProvidedException;
 use App\Exceptions\Date\NoMonthProvidedException;
 use App\Exceptions\Date\NoYearProvidedException;
+use App\Helpers\AuthHelper;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\DateClusterRequest;
+use App\Models\Image;
 use App\Models\User;
 use Arr;
 use Carbon\Carbon;
+use Exception;
 use Illuminate\Http\Request;
+use Str;
 
 class UserController extends Controller
 {
@@ -106,7 +110,7 @@ class UserController extends Controller
      */
     public function show()
     {
-        return auth()->user();
+        return User::with('image')->findOrFail(AuthHelper::id());
     }
 
     /**
@@ -119,5 +123,26 @@ class UserController extends Controller
     public function visitedMonuments()
     {
         return auth()->user()->visitedMonuments;
+    }
+
+    public function uploadImage(Request $request)
+    {
+        $user = auth()->user();
+
+        $image = Image::create([
+            'title' => $user->firstname . '_' . $user->lastname . '_' . Str::uuid(),
+            'description' => 'Descrizione non disponibile',
+            'url' => $request->file('image')->store('public/images'),
+            'monument_id' => 0,
+            'user_id' => $user->id,
+        ]);
+        
+        $user->update([
+            'image_id' => $image->id
+        ]);
+
+        return [
+            "uploaded" => true
+        ];
     }
 }
