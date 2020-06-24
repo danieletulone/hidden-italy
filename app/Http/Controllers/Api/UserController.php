@@ -97,8 +97,27 @@ class UserController extends Controller
         return User::$method(...array_values($params))->get();
     }
 
+    /**
+     * Get personal info about current logged user.
+     * 
+     * @author Daniele Tulone <danieletulone.work@gmail.com>
+     *
+     * @return void
+     */
     public function show()
     {
         return auth()->user();
+    }
+
+    /**
+     * Get visited monuments of current logged user.
+     * 
+     * @author Daniele Tulone <danieletulone.work@gmail.com>
+     * 
+     * @return array
+     */
+    public function visitedMonuments()
+    {
+        return auth()->user()->visitedMonuments;
     }
 }

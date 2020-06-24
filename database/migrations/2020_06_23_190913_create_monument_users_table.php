@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateMonumentCategoriesTable extends Migration
+class CreateMonumentUsersTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,7 +13,7 @@ class CreateMonumentCategoriesTable extends Migration
      */
     public function up()
     {
-        Schema::create('monument_categories', function (Blueprint $table) {
+        Schema::create('monument_users', function (Blueprint $table) {
             $table->id();
             $table->foreignId('user_id')->constrained()->onDelete('cascade');
             $table->foreignId('monument_id')->constrained()->onDelete('cascade');
@@ -28,6 +28,6 @@ class CreateMonumentCategoriesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('monument_categories');
+        Schema::dropIfExists('monument_users');
     }
 }

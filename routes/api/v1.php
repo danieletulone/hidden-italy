@@ -58,4 +58,7 @@ Route::middleware('auth:api')->group(function() {
     Route::get('/users/info', 'Api\UserController@show')
         ->middleware('scope:read-users');
 
+    Route::get('/users/monuments', 'Api\UserController@visitedMonuments')
+        ->middleware('scope:read-users');
+
 });
