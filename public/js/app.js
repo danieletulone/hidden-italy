@@ -1969,10 +1969,9 @@ __webpack_require__.r(__webpack_exports__);
       toDay: new Date().getFullYear() + "-" + (new Date().getMonth() + 1) + "-" + new Date().getDate(),
       datasets: [{
         data: [],
-        smooth: true,
+        smooth: false,
         fill: true,
-        className: 'line',
-        style: 'fill: red'
+        className: 'line'
       }],
       grid: {
         verticalLines: true,

@@ -59,10 +59,9 @@
                 datasets: [
                     {
                         data: [],
-                        smooth: true,
+                        smooth: false,
                         fill: true,
                         className: 'line',
-                        style: 'fill: red'
                     },
                 ],
                 grid: {
