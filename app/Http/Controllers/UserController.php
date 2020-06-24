@@ -6,6 +6,7 @@ use App\Models\User;
 use App\Models\Role;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
+use App\Http\Requests\Auth\RegisterRequest;
 
 class UserController extends Controller
 {
@@ -84,10 +85,10 @@ class UserController extends Controller
      * 
      * @author Andrea Arizzoli <andrea.arizzoli@ied.edu>
      * 
-     * @param  \Illuminate\Http\Request  $request
+     * @param  \Illuminate\Http\RegisterRequest  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(RegisterRequest $request)
     {
         User::create([
             'firstname' => $request['firstname'],
