@@ -55,7 +55,7 @@ class RoleController extends Controller
      */
     public function show(Role $role)
     {
-        // dd($role);
+
         return view('admin.roles.show')->with('role', $role);
     }
 
@@ -66,7 +66,7 @@ class RoleController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function edit(Role $role)
-    {
+    {        
         $scopes = Scope::get();
 
         return view('admin.roles.edit')
@@ -83,7 +83,10 @@ class RoleController extends Controller
      */
     public function update(RoleRequest $request, Role $role)
     {
-        Role::where('id', $role->id)->update($request->all());
+        Role::where('id', $role->id)->update([
+            'name' => $request['name'],
+            'scopes' => $request['scopes'],
+        ]);
 
         return redirect()->action('RoleController@index');
     }
