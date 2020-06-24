@@ -15,8 +15,8 @@ class CreateMonumentCategoriesTable extends Migration
     {
         Schema::create('monument_categories', function (Blueprint $table) {
             $table->id();
-            $table->bigInteger('category_id');
-            $table->bigInteger('monument_id');
+            $table->foreignId('category_id')->constrained()->onDelete('cascade');
+            $table->foreignId('monument_id')->constrained()->onDelete('cascade');
             $table->timestamps();
         });
     }

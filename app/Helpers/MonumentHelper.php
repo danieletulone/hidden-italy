@@ -5,6 +5,7 @@ namespace App\Helpers;
 use App\Helpers\AuthHelper;
 use App\Models\Image;
 use App\Models\MonumentCategory;
+use Storage;
 
 class MonumentHelper
 {

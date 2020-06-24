@@ -18,9 +18,12 @@
             class="d-flex align-items-center justify-content-center" 
             style="@if($section == 'main') min-height:calc(100vh - 142px) @else min-height:500px @endif"
             >
+
             <div class="text-center @if($section == 'main') text-white @endif">
                 <h1 class="display-1 font-weight-bold">@yield("code")</h1>
                 <p>@yield('message')</p>
+
+                <a class="btn btn-light rounded-pill mt-3" href="{{ route('home') }}">Vai alla home</a>
             </div>
         </div>
     </div>

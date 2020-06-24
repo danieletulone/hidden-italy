@@ -13,7 +13,9 @@ return [
     |
     */
 
-    'failed' => 'Le credenziali inserite non corrispondo ad alcun account.',
+    'failed'   => 'Le credenziali inserite non corrispondo ad alcun account.',
     'throttle' => 'Troppe richieste di login. Puoi riprovare tra :seconds secondi.',
-
+    'register' => 'Crea un nuovo account',
+    'login'    => 'Accedi',
+    'forgot'   => 'Hai dimenticato la password?'
 ];

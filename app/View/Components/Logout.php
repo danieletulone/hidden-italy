@@ -7,13 +7,22 @@ use Illuminate\View\Component;
 class Logout extends Component
 {
     /**
+     * Indicates if button name can be visible.
+     * 
+     * @author Daniele Tulone <danieletulone.work@gmail.com>
+     * 
+     * @var bool
+     */
+    public bool $visible;
+
+    /**
      * Create a new component instance.
      *
      * @return void
      */
-    public function __construct()
+    public function __construct($visible = true)
     {
-        //
+        $this->visible = $visible;
     }
 
     /**

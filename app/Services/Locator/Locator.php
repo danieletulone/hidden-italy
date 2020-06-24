@@ -74,18 +74,19 @@ class Locator
      */
     final private function buildQuery($resource)
     {
-        return $resource::select()
+        return $resource::select(['id', 'name', 'category_id', 'lat', 'lon'])
             ->addSelect($this->selectDistanceQuery())
             ->having('distance', '<', $this->getRange())
-            ->with('categories')
             ->with('category')
-            ->with('images')
-			->with('comments.user')
+            ->with(['images' => function ($query) {
+                return $query->select(['id', 'url', 'monument_id']);
+            }])
             ->take(request()->input('per_page') ?? 10)
             ->skip(request()->input('page') - 1 ?? 1)
             ->withCasts([
                 'distance' => MetersToKmCast::class
             ])
+            ->orderBy('distance', 'ASC')
             ->get();
     }
 

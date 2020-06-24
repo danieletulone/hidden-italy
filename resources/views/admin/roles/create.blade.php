@@ -25,7 +25,7 @@
                             <input 
                                 id="checkbox-{{ $scope->name }}" 
                                 type="checkbox" 
-                                name="scopes" 
+                                name="scopes[]" 
                                 value="{{ $scope->name }}"
                             />
 

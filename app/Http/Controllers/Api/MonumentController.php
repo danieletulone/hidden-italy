@@ -19,7 +19,7 @@ class MonumentController extends ApiController
 	 * 
 	 * @var array
 	 */
-	public array $withs = ['images', 'user', 'category', 'categories'];
+	public array $withs = ['images', 'category', 'categories', 'comments.user'];
 
 	public function index()
 	{
@@ -48,7 +48,6 @@ class MonumentController extends ApiController
 	public function show($id)
 	{
 		$monument = Monument::with($this->withs)->findOrFail($id);
-
 
 		return response()->json($monument, 200);
 	}

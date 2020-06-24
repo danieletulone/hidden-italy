@@ -10,11 +10,18 @@ return [
     'firstname'   => 'Nome',
     'lastname'    => 'Cognome',
     'r-password'  => 'Ripeti password',
+    'login'       => 'Accedi',
+    'register'    => 'Registrati',
+    'view'        => 'Mostra',
+    'edit'        => 'Modifica',
+    'delete'      => 'Cancella',
+    'roles'       => 'Ruolo',
 
     // Add buttons.
     'add' => [
         'default'   => 'Aggiungi',
-        'monuments' => 'Aggiungi monumento'
+        'monuments' => 'Aggiungi monumento',
+        'roles' => 'Aggiungi'
     ],
 
     // Update buttons.
@@ -33,6 +40,12 @@ return [
         ],
         'users' => [
             'index' => 'Tutti gli utenti'
+        ],
+        'scopes' => [
+            'index' => 'Tutti i permessi'
+        ],
+        'roles' => [
+            'index' => 'Tutti i ruoli'
         ],
     ],
 ];

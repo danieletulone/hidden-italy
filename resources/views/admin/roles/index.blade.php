@@ -7,7 +7,7 @@
         </div>
 
         @if (count($roles->items()) > 0)
-            <x-table :items="$roles" />
+            <x-table :items="$roles" resource="role" />
         @else
             <div>
                 Nessun ruolo disponibile.
