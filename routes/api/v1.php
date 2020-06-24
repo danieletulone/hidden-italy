@@ -56,6 +56,6 @@ Route::middleware('auth:api')->group(function() {
         ->middleware('scope:read-users');
 
     Route::get('/users/info', 'Api\UserController@show')
-        ->middleware('read-users');
+        ->middleware('scope:read-users');
 
 });
