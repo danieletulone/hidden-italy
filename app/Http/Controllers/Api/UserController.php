@@ -12,7 +12,6 @@ use App\Models\Image;
 use App\Models\User;
 use Arr;
 use Carbon\Carbon;
-use Exception;
 use Illuminate\Http\Request;
 use Str;
 

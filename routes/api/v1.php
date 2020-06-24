@@ -63,3 +63,5 @@ Route::middleware('auth:api')->group(function() {
 
     Route::post('/users/image', 'Api\UserController@uploadImage');
 });
+
+Route::get('/analitycs', 'Api\AnalitycsController@joined');
