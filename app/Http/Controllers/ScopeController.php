@@ -15,6 +15,11 @@ class ScopeController extends Controller
         ]);
     }
 
+    public function show(Scope $scope)
+    {
+        return view('admin.scopes.show')->with('scope', $scope);
+    }
+
     public function create()
     {
         return view('admin.scopes.create');
@@ -28,4 +33,26 @@ class ScopeController extends Controller
 
         return redirect()->action('ScopeController@index');
     }
+
+    public function edit(Scope $scope)
+    {
+        return view('admin.scopes.edit')->with('scope', $scope);
+    }
+
+    public function update(ScopeRequest $request, Scope $scope)
+    {
+        Scope::where('id', $scope->id)->update([
+            'name' => $request['name'],
+            'description' => $request['description'],
+        ]);
+
+        return redirect()->action('ScopeController@index');
+    }
+
+	public function destroy(Scope $scope)
+	{
+		$scope->delete();
+
+		return redirect()->action('ScopeController@index');
+	}
 }
