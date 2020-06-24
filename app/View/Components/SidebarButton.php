@@ -35,17 +35,27 @@ class SidebarButton extends Component
     public string $name;
 
     /**
+     * Indicates if button name can be visible.
+     * 
+     * @author Daniele Tulone <danieletulone.work@gmail.com>
+     * 
+     * @var bool
+     */
+    public bool $visible;
+
+    /**
      * Create a new component instance.
      * 
      * @author Daniele Tulone <danieletulone.work@gmail.com>
      *
      * @return void
      */
-    public function __construct($route, $icon, $name = '')
+    public function __construct($route, $icon, $name = '', $visible = true)
     {
         $this->route = $route;
         $this->icon  = $icon;
         $this->name  = $name;
+        $this->visible = $visible;
     }
 
     /**

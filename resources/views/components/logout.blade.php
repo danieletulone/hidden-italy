@@ -1,4 +1,4 @@
-<x-sidebar-button route="logout" name="logout" icon="logout">
+<x-sidebar-button :visible="$visible" name="logout" route="logout" icon="logout">
     @section('script')
         onclick="event.preventDefault();document.querySelector('#logout-form').submit();"
     @endsection

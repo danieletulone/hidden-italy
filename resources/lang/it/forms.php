@@ -10,6 +10,8 @@ return [
     'firstname'   => 'Nome',
     'lastname'    => 'Cognome',
     'r-password'  => 'Ripeti password',
+    'login'       => 'Accedi',
+    'register'    => 'Registrati',
 
     // Add buttons.
     'add' => [
