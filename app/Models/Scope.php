@@ -55,7 +55,8 @@ class Scope extends Model
         'comments',
         'monuments', 
         'roles', 
-        'scopes', 
+        'scopes',
+        'users',
     ];
 
     /**
