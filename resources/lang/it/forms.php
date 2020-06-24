@@ -12,6 +12,7 @@ return [
     'r-password'  => 'Ripeti password',
     'login'       => 'Accedi',
     'register'    => 'Registrati',
+    'roles'       => 'Ruolo',
 
     // Add buttons.
     'add' => [
