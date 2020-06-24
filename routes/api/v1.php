@@ -55,4 +55,6 @@ Route::middleware('auth:api')->group(function() {
     Route::get('/users/joined', 'Api\UserController@joined')
         ->middleware('scope:read-users');
 
+    Route::get('/users/monuments', 'Api\UserController@visitedMonuments');
+
 });

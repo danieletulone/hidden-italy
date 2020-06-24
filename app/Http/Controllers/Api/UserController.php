@@ -96,4 +96,9 @@ class UserController extends Controller
 
         return User::$method(...array_values($params))->get();
     }
+
+    public function visitedMonuments()
+    {
+        return auth()->user()->visitedMonuments;
+    }
 }

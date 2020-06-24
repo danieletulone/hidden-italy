@@ -194,4 +194,16 @@ class User extends Authenticatable
             DateNotValidException::class
         );
     }
+
+    public function visitedMonuments()
+    {
+        return $this->hasManyThrough(
+            'App\Models\Monument',
+            'App\Models\MonumentUser',
+            'monument_id',
+            'id',
+            'id',
+            'user_id'
+        );
+    }
 }

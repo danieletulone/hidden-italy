@@ -15,8 +15,8 @@ class CreateMonumentUsersTable extends Migration
     {
         Schema::create('monument_users', function (Blueprint $table) {
             $table->id();
-            $table->bigInteger('user_id');
-            $table->bigInteger('monument_id');
+            $table->foreignId('user_id')->constrained()->onDelete('cascade');
+            $table->foreignId('monument_id')->constrained()->onDelete('cascade');
             $table->timestamps();
         });
     }
