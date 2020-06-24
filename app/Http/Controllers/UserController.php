@@ -111,18 +111,29 @@ class UserController extends Controller
      */
     public function edit(User $user)
     {
-        // return view('admin.users.edit')->with('user', $user);
+        $roles = Role::orderBy('id', 'DESC')->get()->pluck('name', 'id');
+
+        return view('admin.users.edit')->with('user', $user)->with('roles', $roles);
     }
 
     /**
      * Update the specified resource in storage.
      *
+     * @author Andrea Arizzoli <andrea.arizzoli@ied.edu>
+     * 
      * @param  \Illuminate\Http\Request  $request
      * @param  \App\Models\User  $user
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, User $user)
     {
-        //
+        User::where('id', $user->id)->update([
+            'firstname' => $request['firstname'],
+            'lastname'  => $request['lastname'],
+            'email'     => $request['email'],
+            'role_id'   => $request['role_id'],
+        ]);
+
+        return redirect()->action('UserController@index');
     }
 }
