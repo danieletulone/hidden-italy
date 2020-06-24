@@ -10,6 +10,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\DateClusterRequest;
 use App\Models\Image;
 use App\Models\User;
+use App\Models\MonumentUser;
 use Arr;
 use Carbon\Carbon;
 use Exception;
@@ -110,7 +111,7 @@ class UserController extends Controller
      */
     public function show()
     {
-        return User::with('image')->findOrFail(AuthHelper::id());
+        return User::with('image')->with('visitedMonuments')->findOrFail(AuthHelper::id());
     }
 
     /**
@@ -121,8 +122,17 @@ class UserController extends Controller
      * @return array
      */
     public function visitedMonuments()
-    {
+    {       
         return auth()->user()->visitedMonuments;
+    }
+
+    public function newVisitedMonuments(Request $request)
+    {
+        $newVisitedMonuments = MonumentUser::create([
+            'monument_id' => $request->input('monument_id'),
+            'user_id' => $request->input('user_id'),
+        ]);
+        return response()->json($newVisitedMonuments, 201);
     }
 
     public function uploadImage(Request $request)
