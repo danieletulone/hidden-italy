@@ -132,7 +132,7 @@ class UserController extends Controller
         $image = Image::create([
             'title' => $user->firstname . '_' . $user->lastname . '_' . Str::uuid(),
             'description' => 'Descrizione non disponibile',
-            'url' => $request->file('image')->store('public/images'),
+            'url' => str_replace("public/", "", $request->file('image')->store('public/images')),
             'monument_id' => 0,
             'user_id' => $user->id,
         ]);
