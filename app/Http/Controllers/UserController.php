@@ -3,6 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
+use App\Models\Role;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
 
 class UserController extends Controller
 {
@@ -27,7 +30,7 @@ class UserController extends Controller
     {
         $deleted = User::findOrFail($user->id)->delete();
 
-        return redirect()->action('ScopeController@index');
+        return redirect()->action('UserController@index');
     }
 
     /**
@@ -64,16 +67,16 @@ class UserController extends Controller
     /**
      * Show the form for creating a new resource.
      *
+     * @author Andrea Arizzoli <andrea.arizzoli@ied.edu>
+     * 
      * @return \Illuminate\Http\Response
      */
     public function create()
     {
-        $categories = Category::get()->pluck('description', 'id');
-        $users = User::get()->pluck('name', 'id');
+        $roles = Role::orderBy('id', 'DESC')->get()->pluck('name', 'id');
 
-        return view('admin.monuments.create')
-            ->with('users', $users)
-            ->with('categories', $categories);
+        return view('admin.users.create')
+            ->with('roles', $roles);
     }
 
     /**
@@ -86,7 +89,15 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        User::create([
+            'firstname' => $request['firstname'],
+            'lastname'  => $request['lastname'],
+            'email'     => $request['email'],
+            'password'  => Hash::make($request['password']),
+            'role_id'   => $request['role_id'],
+        ]);
+
+        return redirect()->action('UserController@index');
     }
 
     /**
@@ -99,7 +110,7 @@ class UserController extends Controller
      */
     public function edit(User $user)
     {
-        //
+        // return view('admin.users.edit')->with('user', $user);
     }
 
     /**
@@ -113,6 +124,4 @@ class UserController extends Controller
     {
         //
     }
-
-    
 }
