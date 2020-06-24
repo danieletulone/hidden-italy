@@ -81,8 +81,8 @@ class Locator
             ->with(['images' => function ($query) {
                 return $query->select(['id', 'url', 'monument_id']);
             }])
-            ->take(request()->input('per_page') ?? 10)
-            ->skip(request()->input('page') - 1 ?? 1)
+            // ->take(request()->input('per_page') ?? 10)
+            // ->skip(request()->input('page') - 1 ?? 1)
             ->withCasts([
                 'distance' => MetersToKmCast::class
             ])

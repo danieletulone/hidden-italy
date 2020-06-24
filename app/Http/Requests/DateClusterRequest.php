@@ -30,7 +30,7 @@ class DateClusterRequest extends FormRequest
     public function authorize()
     {
         if ($user = auth()->user()) {
-            return $user->hasScopes($this->requiredScopes));
+            return $user->hasScopes($this->requiredScopes);
         }
 
         return false;

@@ -6,6 +6,7 @@ use App\Models\Monument;
 use Illuminate\Support\Str;
 use DMX\SimpleXML\Parser;
 use Illuminate\Support\Facades\Http;
+use Faker\Factory as Faker;
 
 class MonumentsTableSeeder extends Seeder
 {
@@ -61,6 +62,8 @@ class MonumentsTableSeeder extends Seeder
 
     public function seedHardCoded()
     {
+        $faker = Faker::create();
+
         Monument::insert([
             'name' => 'Arco della Pace',
             'description' => 'Arco trionfale con bassorilievi e statue, commissionato da Napoleone a Luigi Cagnola.',
@@ -69,7 +72,7 @@ class MonumentsTableSeeder extends Seeder
             'visible' => '1',
             'user_id' => '1',
             'category_id' => '3',
-            'created_at' => date('Y-m-d H:i:s')
+            'created_at' => $faker->dateTimeBetween('-14 days', 'now')
         ]);
 
         Monument::insert([
@@ -80,7 +83,7 @@ class MonumentsTableSeeder extends Seeder
             'visible' => '1',
             'user_id' => '1',
             'category_id' => '7',
-            'created_at' => date('Y-m-d H:i:s')
+            'created_at' => $faker->dateTimeBetween('-14 days', 'now')
         ]);
 
         Monument::insert([
@@ -91,7 +94,7 @@ class MonumentsTableSeeder extends Seeder
             'visible' => '1',
             'user_id' => '1',
             'category_id' => '4',
-            'created_at' => date('Y-m-d H:i:s')
+            'created_at' => $faker->dateTimeBetween('-14 days', 'now')
         ]);
 
         Monument::insert([
@@ -102,7 +105,7 @@ class MonumentsTableSeeder extends Seeder
             'user_id' => '1',
             'visible' => '1',
             'category_id' => '1',
-            'created_at' => date('Y-m-d H:i:s')
+            'created_at' => $faker->dateTimeBetween('-14 days', 'now')
         ]);
 
         Monument::insert([
@@ -113,7 +116,7 @@ class MonumentsTableSeeder extends Seeder
             'user_id' => '1',
             'visible' => '1',
             'category_id' => '3',
-            'created_at' => date('Y-m-d H:i:s')
+            'created_at' => $faker->dateTimeBetween('-14 days', 'now')
         ]);
 
         Monument::insert([
@@ -124,7 +127,7 @@ class MonumentsTableSeeder extends Seeder
             'user_id' => '1',
             'visible' => '0',
             'category_id' => '2',
-            'created_at' => date('Y-m-d H:i:s')
+            'created_at' => $faker->dateTimeBetween('-14 days', 'now')
 
         ]);
         
@@ -136,7 +139,7 @@ class MonumentsTableSeeder extends Seeder
             'user_id' => '1',
             'visible' => '0',
             'category_id' => '1',
-            'created_at' => date('Y-m-d H:i:s')
+            'created_at' => $faker->dateTimeBetween('-14 days', 'now')
         ]);
     }
 
