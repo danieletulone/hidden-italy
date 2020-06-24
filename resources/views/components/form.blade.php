@@ -12,7 +12,7 @@
         @yield('delete-button')
         @else
         <div class="form-group mt-3">
-            <button type="submit" class="btn btn-primary btn-circle btn-sm" role="button">{{ __('forms.' . $btnText) }}</button>
+            <button type="submit" class="btn btn-primary rounded-pill" role="button">{{ __('forms.' . $btnText) }}</button>
         </div>
         @endif
     @endif
