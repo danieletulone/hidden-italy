@@ -7,7 +7,7 @@
 @section('delete-button')
 
 <button type="submit" class="btn btn-danger btn-circle btn-sm p-1 mx-1" role="button">
-    <small class="material-icons" style="font-size:18px">delete</span>
+    <small class="material-icons" style="font-size:18px">delete</small>
 </button>
 
 @endsection
