@@ -12,6 +12,10 @@ return [
     'r-password'  => 'Ripeti password',
     'login'       => 'Accedi',
     'register'    => 'Registrati',
+    'view'        => 'Mostra',
+    'edit'        => 'Modifica',
+    'delete'      => 'Cancella',
+
 
     // Add buttons.
     'add' => [
