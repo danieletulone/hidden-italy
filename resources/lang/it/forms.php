@@ -14,7 +14,8 @@ return [
     // Add buttons.
     'add' => [
         'default'   => 'Aggiungi',
-        'monuments' => 'Aggiungi monumento'
+        'monuments' => 'Aggiungi monumento',
+        'roles' => 'Aggiungi'
     ],
 
     // Update buttons.
@@ -33,6 +34,12 @@ return [
         ],
         'users' => [
             'index' => 'Tutti gli utenti'
+        ],
+        'scopes' => [
+            'index' => 'Tutti i permessi'
+        ],
+        'roles' => [
+            'index' => 'Tutti i ruoli'
         ],
     ],
 ];
