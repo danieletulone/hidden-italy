@@ -24,7 +24,7 @@
 	</dl>
     <dl class="row">
 		<dt class="col-sm-3">Role</dt>
-		<dd class="col-sm-9">{{ $user->role_id }}</dd>
+		<dd class="col-sm-9">{{ $user->role->name }}</dd>
 	</dl>
     <dl class="row">
 		<dt class="col-sm-3">Create at</dt>
