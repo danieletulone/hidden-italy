@@ -67,7 +67,11 @@ class RoleController extends Controller
      */
     public function edit(Role $role)
     {
-        return view('admin.roles.edit')->with('role', $role);
+        $scopes = Scope::get();
+
+        return view('admin.roles.edit')
+            ->with('role', $role)
+            ->with('scopes', $scopes);
     }
 
     /**
@@ -90,10 +94,10 @@ class RoleController extends Controller
      * @param  \App\Models\Category  $category
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Category $category)
+    public function destroy(Role $role)
     {
-        $category->delete();
+        $role->delete();
         
-        return redirect()->route('categories.index');
+        return redirect()->route('roles.index');
     }
 }
