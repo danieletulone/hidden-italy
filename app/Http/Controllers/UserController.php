@@ -25,11 +25,9 @@ class UserController extends Controller
      */
     public function destroy(User $user)
     {
-        $deleted = User::findOrFail($user)->delete();
+        $deleted = User::findOrFail($user->id)->delete();
 
-        if ($deleted) {
-            return redirect()->action('UsersController@index');
-        }
+        return redirect()->action('ScopeController@index');
     }
 
     /**
@@ -41,7 +39,7 @@ class UserController extends Controller
      */
     public function index()
     {
-        $users = User::paginate();
+        $users = User::orderBy('id', 'DESC')->paginate();
 
         return view('admin.users.index', [
             'users' => $users
@@ -62,4 +60,59 @@ class UserController extends Controller
             'user' => $user
         ]);
     }
+
+    /**
+     * Show the form for creating a new resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function create()
+    {
+        $categories = Category::get()->pluck('description', 'id');
+        $users = User::get()->pluck('name', 'id');
+
+        return view('admin.monuments.create')
+            ->with('users', $users)
+            ->with('categories', $categories);
+    }
+
+    /**
+     * Store a newly created resource in storage.
+     * 
+     * @author Andrea Arizzoli <andrea.arizzoli@ied.edu>
+     * 
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function store(Request $request)
+    {
+        //
+    }
+
+    /**
+     * Show the form for editing the specified resource.
+     *
+     * @author Andrea Arizzoli <andrea.arizzoli@ied.edu>
+     * 
+     * @param  \App\Models\User  $user
+     * @return \Illuminate\Http\Response
+     */
+    public function edit(User $user)
+    {
+        //
+    }
+
+    /**
+     * Update the specified resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  \App\Models\User  $user
+     * @return \Illuminate\Http\Response
+     */
+    public function update(Request $request, User $user)
+    {
+        //
+    }
+
+    
 }
