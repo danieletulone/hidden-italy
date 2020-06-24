@@ -50,12 +50,11 @@ class RoleController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\Roles  $roles
+     * @param  \App\Models\Role  $role
      * @return \Illuminate\Http\Response
      */
     public function show(Role $role)
     {
-
         return view('admin.roles.show')->with('role', $role);
     }
 
@@ -69,9 +68,7 @@ class RoleController extends Controller
     {        
         $scopes = Scope::get();
 
-        return view('admin.roles.edit')
-            ->with('role', $role)
-            ->with('scopes', $scopes);
+        return view('admin.roles.edit')->with('role', $role)->with('scopes', $scopes);
     }
 
     /**
