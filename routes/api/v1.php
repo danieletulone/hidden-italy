@@ -61,5 +61,8 @@ Route::middleware('auth:api')->group(function() {
     Route::get('/users/monuments', 'Api\UserController@visitedMonuments')
         ->middleware('scope:read-users');
 
+    Route::post('/users/monuments', 'Api\UserController@newVisitedMonuments')
+        ->middleware('scope:read-users');
+
     Route::post('/users/image', 'Api\UserController@uploadImage');
 });
