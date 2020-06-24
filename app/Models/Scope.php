@@ -19,6 +19,11 @@ class Scope extends Model
         'description'
     ];
 
+    protected $casts = [
+        'created_at' => 'date:d-m-Y',
+        'updated_at' => 'date:d-m-Y',
+    ];
+
     /**
      * Indicates if the model should be timestamped.
      * 

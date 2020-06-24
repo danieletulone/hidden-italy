@@ -26,7 +26,9 @@ class Monument extends Model
     protected $casts = [
         'lat' => 'double',
         'lon' => 'double',
-        'visible' => 'boolean'
+        'visible' => 'boolean',
+        'created_at' => 'date:d-m-Y',
+        'updated_at' => 'date:d-m-Y',
     ];
 
     // protected $hidden = [
