@@ -55,4 +55,7 @@ Route::middleware('auth:api')->group(function() {
     Route::get('/users/joined', 'Api\UserController@joined')
         ->middleware('scope:read-users');
 
+    Route::get('/users/info', 'Api\UserController@show')
+        ->middleware('read-users');
+
 });
