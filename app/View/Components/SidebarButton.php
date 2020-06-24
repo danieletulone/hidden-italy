@@ -2,10 +2,12 @@
 
 namespace App\View\Components;
 
+use App\View\Traits\IsUsable;
 use Illuminate\View\Component;
 
 class SidebarButton extends Component
 {
+    use IsUsable;
 
     /**
      * Route name.
@@ -56,6 +58,15 @@ class SidebarButton extends Component
         $this->icon  = $icon;
         $this->name  = $name;
         $this->visible = $visible;
+    }
+
+    public function checkScopes()
+    {
+        if ($this->name != "logout") {
+            return auth()->user()->hasScope('manage-' . $this->name) || auth()->user()->hasScope('read-' . $this->name);
+        }
+
+        return true;
     }
 
     /**
